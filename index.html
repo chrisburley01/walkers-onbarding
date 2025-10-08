@@ -22,6 +22,13 @@
     .shadow-soft{box-shadow:0 10px 30px rgba(0,0,0,.08)}
     .dot{width:.625rem;height:.625rem;border-radius:9999px;background:#002c77}
     .focus-ring:focus{outline:3px solid rgba(0,44,119,.25);outline-offset:2px}
+    /* PandaDoc modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:50}
+    .modal.open{display:block}
+    .modal-card{position:relative;width:95vw;max-width:1000px;height:85vh;margin:5vh auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+    .modal-card header{display:flex;align-items:center;justify-content:space-between;background:#002c77;color:#fff;padding:10px 16px}
+    .modal-card iframe{border:0;width:100%;height:calc(100% - 48px)}
+    .modal-close{cursor:pointer;border:1px solid rgba(255,255,255,.4);padding:4px 10px;border-radius:10px}
   </style>
 </head>
 <body>
@@ -29,7 +36,7 @@
   <!-- HEADER -->
   <header class="text-white shadow-md" style="background:#002c77">
     <div class="max-w-7xl mx-auto flex items-center gap-4 px-6 py-3">
-      <!-- LOGO FIXED -->
+      <!-- Logo (unchanged except clearer rendering) -->
       <img src="assets/walkers-logo.png" alt="Walkers Transport" class="h-16 w-auto select-none brightness-110 drop-shadow-md">
       <div>
         <h1 class="text-2xl font-extrabold leading-tight">Walkers Transport</h1>
@@ -108,9 +115,122 @@
           </div>
         </div>
 
-        <!-- (Other panels unchanged, kept exactly as in your working version) -->
-        <!-- Flow / Trading Agreement / Checklist / Uploads / Submit panels -->
-        <!-- ... [Code from previous version remains here unchanged] ... -->
+        <!-- Flow -->
+        <div id="flow" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-2xl font-extrabold">Onboarding Flow</h2>
+            <div class="space-x-2">
+              <button onclick="openPdf('whatsnext')" class="px-4 py-2 rounded-xl border font-semibold">Open What’s Next</button>
+              <button data-goto="trading" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Trading Agreement</button>
+            </div>
+          </div>
+          <div class="mt-6 grid md:grid-cols-4 gap-4">
+            <div class="p-4 border rounded-2xl"><p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Step 1</p><h3 class="font-bold">Welcome & Setup</h3><p class="text-sm text-gray-600 mt-1">CSA welcome call → Welcome Pack</p></div>
+            <div class="p-4 border rounded-2xl"><p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Step 2</p><h3 class="font-bold">On-site Visit</h3><p class="text-sm text-gray-600 mt-1">Printer install → First booking → Portal demo</p></div>
+            <div class="p-4 border rounded-2xl"><p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Step 3</p><h3 class="font-bold">First-week Check-in</h3><p class="text-sm text-gray-600 mt-1">Quick review & Q&A</p></div>
+            <div class="p-4 border rounded-2xl"><p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Step 4</p><h3 class="font-bold">Two-week Review</h3><p class="text-sm text-gray-600 mt-1">AM review & next steps</p></div>
+          </div>
+        </div>
+
+        <!-- Trading -->
+        <div id="trading" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-2xl font-extrabold">Trading Agreement</h2>
+            <button data-goto="checklist" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Customer Checklist</button>
+          </div>
+          <p class="text-sm text-gray-600 mt-2">Payment terms: <strong>30 days EOM</strong>. All goods carried subject to <strong>RHA Terms (2024)</strong>.</p>
+          <div class="mt-4 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h3 class="font-bold">Customer Details</h3>
+              <label class="block text-sm">Company Name<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="company_name"/></label>
+              <label class="block text-sm">Company Reg No.<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="company_reg"/></label>
+              <label class="block text-sm">Invoice Address<textarea class="mt-1 w-full border rounded-lg p-2 focus-ring" rows="3" name="invoice_address"></textarea></label>
+              <label class="block text-sm">Collection Address<textarea class="mt-1 w-full border rounded-lg p-2 focus-ring" rows="3" name="collection_address"></textarea></label>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Telephone<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="tel"/></label>
+                <label class="block text-sm">Email<input type="email" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="email"/></label>
+              </div>
+              <label class="block text-sm">Website<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="website"/></label>
+            </div>
+            <div class="space-y-4">
+              <h3 class="font-bold">Contacts</h3>
+              <label class="block text-sm">Decision Maker<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="dm_name" placeholder="Jane Smith, Director"/></label>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">DM Tel<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="dm_tel"/></label>
+                <label class="block text-sm">DM Email<input type="email" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="dm_email"/></label>
+              </div>
+              <label class="block text-sm">Booking Contact<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="booking_contact"/></label>
+              <label class="block text-sm">Accounts Contact<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="accounts_contact"/></label>
+              <div>
+                <p class="text-sm font-semibold mb-1">Portal Input Method</p>
+                <label class="inline-flex items-center gap-2 mr-4"><input type="radio" name="portal_method" value="Manual"/> Manual</label>
+                <label class="inline-flex items-center gap-2 mr-4"><input type="radio" name="portal_method" value="CSV"/> CSV</label>
+                <label class="inline-flex items-center gap-2"><input type="radio" name="portal_method" value="API"/> API</label>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Onboarding Date<input type="date" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="onboarding_date"/></label>
+                <label class="block text-sm">Account Reference<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="account_ref"/></label>
+              </div>
+              <div class="pt-2">
+                <label class="inline-flex items-start gap-2 text-sm">
+                  <input type="checkbox" name="accept_terms"/> <span>I accept Walkers Transport T&Cs and RHA Terms (2024).</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checklist -->
+        <div id="checklist" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-2xl font-extrabold">Customer Checklist</h2>
+            <button data-goto="uploads" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Uploads</button>
+          </div>
+          <p class="text-sm text-gray-600 mt-2">Please confirm the following items are understood/accepted.</p>
+          <div class="mt-4 grid md:grid-cols-2 gap-6" id="checklistItems"></div>
+        </div>
+
+        <!-- Uploads -->
+        <div id="uploads" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-2xl font-extrabold">Supporting Uploads</h2>
+            <button data-goto="submit" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Review & Submit</button>
+          </div>
+          <p class="text-sm text-gray-600 mt-2">Optional: upload any supporting documents (insurance schedule, SDS for hazardous goods, rate card, other).</p>
+          <div class="mt-4 grid md:grid-cols-2 gap-6">
+            <div><label class="block text-sm font-semibold mb-1">Insurance Schedule (PDF)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_insurance"/></div>
+            <div><label class="block text-sm font-semibold mb-1">Safety Data Sheet (if ADR)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_sds"/></div>
+            <div><label class="block text-sm font-semibold mb-1">Rate Card (PDF)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_ratecard"/></div>
+            <div><label class="block text-sm font-semibold mb-1">Other</label><input type="file" class="w-full border rounded-lg p-2" id="file_other"/></div>
+          </div>
+          <p class="text-xs text-gray-500 mt-4">Files remain local in this browser for review prior to submission.</p>
+        </div>
+
+        <!-- Submit -->
+        <div id="submit" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold">Review & Submit</h2>
+          <p class="text-sm text-gray-600 mt-2">Sign the agreement, download a copy of your responses, and then email to Walkers.</p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <!-- NEW: PandaDoc signing button -->
+            <button id="pdSignBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Sign with PandaDoc</button>
+
+            <button id="previewBtn" class="px-4 py-2 rounded-xl border font-semibold">Preview JSON</button>
+            <button id="downloadBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Download JSON</button>
+            <button id="emailBtn" class="px-4 py-2 rounded-xl btn-dark font-semibold">Email to Walkers</button>
+          </div>
+
+          <pre id="jsonPreview" class="mt-6 p-4 bg-gray-50 border rounded-xl overflow-auto text-xs hidden"></pre>
+
+          <div class="mt-8 text-sm text-gray-600">
+            <p>Useful links:</p>
+            <ul class="list-disc pl-5">
+              <li><a class="underline" href="Doc/What's%20Next.pdf" target="_blank">What’s Next (Walkthrough)</a></li>
+              <li><a class="underline" href="Doc/Trading%20Agreement%20.pdf" target="_blank">Trading Agreement (PDF)</a></li>
+              <li><a class="underline" href="Doc/Customer%20Checklist%20(5000)%202022.pdf" target="_blank">Customer Checklist (PDF)</a></li>
+            </ul>
+          </div>
+        </div>
 
       </section>
     </div>
@@ -122,11 +242,165 @@
     <a class="underline" href="Doc/Privacy-Notice.pdf">Privacy</a>
   </footer>
 
+  <!-- PandaDoc Modal -->
+  <div id="pdModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <header>
+        <span>PandaDoc Signing</span>
+        <button class="modal-close" id="pdCloseBtn">Close</button>
+      </header>
+      <iframe id="pdFrame" title="PandaDoc Signer"></iframe>
+    </div>
+  </div>
+
   <!-- Logic -->
   <script>
-    // ✅ Script unchanged from working version
     document.getElementById('year').textContent = new Date().getFullYear();
-    // ... [rest of your JS logic remains exactly the same here] ...
+
+    const checklistData = [
+      'I have received the rate card and services have been explained',
+      'Rates are volume-based and may be reviewed if volumes fall',
+      'I have received a Pallet Dimensions sheet',
+      'All bookings will be via the Walkers online portal only',
+      'I have read & understood RHA Terms (2024) and Walkers T&Cs',
+      'Insurance cover acknowledged (e.g. £5,000 per tonne) and excess terms',
+      'Claims process understood (7 days to report; 14 days to submit form with claused POD)',
+      'Fuel surcharge applies based on AA monthly diesel average',
+      'Payment terms: 30 days EOM; invoices via email',
+      'Refusals/returns charged at 100% of outgoing charge',
+      'Re-delivery fees apply',
+      'Tail lift / booking-in / timed deliveries must be advised at booking',
+      'Kerbside deliveries only; drivers don’t handle product',
+      'Standard delivery window 08:00–17:00 Mon–Fri; pre-10 may vary',
+      'Max 20 minutes waiting at delivery point; comms if issues arise',
+      'Hazardous goods limited quantities only and require SDS'
+    ];
+
+    const panels = ['welcome','flow','trading','checklist','uploads','submit'].map(id=>document.getElementById(id));
+    const stepsList = document.getElementById('stepsList');
+
+    // Navigation
+    function show(id){
+      panels.forEach(p=>p.classList.toggle('hidden', p.id!==id));
+      Array.from(stepsList.children).forEach(li=>{
+        const active = li.dataset.step===id;
+        li.classList.toggle('ring-2', active);
+        li.classList.toggle('ring-blue-800', active);
+      });
+      document.getElementById('statusLabel').textContent = id[0].toUpperCase()+id.slice(1);
+      location.hash = id;
+    }
+    document.querySelectorAll('[data-goto]').forEach(btn=>btn.addEventListener('click',()=>show(btn.dataset.goto)));
+    stepsList.addEventListener('click',e=>{
+      const li = e.target.closest('li[data-step]');
+      if(li) show(li.dataset.step);
+    });
+    window.addEventListener('hashchange', ()=> show(location.hash.substring(1) || 'welcome'));
+
+    // Checklist render
+    const checklistContainer = document.getElementById('checklistItems');
+    function renderChecklist(){
+      checklistContainer.innerHTML = '';
+      checklistData.forEach((text,i)=>{
+        const id='ck_'+i;
+        const wrap=document.createElement('label');
+        wrap.className='flex items-start gap-3 border rounded-xl p-3 bg-gray-50';
+        wrap.innerHTML = `<input type="checkbox" class="mt-1" id="${id}"> <span class="text-sm">${text}</span>`;
+        checklistContainer.appendChild(wrap);
+      });
+    }
+
+    // Collect data
+    function collect(){
+      const form = {};
+      document.querySelectorAll('#trading input, #trading textarea').forEach(el=>{
+        if(el.type==='radio'){ if(el.checked) form[el.name]=el.value; }
+        else if(el.type==='checkbox'){ form[el.name]=el.checked; }
+        else form[el.name]=el.value;
+      });
+      const checks=[]; checklistData.forEach((_,i)=>{ const el=document.getElementById('ck_'+i); if(el && el.checked) checks.push(i) });
+      form.checklist = checks.map(i=>checklistData[i]);
+      form.files = ['file_insurance','file_sds','file_ratecard','file_other'].map(id=>{
+        const f = document.getElementById(id).files?.[0];
+        return f?{id,name:f.name,size:f.size,type:f.type}:null;
+      });
+      return form;
+    }
+
+    // Save/Export
+    document.getElementById('saveBtn').addEventListener('click', ()=>{
+      localStorage.setItem('walkers_onboarding', JSON.stringify(collect()));
+      document.getElementById('statusLabel').textContent = 'Saved locally';
+    });
+    document.getElementById('exportBtn').addEventListener('click', ()=>{
+      const blob=new Blob([JSON.stringify(collect(),null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download='walkers-onboarding.json'; a.click(); URL.revokeObjectURL(url);
+    });
+
+    // Submit panel actions
+    document.addEventListener('click', e => {
+      if(e.target.id==='previewBtn'){
+        const pre=document.getElementById('jsonPreview');
+        pre.textContent=JSON.stringify(collect(),null,2);
+        pre.classList.toggle('hidden');
+      }
+      if(e.target.id==='downloadBtn'){
+        const blob=new Blob([JSON.stringify(collect(),null,2)],{type:'application/json'});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a'); a.href=url; a.download='walkers-onboarding.json'; a.click(); URL.revokeObjectURL(url);
+      }
+      if(e.target.id==='emailBtn'){
+        const body=encodeURIComponent(JSON.stringify(collect(),null,2));
+        window.location.href=`mailto:info@walkers-transport.co.uk?subject=Walkers Onboarding — Completed Forms&body=${body}`;
+      }
+    });
+
+    // PDFs
+    function openPdf(which){
+      const map = {
+        whatsnext: 'Doc/' + encodeURIComponent("What's Next.pdf"),
+        trading:   'Doc/' + encodeURIComponent('Trading Agreement .pdf'),
+        checklist: 'Doc/' + encodeURIComponent('Customer Checklist (5000) 2022.pdf')
+      };
+      const url = map[which]; if(url) window.open(url,'_blank');
+    }
+    window.openPdf = openPdf;
+
+    // ---------- PandaDoc integration ----------
+    // 1) Paste your PandaDoc recipient signing link below:
+    //    Example: https://app.pandadoc.com/s/your-doc-id (or a share/test link)
+    const PD_SIGN_URL = 'https://app.pandadoc.com/s/REPLACE_WITH_YOUR_SIGNING_LINK';
+
+    // 2) Open in modal (embedded) if same-origin allows; otherwise open in a new tab.
+    const pdSignBtn = document.getElementById('pdSignBtn');
+    const pdModal = document.getElementById('pdModal');
+    const pdFrame = document.getElementById('pdFrame');
+    const pdCloseBtn = document.getElementById('pdCloseBtn');
+
+    pdSignBtn?.addEventListener('click', () => {
+      if(!PD_SIGN_URL || PD_SIGN_URL.includes('REPLACE_WITH')) {
+        alert('Add your PandaDoc signing link in the HTML (PD_SIGN_URL).');
+        return;
+      }
+      try {
+        // Try embed in iframe (some links allow embedding)
+        pdFrame.src = PD_SIGN_URL;
+        pdModal.classList.add('open');
+      } catch (e) {
+        // Fallback to opening in a new tab
+        window.open(PD_SIGN_URL, '_blank', 'noopener');
+      }
+    });
+
+    pdCloseBtn?.addEventListener('click', () => {
+      pdModal.classList.remove('open');
+      pdFrame.src = 'about:blank';
+    });
+
+    // Init
+    renderChecklist();
+    show(location.hash.substring(1) || 'welcome');
   </script>
 </body>
 </html>
