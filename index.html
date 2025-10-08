@@ -7,11 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="/Doc/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="/Doc/favicon-32x32.png" sizes="32x32">
-  <link rel="apple-touch-icon" href="/Doc/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/Doc/android-chrome-192x192.png" sizes="192x192">
-  <link rel="icon" type="image/png" href="/Doc/android-chrome-512x512.png" sizes="512x512">
+  <link rel="icon" href="Doc/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="Doc/favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="Doc/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="Doc/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="Doc/android-chrome-512x512.png" sizes="512x512">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root{
@@ -40,7 +40,7 @@
   <header class="brand-grad text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="/Doc/android-chrome-192x192.png" alt="Walkers Transport" class="h-10 w-auto select-none" onerror="this.outerHTML='<div class=\'w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center ring-1 ring-white/20\'><span class=\'text-xl font-extrabold\'>W</span></div>'">
+        <img src="Doc/android-chrome-192x192.png" alt="Walkers Transport" class="h-10 w-auto select-none" onerror="this.outerHTML='<div class=\'w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center ring-1 ring-white/20\'><span class=\'text-xl font-extrabold\'>W</span></div>'">
         <div>
           <h1 class="text-2xl font-extrabold leading-tight">Walkers Transport</h1>
           <p class="text-white/80 text-sm -mt-0.5">Digital Customer Onboarding</p>
@@ -261,7 +261,7 @@
 </div>
 
   </main>  <footer class="py-10 text-center text-xs text-gray-500">
-    © <span id="year"></span> Walkers Transport — Howley Park Road East, Morley, Leeds LS27 0BN · 0113 220 2800 · <a class="underline" href="mailto:info@walkers-transport.co.uk">info@walkers-transport.co.uk</a> · <a class="underline" href="/Doc/Privacy-Notice.pdf">Privacy</a>
+    © <span id="year"></span> Walkers Transport — Howley Park Road East, Morley, Leeds LS27 0BN · 0113 220 2800 · <a class="underline" href="mailto:info@walkers-transport.co.uk">info@walkers-transport.co.uk</a> · <a class="underline" href="Doc/Privacy-Notice.pdf">Privacy</a>
   </footer>  <!-- Lightweight logic -->  <script>
     const state = JSON.parse(localStorage.getItem('walkers_onboarding')||'{}');
 
@@ -375,9 +375,9 @@
     // PDF opener hooks (placeholder — swap to hosted file URLs when deployed)
     function openPdf(which){
       const map = {
-        whatsnext: '/Doc/' + encodeURIComponent("What's Next.pdf"),
-        trading: '/Doc/' + encodeURIComponent('Trading Agreement .pdf'),
-        checklist: '/Doc/' + encodeURIComponent('Customer Checklist (5000) 2022.pdf')
+        whatsnext: 'Doc/' + encodeURIComponent("What's Next.pdf"),
+        trading: 'Doc/' + encodeURIComponent('Trading Agreement .pdf'),
+        checklist: 'Doc/' + encodeURIComponent('Customer Checklist (5000) 2022.pdf')
       };
       const url = map[which];
       if(url){ window.open(url,'_blank'); }
