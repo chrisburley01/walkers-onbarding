@@ -2,51 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Walkers Transport | Digital Customer Onboarding</title>
-  <link rel="icon" href="Doc/favicon.ico" />
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!-- Favicons -->
+  <link rel="icon" href="Doc/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="Doc/favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="Doc/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="Doc/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="Doc/android-chrome-512x512.png" sizes="512x512">
+
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root {
-      --walkers-blue: #002c5f;
-      --walkers-green: #7ac143;
-      --walkers-grey: #4d4d4f;
-      --walkers-red: #da291c;
-    }
-    body {
-      font-family: Arial, sans-serif;
-    }
-    header {
-      background-color: var(--walkers-blue);
-    }
-    .btn-primary {
-      background-color: var(--walkers-blue);
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 0.375rem;
-      font-weight: 600;
-    }
-    .btn-primary:hover {
-      background-color: var(--walkers-green);
-    }
+    body{font-family:Arial, Helvetica, sans-serif; background:#f8fafc; color:#0b1220}
+    .btn-primary{background:#002c77;color:#fff}
+    .btn-primary:hover{filter:brightness(.97)}
+    .btn-dark{background:#0f2353;color:#fff}
+    .btn-dark:hover{filter:brightness(.97)}
+    .shadow-soft{box-shadow:0 10px 30px rgba(0,0,0,.08)}
+    .dot{width:.625rem;height:.625rem;border-radius:9999px;background:#002c77}
+    .focus-ring:focus{outline:3px solid rgba(0,44,119,.25);outline-offset:2px}
   </style>
 </head>
-<body class="bg-gray-50">
+<body>
 
-  <!-- Header -->
-  <header class="shadow">
-    <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 text-white">
-      <div class="flex items-center space-x-3">
-        <img src="assets/walkers-logo.png" alt="Walkers Transport" class="h-12 w-auto select-none">
-        <div>
-          <h1 class="text-xl font-bold">Walkers Transport</h1>
-          <p class="text-sm opacity-80">Can Do. Digital Customer Onboarding</p>
-        </div>
+  <!-- HEADER -->
+  <header class="text-white shadow-md" style="background:#002c77">
+    <div class="max-w-7xl mx-auto flex items-center gap-4 px-6 py-3">
+      <img src="assets/walkers-logo.png" alt="Walkers Transport" class="h-12 w-auto select-none">
+      <div>
+        <h1 class="text-2xl font-extrabold leading-tight">Walkers Transport</h1>
+        <p class="text-white/80 text-sm -mt-0.5">Can Do. Digital Customer Onboarding</p>
       </div>
-      <nav class="hidden md:flex space-x-6 text-sm font-medium">
+      <nav class="hidden md:flex gap-4 text-sm ml-auto">
         <a href="#welcome" class="hover:underline">Welcome</a>
         <a href="#flow" class="hover:underline">Onboarding Flow</a>
-        <a href="#agreement" class="hover:underline">Trading Agreement</a>
+        <a href="#trading" class="hover:underline">Trading Agreement</a>
         <a href="#checklist" class="hover:underline">Customer Checklist</a>
         <a href="#uploads" class="hover:underline">Uploads</a>
         <a href="#submit" class="hover:underline">Submit</a>
@@ -54,75 +45,307 @@
     </div>
   </header>
 
-  <!-- Main -->
-  <main class="max-w-7xl mx-auto px-4 py-8">
-    <!-- Status bar -->
-    <div class="flex items-center justify-between mb-6">
-      <div>
-        <span class="font-medium">Status:</span>
-        <span class="text-gray-600" id="status">Welcome</span>
-      </div>
-      <div class="space-x-2">
-        <button class="btn-primary">Save Progress</button>
-        <button class="btn-primary">Download JSON</button>
-      </div>
+  <!-- STATUS -->
+  <section class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3 text-sm">
+      <span class="dot"></span><span class="font-medium">Status:</span>
+      <span id="statusLabel" class="text-gray-600">Welcome</span>
+      <span class="mx-2 text-gray-300">|</span>
+      <button id="saveBtn" class="px-3 py-1.5 rounded-lg btn-dark text-xs font-semibold">Save Progress</button>
+      <button id="exportBtn" class="px-3 py-1.5 rounded-lg border text-xs font-semibold">Download JSON</button>
     </div>
+  </section>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <!-- Steps sidebar -->
-      <aside class="md:col-span-1 bg-white p-4 rounded-xl shadow">
-        <h2 class="font-bold mb-4">Steps</h2>
-        <ul class="space-y-3 text-sm">
-          <li><a href="#welcome" class="block px-3 py-2 rounded border border-walkers-blue text-walkers-blue">Welcome</a></li>
-          <li><a href="#flow" class="block px-3 py-2 rounded hover:bg-gray-100">Onboarding Flow</a></li>
-          <li><a href="#agreement" class="block px-3 py-2 rounded hover:bg-gray-100">Trading Agreement</a></li>
-          <li><a href="#checklist" class="block px-3 py-2 rounded hover:bg-gray-100">Customer Checklist</a></li>
-          <li><a href="#uploads" class="block px-3 py-2 rounded hover:bg-gray-100">Uploads</a></li>
-          <li><a href="#submit" class="block px-3 py-2 rounded hover:bg-gray-100">Review & Submit</a></li>
-        </ul>
-        <p class="text-xs text-gray-500 mt-4">
-          By submitting, you agree to Walkers Transport T&Cs and RHA Terms (2024).
-        </p>
+  <!-- MAIN -->
+  <main class="max-w-7xl mx-auto px-6 py-8">
+    <div class="grid lg:grid-cols-12 gap-8">
+
+      <!-- Steps -->
+      <aside class="lg:col-span-4 xl:col-span-3">
+        <div class="bg-white rounded-2xl shadow-soft p-5 sticky top-6">
+          <h2 class="text-lg font-bold mb-4">Steps</h2>
+          <ol class="space-y-2 text-sm" id="stepsList">
+            <li data-step="welcome"  class="border rounded-xl p-3 cursor-pointer flex items-center gap-3"><span class="dot"></span><span>Welcome</span></li>
+            <li data-step="flow"     class="border rounded-xl p-3 cursor-pointer flex items-center gap-3"><span class="dot"></span><span>Onboarding Flow</span></li>
+            <li data-step="trading"  class="border rounded-xl p-3 cursor-pointer flex items-center gap-3"><span class="dot"></span><span>Trading Agreement</span></li>
+            <li data-step="checklist"class="border rounded-xl p-3 cursor-pointer flex items-center gap-3"><span class="dot"></span><span>Customer Checklist</span></li>
+            <li data-step="uploads"  class="border rounded-xl p-3 cursor-pointer flex items-center gap-3"><span class="dot"></span><span>Uploads</span></li>
+            <li data-step="submit"   class="border rounded-xl p-3 cursor-pointer flex items-center gap-3"><span class="dot"></span><span>Review & Submit</span></li>
+          </ol>
+          <p class="mt-6 text-xs text-gray-500">By submitting, you agree to Walkers Transport T&Cs and RHA Terms (2024).</p>
+        </div>
       </aside>
 
-      <!-- Content -->
-      <section id="welcome" class="md:col-span-3 bg-white p-6 rounded-xl shadow">
-        <h2 class="text-2xl font-bold mb-4">Welcome aboard 👋</h2>
-        <p class="mb-6 text-gray-700">This guide walks you through each step to get trading quickly and confidently.</p>
+      <!-- Content panels -->
+      <section class="lg:col-span-8 xl:col-span-9 space-y-8">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-gray-50 rounded-lg p-4">
-            <h3 class="font-semibold mb-2">What happens next</h3>
-            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
-              <li>Welcome call & Digital Welcome Pack.</li>
-              <li>On-site visit: printer install, first booking, portal demo.</li>
-              <li>First-week check-in with your CSA.</li>
-              <li>Two-week review with your Account Manager.</li>
-            </ul>
-          </div>
-          <div class="bg-gray-50 rounded-lg p-4">
-            <h3 class="font-semibold mb-2">Get started</h3>
-            <ol class="list-decimal list-inside text-sm text-gray-700 space-y-1">
-              <li>Review the flow chart.</li>
-              <li>Complete Trading Agreement details.</li>
-              <li>Confirm the Customer Checklist.</li>
-              <li>Upload supporting documents (optional).</li>
-              <li>Review & submit.</li>
-            </ol>
-            <button class="btn-primary mt-4">Start now</button>
+        <!-- Welcome -->
+        <div id="welcome" class="bg-white rounded-2xl shadow-soft p-6">
+          <h2 class="text-2xl font-extrabold mb-2">Welcome aboard 👋</h2>
+          <p class="text-gray-600 mb-6">This guide walks you through each step to get trading quickly and confidently.</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="rounded-2xl p-5 border bg-gray-50">
+              <h3 class="font-bold mb-2">What happens next</h3>
+              <ul class="text-sm list-disc pl-5 space-y-2">
+                <li>Welcome call & Digital Welcome Pack.</li>
+                <li>On-site visit: printer install, first booking, portal demo.</li>
+                <li>First-week check-in with your CSA.</li>
+                <li>Two-week review with your Account Manager.</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl p-5 border">
+              <h3 class="font-bold mb-3">Get started</h3>
+              <ol class="text-sm list-decimal pl-5 space-y-2">
+                <li>Review the flow chart.</li>
+                <li>Complete Trading Agreement details.</li>
+                <li>Confirm the Customer Checklist.</li>
+                <li>Upload supporting documents (optional).</li>
+                <li>Review & submit.</li>
+              </ol>
+              <button data-goto="flow" class="mt-4 px-4 py-2 rounded-xl btn-primary font-semibold">Start now</button>
+            </div>
           </div>
         </div>
+
+        <!-- Flow -->
+        <div id="flow" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-2xl font-extrabold">Onboarding Flow</h2>
+            <div class="space-x-2">
+              <button onclick="openPdf('whatsnext')" class="px-4 py-2 rounded-xl border font-semibold">Open What’s Next</button>
+              <button data-goto="trading" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Trading Agreement</button>
+            </div>
+          </div>
+          <div class="mt-6 grid md:grid-cols-4 gap-4">
+            <div class="p-4 border rounded-2xl"><p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Step 1</p><h3 class="font-bold">Welcome & Setup</h3><p class="text-sm text-gray-600 mt-1">CSA welcome call → Welcome Pack</p></div>
+            <div class="p-4 border rounded-2xl"><p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Step 2</p><h3 class="font-bold">On-site Visit</h3><p class="text-sm text-gray-600 mt-1">Printer install → First booking → Portal demo</p></div>
+            <div class="p-4 border rounded-2xl"><p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Step 3</p><h3 class="font-bold">First-week Check-in</h3><p class="text-sm text-gray-600 mt-1">Quick review & Q&A</p></div>
+            <div class="p-4 border rounded-2xl"><p class="text-xs uppercase tracking-wide text-gray-500 mb-1">Step 4</p><h3 class="font-bold">Two-week Review</h3><p class="text-sm text-gray-600 mt-1">AM review & next steps</p></div>
+          </div>
+        </div>
+
+        <!-- Trading -->
+        <div id="trading" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-2xl font-extrabold">Trading Agreement</h2>
+            <button data-goto="checklist" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Customer Checklist</button>
+          </div>
+          <p class="text-sm text-gray-600 mt-2">Payment terms: <strong>30 days EOM</strong>. All goods carried subject to <strong>RHA Terms (2024)</strong>.</p>
+          <div class="mt-4 grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <h3 class="font-bold">Customer Details</h3>
+              <label class="block text-sm">Company Name<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="company_name"/></label>
+              <label class="block text-sm">Company Reg No.<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="company_reg"/></label>
+              <label class="block text-sm">Invoice Address<textarea class="mt-1 w-full border rounded-lg p-2 focus-ring" rows="3" name="invoice_address"></textarea></label>
+              <label class="block text-sm">Collection Address<textarea class="mt-1 w-full border rounded-lg p-2 focus-ring" rows="3" name="collection_address"></textarea></label>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Telephone<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="tel"/></label>
+                <label class="block text-sm">Email<input type="email" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="email"/></label>
+              </div>
+              <label class="block text-sm">Website<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="website"/></label>
+            </div>
+            <div class="space-y-4">
+              <h3 class="font-bold">Contacts</h3>
+              <label class="block text-sm">Decision Maker<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="dm_name" placeholder="Jane Smith, Director"/></label>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">DM Tel<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="dm_tel"/></label>
+                <label class="block text-sm">DM Email<input type="email" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="dm_email"/></label>
+              </div>
+              <label class="block text-sm">Booking Contact<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="booking_contact"/></label>
+              <label class="block text-sm">Accounts Contact<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="accounts_contact"/></label>
+              <div>
+                <p class="text-sm font-semibold mb-1">Portal Input Method</p>
+                <label class="inline-flex items-center gap-2 mr-4"><input type="radio" name="portal_method" value="Manual"/> Manual</label>
+                <label class="inline-flex items-center gap-2 mr-4"><input type="radio" name="portal_method" value="CSV"/> CSV</label>
+                <label class="inline-flex items-center gap-2"><input type="radio" name="portal_method" value="API"/> API</label>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Onboarding Date<input type="date" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="onboarding_date"/></label>
+                <label class="block text-sm">Account Reference<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="account_ref"/></label>
+              </div>
+              <div class="pt-2">
+                <label class="inline-flex items-start gap-2 text-sm">
+                  <input type="checkbox" name="accept_terms"/> <span>I accept Walkers Transport T&Cs and RHA Terms (2024).</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checklist -->
+        <div id="checklist" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-2xl font-extrabold">Customer Checklist</h2>
+            <button data-goto="uploads" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Uploads</button>
+          </div>
+          <p class="text-sm text-gray-600 mt-2">Please confirm the following items are understood/accepted.</p>
+          <div class="mt-4 grid md:grid-cols-2 gap-6" id="checklistItems"></div>
+        </div>
+
+        <!-- Uploads -->
+        <div id="uploads" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-2xl font-extrabold">Supporting Uploads</h2>
+            <button data-goto="submit" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Review & Submit</button>
+          </div>
+          <p class="text-sm text-gray-600 mt-2">Optional: upload any supporting documents (insurance schedule, SDS for hazardous goods, rate card, other).</p>
+          <div class="mt-4 grid md:grid-cols-2 gap-6">
+            <div><label class="block text-sm font-semibold mb-1">Insurance Schedule (PDF)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_insurance"/></div>
+            <div><label class="block text-sm font-semibold mb-1">Safety Data Sheet (if ADR)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_sds"/></div>
+            <div><label class="block text-sm font-semibold mb-1">Rate Card (PDF)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_ratecard"/></div>
+            <div><label class="block text-sm font-semibold mb-1">Other</label><input type="file" class="w-full border rounded-lg p-2" id="file_other"/></div>
+          </div>
+          <p class="text-xs text-gray-500 mt-4">Files remain local in this browser for review prior to submission.</p>
+        </div>
+
+        <!-- Submit -->
+        <div id="submit" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold">Review & Submit</h2>
+          <p class="text-sm text-gray-600 mt-2">Download a copy of your responses and then submit to Walkers.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <button id="previewBtn" class="px-4 py-2 rounded-xl border font-semibold">Preview JSON</button>
+            <button id="downloadBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Download JSON</button>
+            <button id="emailBtn" class="px-4 py-2 rounded-xl btn-dark font-semibold">Email to Walkers</button>
+          </div>
+          <pre id="jsonPreview" class="mt-6 p-4 bg-gray-50 border rounded-xl overflow-auto text-xs hidden"></pre>
+
+          <div class="mt-8 text-sm text-gray-600">
+            <p>Useful links:</p>
+            <ul class="list-disc pl-5">
+              <li><a class="underline" href="Doc/What's%20Next.pdf" target="_blank">What’s Next (Walkthrough)</a></li>
+              <li><a class="underline" href="Doc/Trading%20Agreement%20.pdf" target="_blank">Trading Agreement (PDF)</a></li>
+              <li><a class="underline" href="Doc/Customer%20Checklist%20(5000)%202022.pdf" target="_blank">Customer Checklist (PDF)</a></li>
+            </ul>
+          </div>
+        </div>
+
       </section>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="mt-10 py-6 text-center text-sm text-gray-600">
-    © Walkers Transport — Howley Park Road East, Morley, Leeds LS27 0BN · 
-    0113 220 2800 · 
-    <a href="mailto:info@walkers-transport.co.uk" class="underline">info@walkers-transport.co.uk</a> · 
-    <a href="#" class="underline">Privacy</a>
+  <footer class="py-10 text-center text-xs text-gray-500">
+    © <span id="year"></span> Walkers Transport — Howley Park Road East, Morley, Leeds LS27 0BN · 0113 220 2800 ·
+    <a class="underline" href="mailto:info@walkers-transport.co.uk">info@walkers-transport.co.uk</a> ·
+    <a class="underline" href="Doc/Privacy-Notice.pdf">Privacy</a>
   </footer>
 
+  <!-- Logic -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const checklistData = [
+      'I have received the rate card and services have been explained',
+      'Rates are volume-based and may be reviewed if volumes fall',
+      'I have received a Pallet Dimensions sheet',
+      'All bookings will be via the Walkers online portal only',
+      'I have read & understood RHA Terms (2024) and Walkers T&Cs',
+      'Insurance cover acknowledged (e.g. £5,000 per tonne) and excess terms',
+      'Claims process understood (7 days to report; 14 days to submit form with claused POD)',
+      'Fuel surcharge applies based on AA monthly diesel average',
+      'Payment terms: 30 days EOM; invoices via email',
+      'Refusals/returns charged at 100% of outgoing charge',
+      'Re-delivery fees apply',
+      'Tail lift / booking-in / timed deliveries must be advised at booking',
+      'Kerbside deliveries only; drivers don’t handle product',
+      'Standard delivery window 08:00–17:00 Mon–Fri; pre-10 may vary',
+      'Max 20 minutes waiting at delivery point; comms if issues arise',
+      'Hazardous goods limited quantities only and require SDS'
+    ];
+
+    const panels = ['welcome','flow','trading','checklist','uploads','submit'].map(id=>document.getElementById(id));
+    const stepsList = document.getElementById('stepsList');
+
+    // Navigation
+    function show(id){
+      panels.forEach(p=>p.classList.toggle('hidden', p.id!==id));
+      Array.from(stepsList.children).forEach(li=>{
+        const active = li.dataset.step===id;
+        li.classList.toggle('ring-2', active);
+        li.classList.toggle('ring-blue-800', active);
+      });
+      document.getElementById('statusLabel').textContent = id[0].toUpperCase()+id.slice(1);
+      location.hash = id;
+    }
+    document.querySelectorAll('[data-goto]').forEach(btn=>btn.addEventListener('click',()=>show(btn.dataset.goto)));
+    stepsList.addEventListener('click',e=>{
+      const li = e.target.closest('li[data-step]');
+      if(li) show(li.dataset.step);
+    });
+    window.addEventListener('hashchange', ()=> show(location.hash.substring(1) || 'welcome'));
+
+    // Checklist render
+    const checklistContainer = document.getElementById('checklistItems');
+    function renderChecklist(){
+      checklistContainer.innerHTML = '';
+      checklistData.forEach((text,i)=>{
+        const id='ck_'+i;
+        const wrap=document.createElement('label');
+        wrap.className='flex items-start gap-3 border rounded-xl p-3 bg-gray-50';
+        wrap.innerHTML = `<input type="checkbox" class="mt-1" id="${id}"> <span class="text-sm">${text}</span>`;
+        checklistContainer.appendChild(wrap);
+      });
+    }
+
+    // Collect data
+    function collect(){
+      const form = {};
+      document.querySelectorAll('#trading input, #trading textarea').forEach(el=>{
+        if(el.type==='radio'){ if(el.checked) form[el.name]=el.value; }
+        else if(el.type==='checkbox'){ form[el.name]=el.checked; }
+        else form[el.name]=el.value;
+      });
+      const checks=[]; checklistData.forEach((_,i)=>{ const el=document.getElementById('ck_'+i); if(el && el.checked) checks.push(i) });
+      form.checklist = checks.map(i=>checklistData[i]);
+      form.files = ['file_insurance','file_sds','file_ratecard','file_other'].map(id=>{
+        const f = document.getElementById(id).files?.[0];
+        return f?{id,name:f.name,size:f.size,type:f.type}:null;
+      });
+      return form;
+    }
+
+    // Save/Export
+    document.getElementById('saveBtn').addEventListener('click', ()=>{
+      localStorage.setItem('walkers_onboarding', JSON.stringify(collect()));
+      document.getElementById('statusLabel').textContent = 'Saved locally';
+    });
+    document.getElementById('exportBtn').addEventListener('click', ()=>{
+      const blob=new Blob([JSON.stringify(collect(),null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download='walkers-onboarding.json'; a.click(); URL.revokeObjectURL(url);
+    });
+
+    // Submit panel actions
+    document.addEventListener('click', e => {
+      if(e.target.id==='previewBtn'){
+        const pre=document.getElementById('jsonPreview');
+        pre.textContent=JSON.stringify(collect(),null,2);
+        pre.classList.toggle('hidden');
+      }
+      if(e.target.id==='downloadBtn'){
+        const blob=new Blob([JSON.stringify(collect(),null,2)],{type:'application/json'});
+        const url=URL.createObjectURL(blob);
+        const a=document.createElement('a'); a.href=url; a.download='walkers-onboarding.json'; a.click(); URL.revokeObjectURL(url);
+      }
+      if(e.target.id==='emailBtn'){
+        const body=encodeURIComponent(JSON.stringify(collect(),null,2));
+        window.location.href=`mailto:info@walkers-transport.co.uk?subject=Walkers Onboarding — Completed Forms&body=${body}`;
+      }
+    });
+
+    // PDFs
+    function openPdf(which){
+      const map = {
+        whatsnext: 'Doc/' + encodeURIComponent("What's Next.pdf"),
+        trading:   'Doc/' + encodeURIComponent('Trading Agreement .pdf'),
+        checklist: 'Doc/' + encodeURIComponent('Customer Checklist (5000) 2022.pdf')
+      };
+      const url = map[which]; if(url) window.open(url,'_blank');
+    }
+    window.openPdf = openPdf;
+
+    // Init
+    renderChecklist();
+    show(location.hash.substring(1) || 'welcome');
+  </script>
 </body>
 </html>
