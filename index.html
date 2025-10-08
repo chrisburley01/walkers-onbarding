@@ -7,17 +7,27 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="/Doc/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/Doc/favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/Doc/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/Doc/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/Doc/android-chrome-512x512.png" sizes="512x512">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root{
-      --walkers-red:#c8102e; /* primary */
-      --walkers-dark:#111827; /* slate-900 */
+      --walkers-red:#c8102e; /* Walkers primary red */
+      --walkers-dark:#0f172a; /* slate-900 */
       --walkers-slate:#1f2937; /* slate-800 */
-      --walkers-gold:#f59e0b; /* accent */
+      --walkers-gold:#fbbf24; /* brand accent */
+      --walkers-bg:#f8fafc;   /* page bg */
     }
     body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji"}
     .brand-grad{background:linear-gradient(135deg,var(--walkers-red),#ef4444)}
     .step-active{border-color:var(--walkers-red)!important}
+    .btn-primary{background:var(--walkers-red);color:#fff}
+    .btn-primary:hover{filter:brightness(.95)}
+    .btn-dark{background:#0b1220;color:#fff}
+    .btn-dark:hover{filter:brightness(.95)}
     .shadow-soft{box-shadow:0 10px 30px rgba(0,0,0,.08)}
     .glass{backdrop-filter:blur(10px);background:rgba(255,255,255,.75)}
     .focus-ring:focus{outline:3px solid rgba(200,16,46,.35);outline-offset:2px}
@@ -30,15 +40,14 @@
   <header class="brand-grad text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center ring-1 ring-white/20">
-          <span class="text-xl font-extrabold tracking-tight">W</span>
-        </div>
+        <img src="/Doc/android-chrome-192x192.png" alt="Walkers Transport" class="h-10 w-auto select-none" onerror="this.outerHTML='<div class=\'w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center ring-1 ring-white/20\'><span class=\'text-xl font-extrabold\'>W</span></div>'">
         <div>
           <h1 class="text-2xl font-extrabold leading-tight">Walkers Transport</h1>
           <p class="text-white/80 text-sm -mt-0.5">Digital Customer Onboarding</p>
         </div>
+        </div>
       </div>
-      <nav class="hidden md:flex gap-4 text-sm">
+      <nav class="hidden md:flex gap-4 text-sm" aria-label="Primary">
         <a href="#welcome" class="hover:underline">Welcome</a>
         <a href="#flow" class="hover:underline">Onboarding Flow</a>
         <a href="#trading" class="hover:underline">Trading Agreement</a>
@@ -101,7 +110,7 @@
             <li>Upload any supporting documents.</li>
             <li>Review & submit.</li>
           </ol>
-          <button data-goto="flow" class="mt-4 px-4 py-2 rounded-xl bg-[var(--walkers-red)] text-white font-semibold">Start now</button>
+          <button data-goto="flow" class="mt-4 px-4 py-2 rounded-xl btn-primary font-semibold">Start now</button>
         </div>
       </div>
     </div>
@@ -110,7 +119,7 @@
     <div id="flow" class="bg-white rounded-2xl shadow-soft p-6 hidden">
       <div class="flex items-start justify-between gap-4">
         <h2 class="text-2xl font-extrabold">Onboarding flow</h2>
-        <button data-goto="trading" class="px-4 py-2 rounded-xl bg-[var(--walkers-red)] text-white font-semibold">Next: Trading Agreement</button>
+        <button data-goto="trading" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Trading Agreement</button>
       </div>
       <div class="mt-6">
         <!-- Simple responsive flow diagram -->
@@ -143,7 +152,7 @@
     <div id="trading" class="bg-white rounded-2xl shadow-soft p-6 hidden">
       <div class="flex items-start justify-between gap-4">
         <h2 class="text-2xl font-extrabold">Trading Agreement</h2>
-        <button data-goto="checklist" class="px-4 py-2 rounded-xl bg-[var(--walkers-red)] text-white font-semibold">Next: Customer Checklist</button>
+        <button data-goto="checklist" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Customer Checklist</button>
       </div>
       <p class="text-sm text-gray-600 mt-2">Payment terms: <strong>30 days EOM</strong>. All goods carried subject to <strong>RHA Terms (2024)</strong>. Walkers T&Cs available on request.</p>
       <div class="mt-4 grid md:grid-cols-2 gap-6">
@@ -189,7 +198,7 @@
     <div id="checklist" class="bg-white rounded-2xl shadow-soft p-6 hidden">
       <div class="flex items-start justify-between gap-4">
         <h2 class="text-2xl font-extrabold">Customer Checklist</h2>
-        <button data-goto="uploads" class="px-4 py-2 rounded-xl bg-[var(--walkers-red)] text-white font-semibold">Next: Uploads</button>
+        <button data-goto="uploads" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Uploads</button>
       </div>
       <p class="text-sm text-gray-600 mt-2">Please confirm the following items are understood/accepted.</p>
       <div class="mt-4 grid md:grid-cols-2 gap-6" id="checklistItems">
@@ -201,7 +210,7 @@
     <div id="uploads" class="bg-white rounded-2xl shadow-soft p-6 hidden">
       <div class="flex items-start justify-between gap-4">
         <h2 class="text-2xl font-extrabold">Supporting Uploads</h2>
-        <button data-goto="submit" class="px-4 py-2 rounded-xl bg-[var(--walkers-red)] text-white font-semibold">Next: Review & Submit</button>
+        <button data-goto="submit" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Review & Submit</button>
       </div>
       <p class="text-sm text-gray-600 mt-2">Optional: upload any supporting documents (insurance schedule, SDS for hazardous goods, POA, etc.).</p>
       <div class="mt-4 grid md:grid-cols-2 gap-6">
@@ -232,8 +241,8 @@
 
       <div class="mt-6 flex flex-wrap gap-3">
         <button id="previewBtn" class="px-4 py-2 rounded-xl border font-semibold">Preview JSON</button>
-        <button id="downloadBtn" class="px-4 py-2 rounded-xl bg-[var(--walkers-red)] text-white font-semibold">Download JSON</button>
-        <button id="emailBtn" class="px-4 py-2 rounded-xl bg-gray-900 text-white font-semibold">Email to Walkers</button>
+        <button id="downloadBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Download JSON</button>
+        <button id="emailBtn" class="px-4 py-2 rounded-xl btn-dark font-semibold">Email to Walkers</button>
       </div>
 
       <pre id="jsonPreview" class="mt-6 p-4 bg-gray-50 border rounded-xl overflow-auto text-xs hidden"></pre>
@@ -252,7 +261,7 @@
 </div>
 
   </main>  <footer class="py-10 text-center text-xs text-gray-500">
-    © <span id="year"></span> Walkers Transport — Howley Park Road East, Morley, Leeds LS27 0BN · 0113 220 2800
+    © <span id="year"></span> Walkers Transport — Howley Park Road East, Morley, Leeds LS27 0BN · 0113 220 2800 · <a class="underline" href="mailto:info@walkers-transport.co.uk">info@walkers-transport.co.uk</a> · <a class="underline" href="/Doc/Privacy-Notice.pdf">Privacy</a>
   </footer>  <!-- Lightweight logic -->  <script>
     const state = JSON.parse(localStorage.getItem('walkers_onboarding')||'{}');
 
@@ -365,7 +374,13 @@
 
     // PDF opener hooks (placeholder — swap to hosted file URLs when deployed)
     function openPdf(which){
-      alert('In deployment, link this to the hosted PDF for '+which+" (e.g., GitHub Pages / public folder).\nCurrently placeholder.");
+      const map = {
+        whatsnext: '/Doc/' + encodeURIComponent("What's Next.pdf"),
+        trading: '/Doc/' + encodeURIComponent('Trading Agreement .pdf'),
+        checklist: '/Doc/' + encodeURIComponent('Customer Checklist (5000) 2022.pdf')
+      };
+      const url = map[which];
+      if(url){ window.open(url,'_blank'); }
     }
     window.openPdf = openPdf;
 
