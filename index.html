@@ -36,7 +36,6 @@
   <!-- HEADER -->
   <header class="text-white shadow-md" style="background:#002c77">
     <div class="max-w-7xl mx-auto flex items-center gap-4 px-6 py-3">
-      <!-- Logo (unchanged except clearer rendering) -->
       <img src="assets/walkers-logo.png" alt="Walkers Transport" class="h-16 w-auto select-none brightness-110 drop-shadow-md">
       <div>
         <h1 class="text-2xl font-extrabold leading-tight">Walkers Transport</h1>
@@ -80,7 +79,7 @@
             <li data-step="uploads"  class="border rounded-xl p-3 cursor-pointer flex items-center gap-3"><span class="dot"></span><span>Uploads</span></li>
             <li data-step="submit"   class="border rounded-xl p-3 cursor-pointer flex items-center gap-3"><span class="dot"></span><span>Review & Submit</span></li>
           </ol>
-          <p class="mt-6 text-xs text-gray-500">By submitting, you agree to Walkers Transport T&Cs and RHA Terms (2024).</p>
+          <p class="mt-6 text-xs text-gray-500">By submitting, you agree to Walkers Transport T&Cs and RHA Terms.</p>
         </div>
       </aside>
 
@@ -132,14 +131,18 @@
           </div>
         </div>
 
-        <!-- Trading -->
+        <!-- Trading (ENHANCED WITH PRICING) -->
         <div id="trading" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <div class="flex items-start justify-between gap-4">
             <h2 class="text-2xl font-extrabold">Trading Agreement</h2>
             <button data-goto="checklist" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Customer Checklist</button>
           </div>
-          <p class="text-sm text-gray-600 mt-2">Payment terms: <strong>30 days EOM</strong>. All goods carried subject to <strong>RHA Terms (2024)</strong>.</p>
-          <div class="mt-4 grid md:grid-cols-2 gap-6">
+          <p class="text-sm text-gray-600 mt-2">
+            Payment terms: <strong>30 days EOM</strong>. All goods carried subject to <strong>RHA Terms</strong>. <!-- Trading Agreement template ref -->
+          </p>
+
+          <div class="mt-6 grid md:grid-cols-2 gap-6">
+            <!-- Left: company details -->
             <div class="space-y-4">
               <h3 class="font-bold">Customer Details</h3>
               <label class="block text-sm">Company Name<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="company_name"/></label>
@@ -151,9 +154,8 @@
                 <label class="block text-sm">Email<input type="email" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="email"/></label>
               </div>
               <label class="block text-sm">Website<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="website"/></label>
-            </div>
-            <div class="space-y-4">
-              <h3 class="font-bold">Contacts</h3>
+
+              <h3 class="font-bold pt-4">Contacts</h3>
               <label class="block text-sm">Decision Maker<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="dm_name" placeholder="Jane Smith, Director"/></label>
               <div class="grid grid-cols-2 gap-3">
                 <label class="block text-sm">DM Tel<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="dm_tel"/></label>
@@ -161,26 +163,77 @@
               </div>
               <label class="block text-sm">Booking Contact<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="booking_contact"/></label>
               <label class="block text-sm">Accounts Contact<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="accounts_contact"/></label>
-              <div>
+
+              <div class="pt-1">
                 <p class="text-sm font-semibold mb-1">Portal Input Method</p>
                 <label class="inline-flex items-center gap-2 mr-4"><input type="radio" name="portal_method" value="Manual"/> Manual</label>
                 <label class="inline-flex items-center gap-2 mr-4"><input type="radio" name="portal_method" value="CSV"/> CSV</label>
                 <label class="inline-flex items-center gap-2"><input type="radio" name="portal_method" value="API"/> API</label>
               </div>
+
               <div class="grid grid-cols-2 gap-3">
                 <label class="block text-sm">Onboarding Date<input type="date" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="onboarding_date"/></label>
                 <label class="block text-sm">Account Reference<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="account_ref"/></label>
               </div>
+            </div>
+
+            <!-- Right: pricing -->
+            <div class="space-y-5">
+              <h3 class="font-bold">Rate Card (Net, excl. Fuel Surcharge)</h3>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Quarter Pallet £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="rate_quarter"/></label>
+                <label class="block text-sm">Half Pallet £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="rate_half"/></label>
+                <label class="block text-sm">Full Pallet £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="rate_full"/></label>
+                <label class="block text-sm">Oversize £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="rate_oversize"/></label>
+              </div>
+
+              <h3 class="font-bold">Premiums / Surcharges</h3>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Pre-10 £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="prem_pre10"/></label>
+                <label class="block text-sm">Pre-12 £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="prem_pre12"/></label>
+                <label class="block text-sm">Timed Window £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="prem_timed"/></label>
+                <label class="block text-sm">Saturday £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="prem_sat"/></label>
+                <label class="block text-sm">Tail Lift £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="prem_taillift"/></label>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Re-delivery fee (per pallet) £<input type="number" step="0.01" value="25.00" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="fee_redelivery" title="Checklist states £25/pallet up to 14 pallets."/></label>
+                <label class="block text-sm">Return charge policy<input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="return_policy" value="100% of outgoing charge"/></label>
+                <label class="block text-sm">Minimum Charge £<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="min_charge"/></label>
+                <label class="block text-sm">Waiting time after 20 mins (£/15 mins)<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="waiting_fee"/></label>
+              </div>
+
+              <h3 class="font-bold">Volumes</h3>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Expected Monthly Pallets<input type="number" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="vol_monthly"/></label>
+                <label class="block text-sm">Typical Full Pallets %<input type="number" step="1" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="vol_full_pct"/></label>
+              </div>
+
+              <h3 class="font-bold">Fuel Surcharge</h3>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Basis<select name="fuel_basis" class="mt-1 w-full border rounded-lg p-2 focus-ring">
+                  <option value="AA monthly diesel average">AA monthly diesel average</option>
+                  <option value="Fixed %">Fixed %</option>
+                </select></label>
+                <label class="block text-sm">If Fixed, %<input type="number" step="0.01" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="fuel_percent"/></label>
+              </div>
+
+              <h3 class="font-bold">Insurance & Invoicing</h3>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm">Insurance cover £/tonne<input type="number" step="1" value="5000" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="ins_cover"/></label>
+                <label class="block text-sm">Invoice email<input type="email" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="invoice_email"/></label>
+              </div>
+
               <div class="pt-2">
                 <label class="inline-flex items-start gap-2 text-sm">
-                  <input type="checkbox" name="accept_terms"/> <span>I accept Walkers Transport T&Cs and RHA Terms (2024).</span>
+                  <input type="checkbox" name="accept_terms"/> <span>I accept Walkers Transport T&Cs and RHA Terms.</span>
                 </label>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Checklist -->
+        <!-- Checklist (kept but topped with pricing confirmation) -->
         <div id="checklist" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <div class="flex items-start justify-between gap-4">
             <h2 class="text-2xl font-extrabold">Customer Checklist</h2>
@@ -196,11 +249,11 @@
             <h2 class="text-2xl font-extrabold">Supporting Uploads</h2>
             <button data-goto="submit" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next: Review & Submit</button>
           </div>
-          <p class="text-sm text-gray-600 mt-2">Optional: upload any supporting documents (insurance schedule, SDS for hazardous goods, rate card, other).</p>
+          <p class="text-sm text-gray-600 mt-2">Optional: upload any supporting documents.</p>
           <div class="mt-4 grid md:grid-cols-2 gap-6">
+            <div><label class="block text-sm font-semibold mb-1">Signed Rate Card (PDF)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_ratecard"/></div>
             <div><label class="block text-sm font-semibold mb-1">Insurance Schedule (PDF)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_insurance"/></div>
             <div><label class="block text-sm font-semibold mb-1">Safety Data Sheet (if ADR)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_sds"/></div>
-            <div><label class="block text-sm font-semibold mb-1">Rate Card (PDF)</label><input type="file" accept="application/pdf" class="w-full border rounded-lg p-2" id="file_ratecard"/></div>
             <div><label class="block text-sm font-semibold mb-1">Other</label><input type="file" class="w-full border rounded-lg p-2" id="file_other"/></div>
           </div>
           <p class="text-xs text-gray-500 mt-4">Files remain local in this browser for review prior to submission.</p>
@@ -212,9 +265,7 @@
           <p class="text-sm text-gray-600 mt-2">Sign the agreement, download a copy of your responses, and then email to Walkers.</p>
 
           <div class="mt-6 flex flex-wrap gap-3">
-            <!-- NEW: PandaDoc signing button -->
             <button id="pdSignBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Sign with PandaDoc</button>
-
             <button id="previewBtn" class="px-4 py-2 rounded-xl border font-semibold">Preview JSON</button>
             <button id="downloadBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Download JSON</button>
             <button id="emailBtn" class="px-4 py-2 rounded-xl btn-dark font-semibold">Email to Walkers</button>
@@ -257,29 +308,31 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Checklist items from your PDF + pricing confirmations
     const checklistData = [
-      'I have received the rate card and services have been explained',
-      'Rates are volume-based and may be reviewed if volumes fall',
-      'I have received a Pallet Dimensions sheet',
-      'All bookings will be via the Walkers online portal only',
-      'I have read & understood RHA Terms (2024) and Walkers T&Cs',
-      'Insurance cover acknowledged (e.g. £5,000 per tonne) and excess terms',
-      'Claims process understood (7 days to report; 14 days to submit form with claused POD)',
-      'Fuel surcharge applies based on AA monthly diesel average',
-      'Payment terms: 30 days EOM; invoices via email',
-      'Refusals/returns charged at 100% of outgoing charge',
-      'Re-delivery fees apply',
-      'Tail lift / booking-in / timed deliveries must be advised at booking',
-      'Kerbside deliveries only; drivers don’t handle product',
-      'Standard delivery window 08:00–17:00 Mon–Fri; pre-10 may vary',
-      'Max 20 minutes waiting at delivery point; comms if issues arise',
-      'Hazardous goods limited quantities only and require SDS'
+      'I confirm the agreed rate card has been completed/attached.',
+      'I have received the rate card and services have been explained.',
+      'Rates are volume-based and may be reviewed if volumes fall.',
+      'I have received a Pallet Dimensions sheet.',
+      'All bookings will be via the Walkers online portal only.',
+      'I have read & understood RHA Terms and Walkers T&Cs.',
+      'Insurance cover acknowledged (e.g. £5,000 per tonne) and excess terms.',
+      'Claims: report within 7 working days; submit claim within 14 days; claused POD required.',
+      'Fuel surcharge applies based on AA monthly diesel average.',
+      'Payment terms 30 days EOM; invoices via email.',
+      'Refusals/returns charged at 100% of outgoing charge.',
+      'Re-delivery fees charged at £25 per pallet space up to 14 pallets.',
+      'Tail lift / booking-in / timed deliveries advised at time of booking.',
+      'Kerbside deliveries only; drivers don’t handle product.',
+      'Delivery window 08:00–17:00 Mon–Fri; pre-10 not in all areas.',
+      'Driver waiting: max 20 minutes before charges apply.',
+      'Sign on glass is PoD; recipient responsible to identify items on pallet.',
+      'Hazardous (LQ) only with SDS.'
     ];
 
     const panels = ['welcome','flow','trading','checklist','uploads','submit'].map(id=>document.getElementById(id));
     const stepsList = document.getElementById('stepsList');
 
-    // Navigation
     function show(id){
       panels.forEach(p=>p.classList.toggle('hidden', p.id!==id));
       Array.from(stepsList.children).forEach(li=>{
@@ -297,7 +350,7 @@
     });
     window.addEventListener('hashchange', ()=> show(location.hash.substring(1) || 'welcome'));
 
-    // Checklist render
+    // Render checklist
     const checklistContainer = document.getElementById('checklistItems');
     function renderChecklist(){
       checklistContainer.innerHTML = '';
@@ -310,17 +363,20 @@
       });
     }
 
-    // Collect data
+    // Grab all form data
     function collect(){
       const form = {};
-      document.querySelectorAll('#trading input, #trading textarea').forEach(el=>{
+      // Details + pricing
+      document.querySelectorAll('#trading input, #trading textarea, #trading select').forEach(el=>{
         if(el.type==='radio'){ if(el.checked) form[el.name]=el.value; }
         else if(el.type==='checkbox'){ form[el.name]=el.checked; }
         else form[el.name]=el.value;
       });
+      // Checklist ticks
       const checks=[]; checklistData.forEach((_,i)=>{ const el=document.getElementById('ck_'+i); if(el && el.checked) checks.push(i) });
       form.checklist = checks.map(i=>checklistData[i]);
-      form.files = ['file_insurance','file_sds','file_ratecard','file_other'].map(id=>{
+      // File names only (kept local)
+      form.files = ['file_ratecard','file_insurance','file_sds','file_other'].map(id=>{
         const f = document.getElementById(id).files?.[0];
         return f?{id,name:f.name,size:f.size,type:f.type}:null;
       });
@@ -367,12 +423,8 @@
     }
     window.openPdf = openPdf;
 
-    // ---------- PandaDoc integration ----------
-    // 1) Paste your PandaDoc recipient signing link below:
-    //    Example: https://app.pandadoc.com/s/your-doc-id (or a share/test link)
+    // PandaDoc
     const PD_SIGN_URL = 'https://app.pandadoc.com/s/REPLACE_WITH_YOUR_SIGNING_LINK';
-
-    // 2) Open in modal (embedded) if same-origin allows; otherwise open in a new tab.
     const pdSignBtn = document.getElementById('pdSignBtn');
     const pdModal = document.getElementById('pdModal');
     const pdFrame = document.getElementById('pdFrame');
@@ -384,19 +436,12 @@
         return;
       }
       try {
-        // Try embed in iframe (some links allow embedding)
-        pdFrame.src = PD_SIGN_URL;
-        pdModal.classList.add('open');
+        pdFrame.src = PD_SIGN_URL; pdModal.classList.add('open');
       } catch (e) {
-        // Fallback to opening in a new tab
         window.open(PD_SIGN_URL, '_blank', 'noopener');
       }
     });
-
-    pdCloseBtn?.addEventListener('click', () => {
-      pdModal.classList.remove('open');
-      pdFrame.src = 'about:blank';
-    });
+    pdCloseBtn?.addEventListener('click', () => { pdModal.classList.remove('open'); pdFrame.src='about:blank'; });
 
     // Init
     renderChecklist();
