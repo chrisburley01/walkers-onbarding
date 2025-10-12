@@ -14,7 +14,6 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Brand */
     :root { --wk-blue:#002c77; --wk-dark:#0f2353; }
     body{font-family:Arial, Helvetica, sans-serif; background:#f8fafc; color:#0b1220}
     .btn-primary{background:var(--wk-blue);color:#fff}
@@ -24,6 +23,9 @@
     .shadow-soft{box-shadow:0 10px 30px rgba(0,0,0,.08)}
     .focus-ring:focus{outline:3px solid rgba(0,44,119,.25);outline-offset:2px}
     .dot{width:.625rem;height:.625rem;border-radius:9999px;background:var(--wk-blue)}
+    .field{display:block}
+    .field input,.field select,.field textarea{margin-top:.25rem;width:100%;border:1px solid #d1d5db;border-radius:.5rem;padding:.5rem}
+    .hint{font-size:.75rem;color:#6b7280}
   </style>
 </head>
 <body>
@@ -56,6 +58,7 @@
       <span id="statusLabel" class="text-gray-600">Opportunity</span>
       <span class="mx-2 text-gray-300">|</span>
       <button id="saveBtn" class="px-3 py-1.5 rounded-lg btn-dark text-xs font-semibold">Save Progress</button>
+      <button id="previewBtn" class="px-3 py-1.5 rounded-lg border text-xs font-semibold">Preview JSON</button>
       <button id="exportBtn" class="px-3 py-1.5 rounded-lg border text-xs font-semibold">Download JSON</button>
     </div>
   </section>
@@ -78,85 +81,176 @@
             <li data-step="depot"      class="border rounded-xl p-3 cursor-pointer">7. Depot Manager Sign-off</li>
             <li data-step="cfo"        class="border rounded-xl p-3 cursor-pointer">8. CFO Sign-off</li>
           </ol>
-          <p class="mt-6 text-xs text-gray-500">This checklist helps us keep the commercial process on track before full onboarding.</p>
+          <p class="mt-6 text-xs text-gray-500">Capture key info before full onboarding.</p>
         </div>
       </aside>
 
       <!-- Panels -->
       <section class="lg:col-span-8 xl:col-span-9 space-y-8">
 
-        <!-- Template for each step: title, short text, Back/Next -->
+        <!-- 1. Opportunity -->
         <div id="opportunity" class="bg-white rounded-2xl shadow-soft p-6">
           <h2 class="text-2xl font-extrabold mb-2">1. Opportunity</h2>
-          <p class="text-gray-600">Lead identified and qualified. Confirm intent to proceed to commercial due diligence.</p>
+          <p class="text-gray-600 mb-4">Lead identified and qualified. Confirm intent to proceed to commercial due diligence.</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <label class="field text-sm">Company Name<input name="opp_company"/></label>
+            <label class="field text-sm">Company Reg (optional)<input name="opp_reg"/></label>
+            <label class="field text-sm">Primary Contact<input name="opp_contact"/></label>
+            <label class="field text-sm">Email<input type="email" name="opp_email"/></label>
+            <label class="field text-sm">Phone<input name="opp_phone"/></label>
+            <label class="field text-sm">Sector<select name="opp_sector">
+              <option value="">Select…</option><option>Manufacturing</option><option>Retail</option><option>FMCG</option><option>eCommerce</option><option>Other</option>
+            </select></label>
+            <label class="field text-sm md:col-span-2">Notes<textarea rows="3" name="opp_notes"></textarea></label>
+          </div>
           <div class="mt-6 flex gap-2">
             <button data-next="crm" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
+        <!-- 2. CRM Entry -->
         <div id="crm" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <h2 class="text-2xl font-extrabold mb-2">2. CRM Entry</h2>
-          <p class="text-gray-600">Create/verify account in CRM with basic company/contact details.</p>
+          <p class="text-gray-600 mb-4">Create/verify account in CRM with basic company/contact details.</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <label class="field text-sm">CRM Account ID<input name="crm_id"/></label>
+            <label class="field text-sm">CRM Stage<select name="crm_stage">
+              <option value="">Select…</option><option>Prospect</option><option>Qualified</option><option>Proposal</option><option>Verbal Win</option>
+            </select></label>
+            <label class="field text-sm">Account Created (date)<input type="date" name="crm_created"/></label>
+            <label class="field text-sm">Invoice Email<input type="email" name="crm_invoice_email"/></label>
+            <label class="inline-flex items-start gap-2 text-sm md:col-span-2">
+              <input type="checkbox" name="crm_contacts_ok"> <span>Key contacts confirmed (Sales, Ops, Accounts)</span>
+            </label>
+          </div>
           <div class="mt-6 flex gap-2">
             <button data-prev="opportunity" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
             <button data-next="creditsafe" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
+        <!-- 3. CreditSafe -->
         <div id="creditsafe" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <h2 class="text-2xl font-extrabold mb-2">3. CreditSafe</h2>
-          <p class="text-gray-600">Perform initial credit check and risk assessment.</p>
+          <p class="text-gray-600 mb-4">Perform initial credit check and risk assessment.</p>
+          <div class="grid md:grid-cols-3 gap-6">
+            <label class="field text-sm">Credit Score (0–100)<input type="number" min="0" max="100" name="cs_score"/></label>
+            <label class="field text-sm">Recommended Limit (£)<input type="number" step="1" name="cs_limit"/></label>
+            <label class="field text-sm">Decision<select name="cs_decision">
+              <option value="">Select…</option><option>Approve</option><option>Refer</option><option>Decline</option>
+            </select></label>
+            <label class="field text-sm md:col-span-3">Notes<textarea rows="3" name="cs_notes"></textarea></label>
+          </div>
           <div class="mt-6 flex gap-2">
             <button data-prev="crm" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
             <button data-next="factfind" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
+        <!-- 4. Fact-Find -->
         <div id="factfind" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <h2 class="text-2xl font-extrabold mb-2">4. Fact-Find</h2>
-          <p class="text-gray-600">Capture operational requirements (services, lanes, typical volumes) for commercial proposal.</p>
+          <p class="text-gray-600 mb-4">Capture operational requirements for commercial proposal.</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <label class="field text-sm">Expected Monthly Pallets<input type="number" name="ff_pallets"/></label>
+            <label class="field text-sm">Full Pallets %<input type="number" step="1" name="ff_full_pct"/></label>
+            <fieldset class="md:col-span-2">
+              <legend class="text-sm font-semibold mb-2">Services Required</legend>
+              <div class="grid md:grid-cols-3 gap-3 text-sm">
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="ff_nextday"> Next Day</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="ff_economy"> Economy</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="ff_timed"> Timed</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="ff_pre10"> Pre-10</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="ff_taillift"> Tail Lift</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="ff_adr"> ADR (LQ)</label>
+              </div>
+            </fieldset>
+            <label class="field text-sm md:col-span-2">Main Origins/Destinations (lanes)<textarea rows="3" name="ff_lanes" placeholder="e.g., Leeds → Glasgow, Manchester → Bristol"></textarea></label>
+            <label class="field text-sm">Collection Window<input name="ff_collection_window" placeholder="e.g., 08:00–12:00"/></label>
+            <label class="field text-sm">Delivery Window<input name="ff_delivery_window" placeholder="e.g., 08:00–17:00"/></label>
+            <label class="field text-sm md:col-span-2">Site Restrictions / Instructions<textarea rows="3" name="ff_site"></textarea></label>
+          </div>
           <div class="mt-6 flex gap-2">
             <button data-prev="creditsafe" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
             <button data-next="ratesent" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
+        <!-- 5. Rate Sent -->
         <div id="ratesent" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <h2 class="text-2xl font-extrabold mb-2">5. Rate Sent</h2>
-          <p class="text-gray-600">Issue rate card/proposal to customer.</p>
+          <p class="text-gray-600 mb-4">Issue rate card/proposal to customer.</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <label class="field text-sm">Rate Card Version<input name="rs_version"/></label>
+            <label class="field text-sm">Date Sent<input type="date" name="rs_date"/></label>
+            <label class="field text-sm">Method<select name="rs_method">
+              <option value="">Select…</option><option>Email</option><option>In-person Meeting</option><option>Video Call</option>
+            </select></label>
+            <label class="field text-sm">Valid Until<input type="date" name="rs_valid"/></label>
+            <label class="field text-sm md:col-span-2">Notes<textarea rows="3" name="rs_notes"></textarea></label>
+          </div>
           <div class="mt-6 flex gap-2">
             <button data-prev="factfind" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
             <button data-next="negotiation" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
+        <!-- 6. Negotiation -->
         <div id="negotiation" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <h2 class="text-2xl font-extrabold mb-2">6. Negotiation</h2>
-          <p class="text-gray-600">Agree final commercials and service scope.</p>
+          <p class="text-gray-600 mb-4">Agree final commercials and service scope.</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <label class="field text-sm md:col-span-2">Concessions / Changes<textarea rows="3" name="neg_changes"></textarea></label>
+            <label class="field text-sm">Revised Rates Sent (date)<input type="date" name="neg_rev_date"/></label>
+            <label class="field text-sm">Competitor / Benchmark<input name="neg_comp"/></label>
+            <label class="field text-sm md:col-span-2">Final Agreed Headline<textarea rows="2" name="neg_headline" placeholder="e.g., Full pallet £X, Half £Y, Fuel Surcharge via AA diesel avg"></textarea></label>
+          </div>
           <div class="mt-6 flex gap-2">
             <button data-prev="ratesent" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
             <button data-next="depot" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
+        <!-- 7. Depot Manager Sign-off -->
         <div id="depot" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <h2 class="text-2xl font-extrabold mb-2">7. Depot Manager Sign-off</h2>
-          <p class="text-gray-600">Depot reviews operational fit and confirms readiness.</p>
+          <p class="text-gray-600 mb-4">Depot reviews operational fit and confirms readiness.</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <label class="field text-sm">Depot Name<input name="dep_name" placeholder="Leeds / Manchester / Stoke"/></label>
+            <label class="field text-sm">Manager Name<input name="dep_manager"/></label>
+            <label class="field text-sm">Sign-off Date<input type="date" name="dep_date"/></label>
+            <label class="inline-flex items-start gap-2 text-sm"><input type="checkbox" name="dep_capacity_ok"> <span>Capacity & resources confirmed (vehicles, drivers, trunking, network)</span></label>
+            <label class="field text-sm md:col-span-2">Equipment / Special Requirements<textarea rows="2" name="dep_equipment" placeholder="e.g., regular tail lift, booking-in, timed windows"></textarea></label>
+          </div>
           <div class="mt-6 flex gap-2">
             <button data-prev="negotiation" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
             <button data-next="cfo" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
+        <!-- 8. CFO Sign-off -->
         <div id="cfo" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <h2 class="text-2xl font-extrabold mb-2">8. CFO Sign-off</h2>
-          <p class="text-gray-600">Final commercial approval. Proceed to full onboarding.</p>
+          <p class="text-gray-600 mb-4">Final commercial approval. Proceed to full onboarding.</p>
+          <div class="grid md:grid-cols-2 gap-6">
+            <label class="field text-sm">CFO / Approver Name<input name="cfo_name"/></label>
+            <label class="field text-sm">Approval Date<input type="date" name="cfo_date"/></label>
+            <label class="field text-sm">Approved Credit Limit (£)<input type="number" step="1" name="cfo_limit"/></label>
+            <label class="field text-sm">Payment Terms<select name="cfo_terms">
+              <option>30 days EOM</option><option>14 days</option><option>7 days</option><option>Pro-forma</option>
+            </select></label>
+            <label class="field text-sm md:col-span-2">Approval Notes<textarea rows="3" name="cfo_notes"></textarea></label>
+            <label class="inline-flex items-start gap-2 text-sm md:col-span-2">
+              <input type="checkbox" name="cfo_ready"> <span>Approved to proceed to full onboarding</span>
+            </label>
+          </div>
           <div class="mt-6 flex flex-wrap gap-3">
-            <button id="previewBtn" class="px-4 py-2 rounded-xl border font-semibold">Preview JSON</button>
+            <button data-prev="depot" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
             <button id="downloadBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Download JSON</button>
-            <!-- Kept separate: you will manually share the main onboarding link -->
+            <!-- Kept separate: you’ll share the main onboarding URL manually -->
           </div>
           <pre id="jsonPreview" class="mt-6 p-4 bg-gray-50 border rounded-xl overflow-auto text-xs hidden"></pre>
+          <p class="hint mt-2">Tip: after downloading JSON, move on to your main onboarding page.</p>
         </div>
 
       </section>
@@ -171,25 +265,27 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Step IDs in order
+    // Step order & references
     const order = ['opportunity','crm','creditsafe','factfind','ratesent','negotiation','depot','cfo'];
     const panels = Object.fromEntries(order.map(id => [id, document.getElementById(id)]));
     const stepsList = document.getElementById('stepsList');
 
+    // Show step
     function show(id){
       order.forEach(k => panels[k].classList.toggle('hidden', k!==id));
-      Array.from(stepsList.children).forEach((li,idx)=>{
+      Array.from(stepsList.children).forEach((li, idx) => {
         const active = order[idx]===id;
-        li.classList.toggle('ring-2',active);
-        li.classList.toggle('ring-blue-800',active);
-        li.classList.toggle('bg-blue-50',active);
+        li.classList.toggle('ring-2', active);
+        li.classList.toggle('ring-blue-800', active);
+        li.classList.toggle('bg-blue-50', active);
       });
-      document.getElementById('statusLabel').textContent = panels[id].querySelector('h2').textContent.replace(/^[0-9]+\\.\\s*/,'');
+      const h = panels[id].querySelector('h2')?.textContent ?? id;
+      document.getElementById('statusLabel').textContent = h.replace(/^[0-9]+\\.\\s*/,'');
       location.hash = id;
       localStorage.setItem('walkers_pre_onboarding_step', id);
     }
 
-    // Nav buttons
+    // Navigation buttons
     document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click', ()=>show(b.dataset.next)));
     document.querySelectorAll('[data-prev]').forEach(b=>b.addEventListener('click', ()=>show(b.dataset.prev)));
 
@@ -198,41 +294,61 @@
       const li = e.target.closest('li[data-step]'); if(li) show(li.dataset.step);
     });
 
-    // Hash / restore
-    const saved = localStorage.getItem('walkers_pre_onboarding_step');
-    const initial = location.hash.substring(1) || saved || 'opportunity';
-    show(order.includes(initial)?initial:'opportunity');
-    window.addEventListener('hashchange', ()=> show(location.hash.substring(1) || 'opportunity'));
-
-    // Download JSON (just the step trail and timestamps; no extra fields)
-    const history = [];
-    function markVisit(id){ history.push({step:id, at:new Date().toISOString()}); }
-    order.forEach(id=>{
-      const panel = panels[id];
-      const observer = new MutationObserver(()=>{ if(!panel.classList.contains('hidden')) markVisit(id); });
-      observer.observe(panel,{attributes:true,attributeFilter:['class']});
-    });
-
-    document.getElementById('exportBtn').addEventListener('click', download);
-    document.getElementById('downloadBtn')?.addEventListener('click', download);
-    document.getElementById('previewBtn')?.addEventListener('click', ()=>{
-      const pre=document.getElementById('jsonPreview');
-      pre.textContent = JSON.stringify({current:location.hash.slice(1)||initial, history}, null, 2);
-      pre.classList.toggle('hidden');
-    });
-
-    function download(){
-      const data = { current: location.hash.slice(1)||initial, history };
-      const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-      const url=URL.createObjectURL(blob);
-      const a=document.createElement('a'); a.href=url; a.download='walkers-pre-onboarding.json'; a.click(); URL.revokeObjectURL(url);
+    // Collect all inputs across panels
+    function collect(){
+      const data = {};
+      document.querySelectorAll('input, select, textarea').forEach(el=>{
+        if(!el.name) return;
+        if(el.type==='checkbox') data[el.name] = !!el.checked;
+        else data[el.name] = el.value;
+      });
+      data._current_step = location.hash.substring(1) || 'opportunity';
+      data._saved_at = new Date().toISOString();
+      return data;
     }
 
-    // Save step only (as requested, no extra fields)
+    // Save / Preview / Download
     document.getElementById('saveBtn').addEventListener('click', ()=>{
-      localStorage.setItem('walkers_pre_onboarding_step', location.hash.slice(1)||initial);
+      localStorage.setItem('walkers_pre_onboarding_form', JSON.stringify(collect()));
       document.getElementById('statusLabel').textContent = 'Saved locally';
     });
+
+    document.getElementById('previewBtn').addEventListener('click', ()=>{
+      const pre = document.getElementById('jsonPreview') || panels.cfo.querySelector('#jsonPreview');
+      pre.textContent = JSON.stringify(collect(), null, 2);
+      pre.classList.remove('hidden');
+      show('cfo'); // ensure preview visible somewhere consistent
+    });
+
+    const saveBlob = (obj, name) => {
+      const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download=name; a.click(); URL.revokeObjectURL(url);
+    };
+    document.getElementById('exportBtn').addEventListener('click', ()=> saveBlob(collect(),'walkers-pre-onboarding.json'));
+    document.getElementById('downloadBtn')?.addEventListener('click', ()=> saveBlob(collect(),'walkers-pre-onboarding.json'));
+
+    // Restore saved values (if any)
+    (function restore(){
+      const saved = localStorage.getItem('walkers_pre_onboarding_form');
+      if(saved){
+        try{
+          const data = JSON.parse(saved);
+          Object.entries(data).forEach(([k,v])=>{
+            const el = document.querySelector(`[name="${CSS.escape(k)}"]`);
+            if(!el) return;
+            if(el.type==='checkbox') el.checked = !!v;
+            else el.value = v;
+          });
+        }catch{}
+      }
+      const stepSaved = localStorage.getItem('walkers_pre_onboarding_step');
+      const initial = location.hash.substring(1) || stepSaved || 'opportunity';
+      show(order.includes(initial)?initial:'opportunity');
+    })();
+
+    // React to hash changes (manual nav)
+    window.addEventListener('hashchange', ()=> show(location.hash.substring(1) || 'opportunity'));
   </script>
 </body>
 </html>
