@@ -40,4 +40,293 @@
   summary::-webkit-details-marker{display:none}
   .step-index{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:rgba(227,6,19,.15);border:1px solid rgba(227,6,19,.35);font-size:12px}
   .content{padding:14px 14px 18px;display:grid;gap:12px}
-  label{display:block
+  label{display:block;font-size:13px;color:#dbe0e8;margin-bottom:6px}
+  input, textarea, select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #262c39;background:#0b0e14;color:#e9edf5;outline:none}
+  textarea{min-height:90px;resize:vertical}
+  input:focus, textarea:focus, select:focus{border-color:var(--brand)}
+  .row{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+  .col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
+  @media (max-width:720px){.col-4,.col-6,.col-8{grid-column:span 12}}
+  .upload{border:1px dashed #2b3242;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;background:#0a0d12}
+  .checkline{display:flex;align-items:center;gap:10px}
+  .actions{display:flex;flex-wrap:wrap;gap:10px;padding:8px 14px 18px}
+  .btn{appearance:none;border:none;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer}
+  .btn-primary{background:linear-gradient(180deg,var(--brand),#b40511);color:#fff}
+  .btn-ghost{background:#0f1218;border:1px solid #2b3242;color:#e8ebf2}
+  .btn-success{background:linear-gradient(180deg,#22c55e,#16a34a);color:#02140a}
+  .hint{color:#9aa2af;font-size:12px}
+  .footer{display:flex;justify-content:space-between;gap:10px;padding:14px;border-top:1px solid var(--line);color:#9aa2af;font-size:12px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header>
+    <img class="logo" src="assets/walkers-logo.svg" alt="Walkers Transport" />
+    <div class="title">
+      <h1>Pre-Onboarding Portal</h1>
+      <span>Commercial • Operational • Financial gateway before full onboarding</span>
+    </div>
+  </header>
+
+  <div class="topbar">
+    <span class="badge">Status: <strong id="statusText">In Progress</strong></span>
+    <span class="badge">Version: Pre-Onboarding v1.1</span>
+    <a class="link" href="https://www.creditsafe.com/gb/en.html" target="_blank" rel="noopener">Open CreditSafe</a>
+  </div>
+
+  <div class="wrap">
+    <aside class="card side" aria-labelledby="progressLabel">
+      <h3 id="progressLabel">Progress</h3>
+      <div class="progress"><i id="progressBar" style="width:0%"></i></div>
+      <div id="stageList"></div>
+      <div class="legend">Complete all 7 stages to unlock <em>Send to Onboarding</em>.</div>
+    </aside>
+
+    <main class="card main">
+      <!-- 1 -->
+      <details class="section" open data-step="1">
+        <summary><span class="step-index">1</span> Opportunity Logged (CRM)</summary>
+        <div class="content">
+          <div class="row">
+            <div class="col-8"><label for="accountName">Account / Legal Name *</label>
+              <input id="accountName" type="text" placeholder="e.g., Duo UK Ltd" /></div>
+            <div class="col-4"><label for="companyNo">Company Number</label>
+              <input id="companyNo" type="text" placeholder="e.g., 01234567" /></div>
+            <div class="col-6"><label for="sector">Sector</label><input id="sector" type="text" /></div>
+            <div class="col-6"><label for="leadOrigin">Lead Origin</label>
+              <select id="leadOrigin"><option value="">Select…</option><option>Network</option><option>Direct</option><option>Storage</option><option>Full Logistics Solution</option></select></div>
+            <div class="col-6"><label for="amName">Account Manager</label><input id="amName" type="text" placeholder="e.g., Chris Burley" /></div>
+            <div class="col-6"><label for="volumeForecast">Est. Annual Volume (pallets)</label><input id="volumeForecast" type="number" min="0" placeholder="e.g., 12000" /></div>
+            <div class="col-12"><label for="scope">Service Scope</label><input id="scope" type="text" placeholder="Storage, Transport, Fulfilment…" /></div>
+          </div>
+          <div class="checkline"><input id="crmCreated" type="checkbox" /><label for="crmCreated">CRM opportunity created and assigned</label></div>
+        </div>
+      </details>
+
+      <!-- 2 -->
+      <details class="section" data-step="2">
+        <summary><span class="step-index">2</span> CreditSafe Financial Check</summary>
+        <div class="content">
+          <div class="row">
+            <div class="col-4"><label for="csRating">CreditSafe Rating *</label><input id="csRating" type="text" placeholder="e.g., 72/100" /></div>
+            <div class="col-4"><label for="csLimit">Recommended Credit Limit *</label><input id="csLimit" type="text" placeholder="e.g., £50,000" /></div>
+            <div class="col-4"><label for="csRisk">Risk Band *</label>
+              <select id="csRisk"><option value="">Select…</option><option>Low</option><option>Medium</option><option>High</option></select></div>
+            <div class="col-12">
+              <div class="upload">
+                <div><strong>CreditSafe Summary Report</strong><div class="hint">Upload PDF or image export</div></div>
+                <input id="csReport" type="file" accept=".pdf,image/*" />
+              </div>
+            </div>
+          </div>
+          <div class="checkline"><input id="financeApproved" type="checkbox" /><label for="financeApproved">Finance reviewed CreditSafe and set terms</label></div>
+        </div>
+      </details>
+
+      <!-- 3 -->
+      <details class="section" data-step="3">
+        <summary><span class="step-index">3</span> Fact-Finding & Site Review</summary>
+        <div class="content">
+          <div class="row">
+            <div class="col-6"><label for="siteAccess">Site Access Type</label>
+              <select id="siteAccess"><option value="">Select…</option><option>Open yard</option><option>Loading bays</option><option>Tight access</option><option>Other</option></select></div>
+            <div class="col-6"><label for="palletProfile">Pallet Profile</label>
+              <select id="palletProfile"><option value="">Select…</option><option>STD</option><option>Euro</option><option>Oversized</option><option>Mixed</option></select></div>
+            <div class="col-6"><label for="windows">Collection/Delivery Window</label><input id="windows" type="text" placeholder="e.g., 08:00–16:00, Mon–Fri" /></div>
+            <div class="col-6"><label for="specials">Special Requirements</label>
+              <select id="specials"><option value="">Select…</option><option>None</option><option>ADR</option><option>Temp-controlled</option><option>Fragile / Special Handling</option></select></div>
+            <div class="col-12"><label for="itNeeds">IT / Integration Notes</label><input id="itNeeds" type="text" placeholder="POD photos, EDI, Insight, Connect, Elite, etc." /></div>
+            <div class="col-12"><label for="ffNotes">Notes / Photos / Observations</label><textarea id="ffNotes"></textarea></div>
+          </div>
+          <div class="checkline"><input id="factComplete" type="checkbox" /><label for="factComplete">Fact-finding complete (visit/call done)</label></div>
+        </div>
+      </details>
+
+      <!-- 4 -->
+      <details class="section" data-step="4">
+        <summary><span class="step-index">4</span> Rate Proposal & Submission</summary>
+        <div class="content">
+          <div class="row">
+            <div class="col-8"><label for="rateIssuedBy">Rate Issued By</label><input id="rateIssuedBy" type="text" /></div>
+            <div class="col-4"><label for="rateIssuedDate">Date Issued</label><input id="rateIssuedDate" type="date" /></div>
+            <div class="col-12">
+              <div class="upload"><div><strong>Attach Rate Card</strong><div class="hint">PDF / XLSX / DOCX</div></div>
+                <input id="rateFile" type="file" accept=".pdf,.xlsx,.xls,.docx,.doc" /></div>
+            </div>
+          </div>
+          <div class="checkline"><input id="rateSent" type="checkbox" /><label for="rateSent">Rates sent to customer</label></div>
+        </div>
+      </details>
+
+      <!-- 5 -->
+      <details class="section" data-step="5">
+        <summary><span class="step-index">5</span> Negotiation & Commercial Review</summary>
+        <div class="content">
+          <div class="row">
+            <div class="col-12"><label for="negSummary">Negotiation Summary</label><textarea id="negSummary"></textarea></div>
+            <div class="col-6"><label for="finalRates">Final Rates Confirmed?</label>
+              <select id="finalRates"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
+            <div class="col-6"><label for="expGP">Expected GP %</label><input id="expGP" type="number" step="0.1" min="0" max="100" placeholder="e.g., 18.5" /></div>
+          </div>
+          <div class="checkline"><input id="negComplete" type="checkbox" /><label for="negComplete">Negotiation complete</label></div>
+        </div>
+      </details>
+
+      <!-- 6 -->
+      <details class="section" data-step="6">
+        <summary><span class="step-index">6</span> Depot Manager Sign-Off</summary>
+        <div class="content">
+          <div class="row">
+            <div class="col-6"><label for="opsManager">Depot Ops Manager</label><input id="opsManager" type="text" /></div>
+            <div class="col-6"><label for="capacityOK">Capacity Check</label>
+              <select id="capacityOK"><option value="">Select…</option><option>OK – resources available</option><option>Requires additional resource</option></select></div>
+            </div>
+          <div class="col-12"><label for="opsNotes">Operational Notes (MHE, trailers, shift impact)</label><textarea id="opsNotes"></textarea></div>
+          <div class="checkline"><input id="opsSign" type="checkbox" /><label for="opsSign">Depot Manager Sign-Off: Operationally Viable</label></div>
+        </div>
+      </details>
+
+      <!-- 7 -->
+      <details class="section" data-step="7">
+        <summary><span class="step-index">7</span> CFO / Finance Director Sign-Off</summary>
+        <div class="content">
+          <div class="row">
+            <div class="col-6"><label for="cfoName">CFO / Finance Director</label><input id="cfoName" type="text" /></div>
+            <div class="col-6"><label for="minGP">Min GP% Threshold Met?</label>
+              <select id="minGP"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
+            <div class="col-12"><label for="financeNotes">Finance Notes</label><textarea id="financeNotes"></textarea></div>
+          </div>
+          <div class="checkline"><input id="cfoSign" type="checkbox" /><label for="cfoSign">CFO Sign-Off: Commercially Approved for Onboarding</label></div>
+        </div>
+      </details>
+
+      <div class="actions">
+        <button class="btn btn-ghost" id="reset">Reset</button>
+        <button class="btn btn-primary" id="exportJson">Export JSON</button>
+        <button class="btn btn-success" id="sendOnboarding" disabled>Send to Onboarding</button>
+        <span class="hint">Autosaves locally.</span>
+      </div>
+
+      <div class="footer">
+        <span>© Walkers Transport • Pre-Onboarding</span>
+        <span>Need CreditSafe? <a class="link" href="https://www.creditsafe.com/gb/en.html" target="_blank">Open portal</a></span>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY='walkers_pre_onboarding_v1';
+  const stages=[
+    {id:'s1',label:'Opportunity Logged',required:['accountName','crmCreated']},
+    {id:'s2',label:'CreditSafe Check',required:['csRating','csLimit','csRisk','financeApproved']},
+    {id:'s3',label:'Fact-Finding',required:['factComplete']},
+    {id:'s4',label:'Rate Proposal Sent',required:['rateSent']},
+    {id:'s5',label:'Negotiation Complete',required:['negComplete']},
+    {id:'s6',label:'Depot Manager Sign-Off',required:['opsSign']},
+    {id:'s7',label:'CFO Sign-Off',required:['cfoSign']},
+  ];
+  const inputs=[...document.querySelectorAll('input,textarea,select')];
+  const sendBtn=document.getElementById('sendOnboarding');
+  const pb=document.getElementById('progressBar');
+  const statusText=document.getElementById('statusText');
+  const stageList=document.getElementById('stageList');
+
+  function renderStages(){
+    stageList.innerHTML='';
+    stages.forEach((s,i)=>{
+      const el=document.createElement('div');el.className='stage';el.dataset.stageId=s.id;
+      el.innerHTML=`<span class="dot"></span><div><strong>${i+1}. ${s.label}</strong><div class="sub" style="color:#9aa2af;font-size:12px">Pending</div></div>`;
+      stageList.appendChild(el);
+    });
+  }
+  function isFilled(id){
+    const el=document.getElementById(id); if(!el) return false;
+    if(el.type==='checkbox') return el.checked;
+    if(el.tagName==='SELECT') return !!el.value;
+    return (el.value||'').trim().length>0;
+  }
+  function compute(){
+    let done=0;
+    stages.forEach(s=>{
+      const ok=s.required.every(isFilled);
+      const row=stageList.querySelector(`[data-stage-id="${s.id}"]`);
+      if(row){row.classList.toggle('done',ok); row.querySelector('.sub').textContent=ok?'Complete':'Pending';}
+      if(ok) done++;
+    });
+    const pct=Math.round(done/stages.length*100);
+    pb.style.width=pct+'%';
+    statusText.textContent=done===stages.length?'Ready to hand over':'In Progress';
+    sendBtn.disabled=(done!==stages.length);
+  }
+  function getState(){
+    const d={};
+    inputs.forEach(i=>{
+      if(i.type==='file'){d[i.id]=(i.files&&i.files.length)?[...i.files].map(f=>f.name):[];}
+      else if(i.type==='checkbox'){d[i.id]=i.checked;}
+      else{d[i.id]=i.value;}
+    }); return d;
+  }
+  function setState(d){
+    if(!d) return;
+    inputs.forEach(i=>{
+      if(!(i.id in d)) return;
+      if(i.type==='file') return;
+      if(i.type==='checkbox') i.checked=!!d[i.id]; else i.value=d[i.id]??'';
+    });
+  }
+  function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(getState()));}
+  function load(){try{setState(JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'));}catch{}}
+
+  renderStages(); load(); compute();
+  inputs.forEach(i=>{
+    i.addEventListener('input',()=>{save();compute();});
+    if(i.type==='checkbox'||i.type==='file') i.addEventListener('change',()=>{save();compute();});
+  });
+
+  document.getElementById('exportJson').addEventListener('click',()=>{
+    const data=getState();
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const a=document.createElement('a');
+    const safe=(data.accountName||'pre-onboarding').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    a.href=URL.createObjectURL(blob); a.download=`${safe}-pre-onboarding.json`; a.click(); URL.revokeObjectURL(a.href);
+  });
+  document.getElementById('reset').addEventListener('click',()=>{
+    if(!confirm('Clear locally saved data for this form?')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    inputs.forEach(i=>{ if(i.type==='checkbox') i.checked=false; else if(i.type!=='file') i.value=''; });
+    compute();
+  });
+
+  // Hand-off: encode a compact payload to index.html
+  function b64(json){return btoa(unescape(encodeURIComponent(JSON.stringify(json))));}
+  document.getElementById('sendOnboarding').addEventListener('click',()=>{
+    const d=getState();
+    const payload={
+      accountName:d.accountName||'',
+      companyNo:d.companyNo||'',
+      amName:d.amName||'',
+      sector:d.sector||'',
+      leadOrigin:d.leadOrigin||'',
+      volumeForecast:d.volumeForecast||'',
+      scope:d.scope||'',
+      expGP:d.expGP||'',
+      credit:{rating:d.csRating||'',limit:d.csLimit||'',risk:d.csRisk||''}
+    };
+    const qs=new URLSearchParams({from:'pre', data:b64(payload)}).toString();
+    window.location.href=`index.html?${qs}`;
+  });
+
+  // Auto-open the first incomplete section on first load
+  const sections=[...document.querySelectorAll('details.section')];
+  (function openFirstIncomplete(){
+    for(let i=0;i<stages.length;i++){
+      if(!stages[i].required.every(isFilled)){ sections.forEach((d,j)=> d.open=(j===i)); return; }
+    }
+    sections[sections.length-1].open=true;
+  })();
+})();
+</script>
+</body>
+</html>
