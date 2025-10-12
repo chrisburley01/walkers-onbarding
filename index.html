@@ -4,36 +4,54 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Walkers | Onboarding Portal</title>
+<base href="./">
 <link rel="icon" href="assets/walkers-logo.svg" />
 <meta name="description" content="Walkers Transport – Onboarding Portal" />
 <style>
-  :root{--brand:#E30613; --brand-700:#98040d; --bg:#0b0c0f; --card:#14161b; --line:#1f2430; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35)}
+  :root{
+    --brand-primary:#0A2135; --brand-primary-700:#051524; --brand-accent:#0072CE; --brand-red:#E30613;
+    --text:#222831; --muted:#6B7280; --bg:#F7F8FA; --surface:#FFFFFF; --line:#E6E8EE;
+    --radius:16px; --shadow:0 6px 18px rgba(0,0,0,.08);
+  }
   *{box-sizing:border-box} html,body{height:100%}
-  body{margin:0;background: radial-gradient(1200px 600px at 70% -10%, rgba(227,6,19,.12), transparent 65%), var(--bg);
-    color:#f3f4f6;font:15px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(900px 420px at 70% -10%, color-mix(in oklab, var(--brand-primary) 12%, transparent), transparent 65%),
+      var(--bg);
+    color:var(--text);
+    font:15px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  }
   .shell{max-width:1100px;margin:32px auto;padding:0 16px}
   header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-  .logo{height:40px}
-  h1{margin:0;font-size:20px} .muted{color:#c7cad4;font-size:12.5px}
+  .logo{height:44px;width:auto;object-fit:contain;display:block}
+  h1{margin:0;font-size:22px}
+  .muted{color:var(--muted);font-size:12.5px}
+
   .bar{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 20px}
   .btn{appearance:none;border:none;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer}
-  .btn-outline{background:#0f1218;border:1px solid #2b3242;color:#e8ebf2;text-decoration:none;display:inline-block}
-  .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)), var(--card);
-    border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; margin-bottom:16px}
-  label{display:block;font-size:13px;color:#dbe0e8;margin-bottom:6px}
-  input, textarea, select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #262c39;background:#0b0e14;color:#e9edf5;outline:none}
+  .btn-outline{background:#fff;border:1px solid #D9DDE6;color:#0a0a0a;text-decoration:none;display:inline-block}
+  .pill{display:inline-block;padding:6px 10px;border-radius:9999px;border:1px solid #D9DDE6;background:#fff;font-size:12px}
+
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; margin-bottom:16px}
+  label{display:block;font-size:13px;color:#1d2129;margin-bottom:6px}
+  input, textarea, select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #D9DDE6;background:#fff;color:var(--text);outline:none}
   textarea{min-height:90px;resize:vertical}
+  input:focus,textarea:focus,select:focus{border-color:var(--brand-primary); box-shadow:0 0 0 3px color-mix(in oklab, var(--brand-primary) 25%, transparent)}
   .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
   .col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
   @media (max-width:720px){.col-4,.col-6,.col-8{grid-column:span 12}}
-  .footer{display:flex;justify-content:space-between;gap:10px;padding:14px;border-top:1px solid var(--line);color:#9aa2af;font-size:12px;margin-top:10px}
-  .pill{display:inline-block;padding:6px 10px;border-radius:9999px;border:1px solid #2b3242;background:#0f1218;font-size:12px}
+
+  .footer{display:flex;justify-content:space-between;gap:10px;padding:14px;border-top:1px solid var(--line);color:#5b6372;font-size:12px;margin-top:10px}
 </style>
 </head>
 <body>
 <div class="shell">
   <header>
-    <img class="logo" src="assets/walkers-logo.svg" alt="Walkers Transport" />
+    <picture>
+      <source srcset="assets/walkers-logo.svg" type="image/svg+xml">
+      <img class="logo" src="assets/walkers-logo.png" alt="Walkers Transport" />
+    </picture>
     <div>
       <h1>Onboarding Portal</h1>
       <div class="muted">Trading agreement • Checklist • Go-live scheduling</div>
@@ -45,7 +63,7 @@
     <span id="handoffPill" class="pill" style="display:none">Loaded from Pre-Onboarding</span>
   </div>
 
-  <!-- Example Onboarding form shell (map these IDs into your real form) -->
+  <!-- Map these IDs into your live form -->
   <section class="card">
     <h3 style="margin:0 0 10px">Company Details</h3>
     <div class="grid">
@@ -83,29 +101,18 @@
   </section>
 
   <section class="card">
-    <h3 style="margin:0 0 10px">Commercial & Finance (read-only from Pre-Onboarding)</h3>
+    <h3 style="margin:0 0 10px">Commercial & Finance (from Pre-Onboarding)</h3>
     <div class="grid">
-      <div class="col-4">
-        <label>Expected GP%</label>
-        <input id="ob_expGP" type="text" readonly />
-      </div>
-      <div class="col-4">
-        <label>CreditSafe Rating</label>
-        <input id="ob_csRating" type="text" readonly />
-      </div>
-      <div class="col-4">
-        <label>Credit Limit</label>
-        <input id="ob_csLimit" type="text" readonly />
-      </div>
-      <div class="col-4">
-        <label>Risk Band</label>
-        <input id="ob_csRisk" type="text" readonly />
-      </div>
+      <div class="col-4"><label>Expected GP%</label><input id="ob_expGP" type="text" readonly /></div>
+      <div class="col-4"><label>CreditSafe Rating</label><input id="ob_csRating" type="text" readonly /></div>
+      <div class="col-4"><label>Credit Limit</label><input id="ob_csLimit" type="text" readonly /></div>
+      <div class="col-4"><label>Risk Band</label><input id="ob_csRisk" type="text" readonly /></div>
+      <div class="col-8"><label>Registered Address (CH)</label><input id="ob_chAddress" type="text" readonly /></div>
     </div>
-    <div class="muted" style="margin-top:8px">If anything needs changing, go back to <a href="pre-onboarding.html">Pre-Onboarding</a> and re-send.</div>
+    <div class="muted" style="margin-top:8px">Need edits? Go back to <a href="pre-onboarding.html">Pre-Onboarding</a> and re-send.</div>
   </section>
 
-  <!-- Your existing Trading Agreement / Checklist / PandaDoc blocks would be here -->
+  <!-- Your trading agreement / checklist / PandaDoc blocks go here -->
 
   <div class="footer">
     <span>© Walkers Transport • Onboarding</span>
@@ -124,30 +131,20 @@
   }
 
   if(from==='pre' && data){
-    const payload=decodeData(data);
-    if(payload){
+    const p=decodeData(data);
+    if(p){
       document.getElementById('handoffPill').style.display='inline-block';
-      // Map payload → fields (adjust IDs to your real form)
       const set=(id,val)=>{const el=document.getElementById(id); if(el) el.value=(val??'');};
-
-      set('ob_accountName', payload.accountName);
-      set('ob_companyNo', payload.companyNo);
-      set('ob_amName', payload.amName);
-      set('ob_sector', payload.sector);
-      set('ob_volumeForecast', payload.volumeForecast);
-      set('ob_scope', payload.scope);
-      // lead origin (select)
-      const lo=document.getElementById('ob_leadOrigin'); if(lo && payload.leadOrigin){ lo.value=payload.leadOrigin; }
-
-      // finance/commercial
-      set('ob_expGP', payload.expGP);
-      if(payload.credit){
-        set('ob_csRating', payload.credit.rating);
-        set('ob_csLimit', payload.credit.limit);
-        set('ob_csRisk', payload.credit.risk);
-      }
-      // Optional: scroll to first actionable section
-      // document.querySelectorAll('.card')[1]?.scrollIntoView({behavior:'smooth'});
+      set('ob_accountName', p.accountName);
+      set('ob_companyNo', p.companyNo);
+      set('ob_amName', p.amName);
+      set('ob_sector', p.sector);
+      set('ob_volumeForecast', p.volumeForecast);
+      set('ob_scope', p.scope);
+      const lo=document.getElementById('ob_leadOrigin'); if(lo && p.leadOrigin){ lo.value=p.leadOrigin; }
+      set('ob_expGP', p.expGP);
+      if(p.credit){ set('ob_csRating', p.credit.rating); set('ob_csLimit', p.credit.limit); set('ob_csRisk', p.credit.risk); }
+      if(p.ch){ set('ob_chAddress', p.ch.address); }
     }
   }
 })();
