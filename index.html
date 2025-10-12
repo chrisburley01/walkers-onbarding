@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Walkers | Onboarding Portal</title>
+<title>Walkers | Customer Onboarding</title>
 <base href="./">
 <link rel="icon" href="assets/walkers-logo.svg" />
-<meta name="description" content="Walkers Transport – Onboarding Portal" />
+<meta name="description" content="Welcome to Walkers Transport — Customer Onboarding" />
 <style>
   :root{
     --brand-primary:#0A2135; --brand-primary-700:#051524; --brand-accent:#0072CE; --brand-red:#E30613;
@@ -23,129 +23,213 @@
     font:15px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
   }
   .shell{max-width:1100px;margin:32px auto;padding:0 16px}
+
   header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
   .logo{height:44px;width:auto;object-fit:contain;display:block}
-  h1{margin:0;font-size:22px}
-  .muted{color:var(--muted);font-size:12.5px}
 
-  .bar{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 20px}
-  .btn{appearance:none;border:none;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer}
-  .btn-outline{background:#fff;border:1px solid #D9DDE6;color:#0a0a0a;text-decoration:none;display:inline-block}
+  .hero{
+    background:linear-gradient(180deg, #0a2135, #0a2135) padding-box,
+               linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,0)) border-box;
+    color:#fff;border:1px solid rgba(255,255,255,.15);
+    border-radius:20px;padding:20px 18px;box-shadow:0 10px 30px rgba(10,33,53,.22);
+  }
+  .hero h1{margin:0 0 6px;font-size:24px}
+  .hero p{margin:6px 0 12px;color:#e6eef6}
+  .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .btn{appearance:none;border:none;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+  .btn-primary{background:linear-gradient(180deg, var(--brand-accent), #005bb0);color:#fff}
+  .btn-ghost{background:#fff;border:1px solid #d9dde6;color:#0a0a0a}
+
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:16px}
+  .col-6{grid-column:span 6}.col-12{grid-column:span 12}
+  @media (max-width:860px){.col-6{grid-column:span 12}}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:16px}
+  .card h3{margin:0 0 10px}
+  .muted{color:var(--muted)}
+  .list{margin:0;padding-left:18px}
   .pill{display:inline-block;padding:6px 10px;border-radius:9999px;border:1px solid #D9DDE6;background:#fff;font-size:12px}
 
-  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; margin-bottom:16px}
   label{display:block;font-size:13px;color:#1d2129;margin-bottom:6px}
-  input, textarea, select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #D9DDE6;background:#fff;color:var(--text);outline:none}
+  input,textarea,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #D9DDE6;background:#fff;color:var(--text);outline:none}
   textarea{min-height:90px;resize:vertical}
   input:focus,textarea:focus,select:focus{border-color:var(--brand-primary); box-shadow:0 0 0 3px color-mix(in oklab, var(--brand-primary) 25%, transparent)}
-  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-  .col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
-  @media (max-width:720px){.col-4,.col-6,.col-8{grid-column:span 12}}
 
-  .footer{display:flex;justify-content:space-between;gap:10px;padding:14px;border-top:1px solid var(--line);color:#5b6372;font-size:12px;margin-top:10px}
+  .upload{border:1px dashed #D9DDE6;border-radius:12px;padding:12px;background:#fff}
+
+  .footer{display:flex;justify-content:space-between;gap:10px;padding:14px;border-top:1px solid var(--line);color:#5b6372;font-size:12px;margin-top:18px}
 </style>
 </head>
 <body>
 <div class="shell">
   <header>
     <picture>
-      <source srcset="assets/walkers-logo.svg" type="image/svg+xml">
+      <source src="assets/walkers-logo.svg" type="image/svg+xml">
       <img class="logo" src="assets/walkers-logo.png" alt="Walkers Transport" />
     </picture>
     <div>
-      <h1>Onboarding Portal</h1>
-      <div class="muted">Trading agreement • Checklist • Go-live scheduling</div>
+      <div class="pill">Customer Onboarding</div>
     </div>
   </header>
 
-  <div class="bar">
-    <a class="btn btn-outline" href="pre-onboarding.html">← Start Pre-Onboarding</a>
-    <span id="handoffPill" class="pill" style="display:none">Loaded from Pre-Onboarding</span>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Welcome to Walkers — what happens next</h1>
+    <p>Great to have you with us. Below are the last few steps so we can activate your account and schedule go-live.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#trading-agreement">Open Trading Agreement</a>
+      <a class="btn btn-ghost" href="#whats-next">See “What’s Next”</a>
+      <a class="btn btn-ghost" href="#checklist">Customer Checklist</a>
+    </div>
+  </section>
+
+  <div class="grid">
+    <!-- WHAT'S NEXT -->
+    <section id="whats-next" class="card col-6">
+      <h3>What’s Next – 5 quick steps</h3>
+      <ol class="list">
+        <li>Review & sign the <strong>Trading Agreement</strong> (PandaDoc).</li>
+        <li>Complete the short <strong>Customer Checklist</strong> (key contacts, delivery rules, IT bits).</li>
+        <li>Send us any <strong>delivery restrictions</strong> or site-access notes.</li>
+        <li>Share your preferred <strong>POD / label / EDI</strong> requirements.</li>
+        <li>We confirm go-live date and send your <strong>Walkers contacts</strong>.</li>
+      </ol>
+      <p class="muted" style="margin-top:8px">If anything’s urgent, reply to your Walkers contact and we’ll jump on it.</p>
+    </section>
+
+    <!-- CONTACTS -->
+    <section class="card col-6">
+      <h3>Your Walkers contacts</h3>
+      <div class="grid">
+        <div class="col-6">
+          <label>Account Manager</label>
+          <input id="am_display" placeholder="e.g., Chris Burley" />
+        </div>
+        <div class="col-6">
+          <label>Operations Contact</label>
+          <input id="ops_display" placeholder="e.g., Kane Parnell" />
+        </div>
+        <div class="col-12">
+          <label>General Email</label>
+          <input id="email_display" placeholder="e.g., onboarding@walkers-transport.com" />
+        </div>
+      </div>
+    </section>
+
+    <!-- TRADING AGREEMENT -->
+    <section id="trading-agreement" class="card col-12">
+      <h3>Trading Agreement (Sign via PandaDoc)</h3>
+      <p class="muted">Click the button to open your agreement in a secure window. If it doesn’t open, check pop-up blockers.</p>
+      <div class="cta-row">
+        <!-- Replace href with your PandaDoc link -->
+        <a class="btn btn-primary" target="_blank" rel="noopener" href="https://app.pandadoc.com/a/#/docs/PLACEHOLDER">Open PandaDoc Agreement</a>
+        <!-- Optional: show a static PDF fallback -->
+        <a class="btn btn-ghost" target="_blank" rel="noopener" href="assets/Trading-Agreement.pdf">View PDF Copy</a>
+      </div>
+    </section>
+
+    <!-- CUSTOMER CHECKLIST -->
+    <section id="checklist" class="card col-12">
+      <h3>Customer Checklist</h3>
+      <p class="muted">Fill this in so we set everything up right first time.</p>
+      <div class="grid">
+        <div class="col-6">
+          <label>Primary Contact Name</label>
+          <input id="cust_primary_name" />
+        </div>
+        <div class="col-6">
+          <label>Primary Contact Email</label>
+          <input id="cust_primary_email" type="email" />
+        </div>
+        <div class="col-6">
+          <label>Accounts Payable Email</label>
+          <input id="cust_ap_email" type="email" />
+        </div>
+        <div class="col-6">
+          <label>Preferred Invoice Frequency</label>
+          <select id="cust_invoice_freq">
+            <option value="">Select…</option>
+            <option>Weekly</option><option>Bi-weekly</option><option>Monthly</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label>Delivery Window (typical)</label>
+          <input id="cust_window" placeholder="e.g., 08:00–16:00 Mon–Fri" />
+        </div>
+        <div class="col-6">
+          <label>Delivery Notes / Restrictions</label>
+          <input id="cust_restrictions" placeholder="e.g., bays only / book-in / tight access" />
+        </div>
+        <div class="col-12">
+          <label>IT / POD / EDI Requirements</label>
+          <textarea id="cust_it" placeholder="e.g., POD images, label layout, EDI spec"></textarea>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" id="saveChecklist">Save (local)</button>
+        <a class="btn btn-ghost" id="exportChecklist" href="#" download="walkers-onboarding-checklist.json">Export JSON</a>
+      </div>
+      <p class="muted" style="margin-top:8px">This page saves locally for your privacy. You can also export and email the JSON to your Walkers contact.</p>
+    </section>
+
+    <!-- OPTIONAL UPLOADS -->
+    <section class="card col-12">
+      <h3>Optional uploads</h3>
+      <div class="upload">
+        <div>
+          <strong>Delivery Restrictions / Site Guide</strong>
+          <div class="muted">PDF, DOCX or images</div>
+        </div>
+        <input id="file_restrictions" type="file" multiple accept=".pdf,.doc,.docx,image/*" />
+      </div>
+    </section>
   </div>
 
-  <!-- Map these IDs into your live form -->
-  <section class="card">
-    <h3 style="margin:0 0 10px">Company Details</h3>
-    <div class="grid">
-      <div class="col-8">
-        <label for="ob_accountName">Account / Legal Name</label>
-        <input id="ob_accountName" type="text" />
-      </div>
-      <div class="col-4">
-        <label for="ob_companyNo">Company Number</label>
-        <input id="ob_companyNo" type="text" />
-      </div>
-      <div class="col-6">
-        <label for="ob_sector">Sector</label>
-        <input id="ob_sector" type="text" />
-      </div>
-      <div class="col-6">
-        <label for="ob_leadOrigin">Lead Origin</label>
-        <select id="ob_leadOrigin">
-          <option value="">Select…</option><option>Network</option><option>Direct</option><option>Storage</option><option>Full Logistics Solution</option>
-        </select>
-      </div>
-      <div class="col-6">
-        <label for="ob_amName">Account Manager</label>
-        <input id="ob_amName" type="text" />
-      </div>
-      <div class="col-6">
-        <label for="ob_volumeForecast">Est. Annual Volume (pallets)</label>
-        <input id="ob_volumeForecast" type="number" min="0" />
-      </div>
-      <div class="col-12">
-        <label for="ob_scope">Service Scope</label>
-        <input id="ob_scope" type="text" />
-      </div>
-    </div>
-  </section>
-
-  <section class="card">
-    <h3 style="margin:0 0 10px">Commercial & Finance (from Pre-Onboarding)</h3>
-    <div class="grid">
-      <div class="col-4"><label>Expected GP%</label><input id="ob_expGP" type="text" readonly /></div>
-      <div class="col-4"><label>CreditSafe Rating</label><input id="ob_csRating" type="text" readonly /></div>
-      <div class="col-4"><label>Credit Limit</label><input id="ob_csLimit" type="text" readonly /></div>
-      <div class="col-4"><label>Risk Band</label><input id="ob_csRisk" type="text" readonly /></div>
-      <div class="col-8"><label>Registered Address (CH)</label><input id="ob_chAddress" type="text" readonly /></div>
-    </div>
-    <div class="muted" style="margin-top:8px">Need edits? Go back to <a href="pre-onboarding.html">Pre-Onboarding</a> and re-send.</div>
-  </section>
-
-  <!-- Your trading agreement / checklist / PandaDoc blocks go here -->
-
   <div class="footer">
-    <span>© Walkers Transport • Onboarding</span>
-    <span class="muted">Seamless hand-off from Pre-Onboarding</span>
+    <span>© Walkers Transport • Customer Onboarding</span>
+    <span class="muted">Need help? Contact your Account Manager.</span>
   </div>
 </div>
 
 <script>
 (function(){
-  const qs=new URLSearchParams(location.search);
-  const from=qs.get('from');
-  const data=qs.get('data');
-
-  function decodeData(d){
-    try{ return JSON.parse(decodeURIComponent(escape(atob(d)))); }catch(e){ return null; }
+  // Local save for the checklist (customer-facing privacy friendly)
+  const KEY = 'walkers_customer_onboarding_checklist_v1';
+  const ids = [
+    'am_display','ops_display','email_display',
+    'cust_primary_name','cust_primary_email','cust_ap_email',
+    'cust_invoice_freq','cust_window','cust_restrictions','cust_it'
+  ];
+  function getState(){
+    const d={}; ids.forEach(id=>{ const el=document.getElementById(id); if(!el) return; d[id]=el.value||''; });
+    return d;
   }
+  function setState(d){
+    if(!d) return; ids.forEach(id=>{ const el=document.getElementById(id); if(el && d[id]!=null) el.value=d[id]; });
+  }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(getState())); }catch(e){} }
+  function load(){ try{ setState(JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){} }
 
-  if(from==='pre' && data){
-    const p=decodeData(data);
-    if(p){
-      document.getElementById('handoffPill').style.display='inline-block';
-      const set=(id,val)=>{const el=document.getElementById(id); if(el) el.value=(val??'');};
-      set('ob_accountName', p.accountName);
-      set('ob_companyNo', p.companyNo);
-      set('ob_amName', p.amName);
-      set('ob_sector', p.sector);
-      set('ob_volumeForecast', p.volumeForecast);
-      set('ob_scope', p.scope);
-      const lo=document.getElementById('ob_leadOrigin'); if(lo && p.leadOrigin){ lo.value=p.leadOrigin; }
-      set('ob_expGP', p.expGP);
-      if(p.credit){ set('ob_csRating', p.credit.rating); set('ob_csLimit', p.credit.limit); set('ob_csRisk', p.credit.risk); }
-      if(p.ch){ set('ob_chAddress', p.ch.address); }
-    }
+  load();
+  ids.forEach(id=>{ const el=document.getElementById(id); if(!el) return; el.addEventListener('input', save); });
+
+  document.getElementById('saveChecklist').addEventListener('click', ()=>{ save(); alert('Saved locally.'); });
+  document.getElementById('exportChecklist').addEventListener('click', (e)=>{
+    e.preventDefault();
+    const blob=new Blob([JSON.stringify(getState(),null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    e.currentTarget.href=url;
+    setTimeout(()=>URL.revokeObjectURL(url), 2000);
+  });
+
+  // Optional: if you ever pass payload from Pre-Onboarding, show a subtle pill (no auto-prefill)
+  const qs=new URLSearchParams(location.search);
+  if(qs.get('from')==='pre'){
+    const pill=document.createElement('div');
+    pill.textContent='Info sent by Walkers team — you only need to complete the steps on this page.';
+    pill.style.cssText='position:fixed;bottom:12px;right:12px;background:#fff;border:1px solid #d9dde6;border-radius:12px;padding:8px 12px;font:600 12px/1.2 system-ui;z-index:999';
+    document.body.appendChild(pill);
+    setTimeout(()=>pill.remove(), 10000);
   }
 })();
 </script>
