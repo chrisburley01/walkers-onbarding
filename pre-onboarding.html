@@ -4,216 +4,291 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Walkers | Pre-Onboarding Portal</title>
+<base href="./">
 <link rel="icon" href="assets/walkers-logo.svg" />
 <meta name="description" content="Walkers Transport – Pre-Onboarding Portal" />
 <style>
+  /* === Walkers BRAND TOKENS === */
   :root{
-    --brand:#E30613; --brand-700:#98040d; --ink:#101113; --bg:#0b0c0f; --card:#14161b;
-    --line:#1f2430; --success:#16a34a; --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    --brand-primary: #0A2135;     /* deep navy */
+    --brand-primary-700: #051524; /* darker shade */
+    --brand-accent:  #0072CE;     /* bright blue */
+    --brand-red:     #E30613;     /* action/warn */
+    --text:          #222831;
+    --muted:         #6B7280;
+    --bg:            #F7F8FA;
+    --surface:       #FFFFFF;
+    --line:          #E6E8EE;
+    --success:       #16A34A;
+    --warn:          #F59E0B;
+    --danger:        #EF4444;
+    --radius:        16px;
+    --shadow:        0 6px 18px rgba(0,0,0,.08);
   }
+
   *{box-sizing:border-box} html,body{height:100%}
-  body{margin:0;background: radial-gradient(1200px 600px at 70% -10%, rgba(227,6,19,.12), transparent 65%), var(--bg);
-    color:#f3f4f6;font:15px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(900px 420px at 70% -10%, color-mix(in oklab, var(--brand-primary) 12%, transparent), transparent 65%),
+      var(--bg);
+    color:var(--text);
+    font:15px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  }
   .shell{max-width:1100px;margin:32px auto;padding:0 16px}
+
   header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-  .logo{height:40px}
-  .title h1{margin:0;font-size:20px} .title span{color:#c7cad4;font-size:12.5px}
+  .logo{height:44px;width:auto;object-fit:contain;display:block}
+  .title h1{margin:0;font-size:22px}
+  .title span{color:var(--muted);font-size:12.5px}
+
   .topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 22px}
-  .badge{background:rgba(227,6,19,.12); border:1px solid rgba(227,6,19,.35); padding:6px 10px; border-radius:999px; font-size:12px}
-  .link{color:#fff;border-bottom:1px dashed rgba(255,255,255,.35);text-decoration:none}
+  .badge{
+    background:color-mix(in oklab, var(--brand-primary) 8%, #ffffff);
+    border:1px solid color-mix(in oklab, var(--brand-primary) 25%, transparent);
+    color:var(--text); padding:6px 10px; border-radius:999px; font-size:12px
+  }
+  .link{color:var(--brand-accent);text-decoration:none;border-bottom:1px dashed color-mix(in oklab, var(--brand-accent) 45%, transparent)}
   .wrap{display:grid;grid-template-columns:280px 1fr;gap:18px}
   @media (max-width:980px){.wrap{grid-template-columns:1fr}}
-  .card{background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)), var(--card);
-    border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
+
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
   .side{padding:16px}
-  .side h3{margin:6px 6px 10px;font-size:13px;color:#cfd3db;text-transform:uppercase;letter-spacing:.12em}
-  .progress{background:#0f1218;border:1px solid var(--line);height:10px;border-radius:999px;overflow:hidden;margin:0 6px 14px}
-  .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg, var(--brand), var(--brand-700));transition:width .35s ease}
-  .stage{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;border:1px dashed var(--line);margin:6px 0}
-  .stage.done{background:rgba(22,163,74,.08); border-color:rgba(22,163,74,.25)}
-  .dot{width:9px;height:9px;border-radius:999px;background:#313846} .stage.done .dot{background:var(--success)}
-  .legend{margin:8px 6px 0;color:#9aa2af;font-size:12px}
+  .side h3{margin:6px 6px 10px;font-size:13px;color:#3b4352;text-transform:uppercase;letter-spacing:.12em}
+  .progress{background:#F2F4F8;border:1px solid var(--line);height:10px;border-radius:999px;overflow:hidden;margin:0 6px 14px}
+  .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg, var(--brand-primary), var(--brand-primary-700));transition:width .35s ease}
+  .stage{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;border:1px dashed #E1E5EE;margin:6px 0}
+  .dot{width:9px;height:9px;border-radius:999px;background:#cdd3df}
+  .stage.done{background:#F0FBF3;border-color:rgba(22,163,74,.30)}
+  .stage.done .dot{background:var(--success)}
+  .legend{margin:8px 6px 0;color:#5b6372;font-size:12px}
+
   .main{padding:18px}
-  .section{border:1px solid var(--line);border-radius:14px;margin-bottom:16px;overflow:hidden;background:#0f1218}
+  .section{border:1px solid var(--line);border-radius:14px;margin-bottom:16px;overflow:hidden;background:var(--surface)}
   details[open] summary{border-bottom:1px solid var(--line)}
-  summary{list-style:none;cursor:pointer;padding:14px;display:flex;gap:12px;font-weight:600}
+  summary{list-style:none;cursor:pointer;padding:14px;display:flex;gap:12px;font-weight:600;background:var(--surface)}
   summary::-webkit-details-marker{display:none}
-  .step-index{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:rgba(227,6,19,.15);border:1px solid rgba(227,6,19,.35);font-size:12px}
+  .step-index{
+    width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+    background:color-mix(in oklab, var(--brand-primary) 12%, #fff);
+    border:1px solid color-mix(in oklab, var(--brand-primary) 28%, transparent);font-size:12px;color:#0a0a0a
+  }
   .content{padding:14px 14px 18px;display:grid;gap:12px}
-  label{display:block;font-size:13px;color:#dbe0e8;margin-bottom:6px}
-  input, textarea, select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #262c39;background:#0b0e14;color:#e9edf5;outline:none}
+  label{display:block;font-size:13px;color:#1d2129;margin-bottom:6px}
+  input, textarea, select{
+    width:100%;padding:10px 12px;border-radius:10px;border:1px solid #D9DDE6;background:#fff;color:var(--text);outline:none
+  }
   textarea{min-height:90px;resize:vertical}
-  input:focus, textarea:focus, select:focus{border-color:var(--brand)}
+  input:focus, textarea:focus, select:focus{
+    border-color:var(--brand-primary);
+    box-shadow:0 0 0 3px color-mix(in oklab, var(--brand-primary) 25%, transparent)
+  }
   .row{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
   .col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
   @media (max-width:720px){.col-4,.col-6,.col-8{grid-column:span 12}}
-  .upload{border:1px dashed #2b3242;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;background:#0a0d12}
-  .checkline{display:flex;align-items:center;gap:10px}
+
+  .upload{border:1px dashed #D9DDE6;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;background:#fff}
+
   .actions{display:flex;flex-wrap:wrap;gap:10px;padding:8px 14px 18px}
   .btn{appearance:none;border:none;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer}
-  .btn-primary{background:linear-gradient(180deg,var(--brand),#b40511);color:#fff}
-  .btn-ghost{background:#0f1218;border:1px solid #2b3242;color:#e8ebf2}
+  .btn-primary{background:linear-gradient(180deg,var(--brand-primary),var(--brand-primary-700));color:#fff}
+  .btn-ghost{background:#fff;border:1px solid #D9DDE6;color:#0a0a0a}
   .btn-success{background:linear-gradient(180deg,#22c55e,#16a34a);color:#02140a}
-  .hint{color:#9aa2af;font-size:12px}
-  .footer{display:flex;justify-content:space-between;gap:10px;padding:14px;border-top:1px solid var(--line);color:#9aa2af;font-size:12px}
+  .hint{color:var(--muted);font-size:12px}
+
+  .footer{display:flex;justify-content:space-between;gap:10px;padding:14px;border-top:1px solid var(--line);color:#5b6372;font-size:12px}
+
+  .statusline{display:flex;gap:8px;align-items:center;font-size:12px}
+  .spinner{width:14px;height:14px;border:2px solid #d9dde6;border-top-color:var(--brand-accent);border-radius:50%;animation:spin .8s linear infinite;display:none}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .status-ok{color:#15803d}.status-err{color:#b91c1c}
 </style>
 </head>
 <body>
-<div class="shell">
-  <header>
-    <img class="logo" src="assets/walkers-logo.svg" alt="Walkers Transport" />
-    <div class="title">
-      <h1>Pre-Onboarding Portal</h1>
-      <span>Commercial • Operational • Financial gateway before full onboarding</span>
+  <div class="shell">
+    <header>
+      <picture>
+        <source srcset="assets/walkers-logo.svg" type="image/svg+xml">
+        <img class="logo" src="assets/walkers-logo.png" alt="Walkers Transport" />
+      </picture>
+      <div class="title">
+        <h1>Pre-Onboarding Portal</h1>
+        <span>Commercial • Operational • Financial gateway before full onboarding</span>
+      </div>
+    </header>
+
+    <div class="topbar">
+      <span class="badge">Status: <strong id="statusText">In Progress</strong></span>
+      <span class="badge">Version: Pre-Onboarding v1.2</span>
+      <a class="link" href="https://www.creditsafe.com/gb/en.html" target="_blank" rel="noopener">Open CreditSafe</a>
     </div>
-  </header>
 
-  <div class="topbar">
-    <span class="badge">Status: <strong id="statusText">In Progress</strong></span>
-    <span class="badge">Version: Pre-Onboarding v1.1</span>
-    <a class="link" href="https://www.creditsafe.com/gb/en.html" target="_blank" rel="noopener">Open CreditSafe</a>
-  </div>
+    <div class="wrap">
+      <!-- Sidebar -->
+      <aside class="card side" aria-labelledby="progressLabel">
+        <h3 id="progressLabel">Progress</h3>
+        <div class="progress"><i id="progressBar" style="width:0%"></i></div>
+        <div id="stageList"></div>
+        <div class="legend">Complete all 7 stages to unlock <em>Send to Onboarding</em>.</div>
+      </aside>
 
-  <div class="wrap">
-    <aside class="card side" aria-labelledby="progressLabel">
-      <h3 id="progressLabel">Progress</h3>
-      <div class="progress"><i id="progressBar" style="width:0%"></i></div>
-      <div id="stageList"></div>
-      <div class="legend">Complete all 7 stages to unlock <em>Send to Onboarding</em>.</div>
-    </aside>
+      <!-- Main -->
+      <main class="card main">
+        <!-- 1. Opportunity -->
+        <details class="section" open data-step="1">
+          <summary><span class="step-index">1</span> Opportunity Logged (CRM)</summary>
+          <div class="content">
+            <div class="row">
+              <div class="col-8">
+                <label for="accountName">Account / Legal Name *</label>
+                <input id="accountName" type="text" placeholder="e.g., Duo UK Ltd" />
+              </div>
+              <div class="col-4">
+                <label for="companyNo">Company Number</label>
+                <input id="companyNo" type="text" placeholder="e.g., 01234567" />
+                <div class="statusline">
+                  <div id="chSpin" class="spinner"></div>
+                  <span id="chStatus" class="hint">Enter number and leave the field to auto-fill from Companies House…</span>
+                </div>
+              </div>
+              <div class="col-6"><label for="sector">Sector</label><input id="sector" type="text" /></div>
+              <div class="col-6">
+                <label for="leadOrigin">Lead Origin</label>
+                <select id="leadOrigin"><option value="">Select…</option><option>Network</option><option>Direct</option><option>Storage</option><option>Full Logistics Solution</option></select>
+              </div>
+              <div class="col-6"><label for="amName">Account Manager</label><input id="amName" type="text" placeholder="e.g., Chris Burley" /></div>
+              <div class="col-6"><label for="volumeForecast">Est. Annual Volume (pallets)</label><input id="volumeForecast" type="number" min="0" placeholder="e.g., 12000" /></div>
+              <div class="col-12"><label for="scope">Service Scope</label><input id="scope" type="text" placeholder="Storage, Transport, Fulfilment, IT integration, etc." /></div>
+            </div>
 
-    <main class="card main">
-      <!-- 1 -->
-      <details class="section" open data-step="1">
-        <summary><span class="step-index">1</span> Opportunity Logged (CRM)</summary>
-        <div class="content">
-          <div class="row">
-            <div class="col-8"><label for="accountName">Account / Legal Name *</label>
-              <input id="accountName" type="text" placeholder="e.g., Duo UK Ltd" /></div>
-            <div class="col-4"><label for="companyNo">Company Number</label>
-              <input id="companyNo" type="text" placeholder="e.g., 01234567" /></div>
-            <div class="col-6"><label for="sector">Sector</label><input id="sector" type="text" /></div>
-            <div class="col-6"><label for="leadOrigin">Lead Origin</label>
-              <select id="leadOrigin"><option value="">Select…</option><option>Network</option><option>Direct</option><option>Storage</option><option>Full Logistics Solution</option></select></div>
-            <div class="col-6"><label for="amName">Account Manager</label><input id="amName" type="text" placeholder="e.g., Chris Burley" /></div>
-            <div class="col-6"><label for="volumeForecast">Est. Annual Volume (pallets)</label><input id="volumeForecast" type="number" min="0" placeholder="e.g., 12000" /></div>
-            <div class="col-12"><label for="scope">Service Scope</label><input id="scope" type="text" placeholder="Storage, Transport, Fulfilment…" /></div>
+            <!-- Auto-filled from Companies House -->
+            <div class="row" style="margin-top:6px">
+              <div class="col-12"><div class="hint">Auto-filled from Companies House (editable):</div></div>
+              <div class="col-8"><label for="ch_companyName">CH: Registered Name</label><input id="ch_companyName" type="text" /></div>
+              <div class="col-4"><label for="ch_status">CH: Company Status</label><input id="ch_status" type="text" /></div>
+              <div class="col-6"><label for="ch_incorp">CH: Incorporation Date</label><input id="ch_incorp" type="text" /></div>
+              <div class="col-6"><label for="ch_sic">CH: SIC Codes</label><input id="ch_sic" type="text" placeholder="e.g., 49410 – Freight transport by road" /></div>
+              <div class="col-12"><label for="ch_address">CH: Registered Address</label><input id="ch_address" type="text" placeholder="Address line, locality, region, postcode, country" /></div>
+            </div>
+
+            <div class="checkline">
+              <input id="crmCreated" type="checkbox" />
+              <label for="crmCreated">CRM opportunity created and assigned</label>
+            </div>
           </div>
-          <div class="checkline"><input id="crmCreated" type="checkbox" /><label for="crmCreated">CRM opportunity created and assigned</label></div>
-        </div>
-      </details>
+        </details>
 
-      <!-- 2 -->
-      <details class="section" data-step="2">
-        <summary><span class="step-index">2</span> CreditSafe Financial Check</summary>
-        <div class="content">
-          <div class="row">
-            <div class="col-4"><label for="csRating">CreditSafe Rating *</label><input id="csRating" type="text" placeholder="e.g., 72/100" /></div>
-            <div class="col-4"><label for="csLimit">Recommended Credit Limit *</label><input id="csLimit" type="text" placeholder="e.g., £50,000" /></div>
-            <div class="col-4"><label for="csRisk">Risk Band *</label>
-              <select id="csRisk"><option value="">Select…</option><option>Low</option><option>Medium</option><option>High</option></select></div>
-            <div class="col-12">
-              <div class="upload">
-                <div><strong>CreditSafe Summary Report</strong><div class="hint">Upload PDF or image export</div></div>
-                <input id="csReport" type="file" accept=".pdf,image/*" />
+        <!-- 2. CreditSafe -->
+        <details class="section" data-step="2">
+          <summary><span class="step-index">2</span> CreditSafe Financial Check</summary>
+          <div class="content">
+            <div class="row">
+              <div class="col-4"><label for="csRating">CreditSafe Rating *</label><input id="csRating" type="text" placeholder="e.g., 72/100" /></div>
+              <div class="col-4"><label for="csLimit">Recommended Credit Limit *</label><input id="csLimit" type="text" placeholder="e.g., £50,000" /></div>
+              <div class="col-4"><label for="csRisk">Risk Band *</label>
+                <select id="csRisk"><option value="">Select…</option><option>Low</option><option>Medium</option><option>High</option></select></div>
+              <div class="col-12">
+                <div class="upload">
+                  <div><strong>CreditSafe Summary Report</strong><div class="hint">Upload PDF or image export</div></div>
+                  <input id="csReport" type="file" accept=".pdf,image/*" />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="checkline"><input id="financeApproved" type="checkbox" /><label for="financeApproved">Finance reviewed CreditSafe and set terms</label></div>
-        </div>
-      </details>
-
-      <!-- 3 -->
-      <details class="section" data-step="3">
-        <summary><span class="step-index">3</span> Fact-Finding & Site Review</summary>
-        <div class="content">
-          <div class="row">
-            <div class="col-6"><label for="siteAccess">Site Access Type</label>
-              <select id="siteAccess"><option value="">Select…</option><option>Open yard</option><option>Loading bays</option><option>Tight access</option><option>Other</option></select></div>
-            <div class="col-6"><label for="palletProfile">Pallet Profile</label>
-              <select id="palletProfile"><option value="">Select…</option><option>STD</option><option>Euro</option><option>Oversized</option><option>Mixed</option></select></div>
-            <div class="col-6"><label for="windows">Collection/Delivery Window</label><input id="windows" type="text" placeholder="e.g., 08:00–16:00, Mon–Fri" /></div>
-            <div class="col-6"><label for="specials">Special Requirements</label>
-              <select id="specials"><option value="">Select…</option><option>None</option><option>ADR</option><option>Temp-controlled</option><option>Fragile / Special Handling</option></select></div>
-            <div class="col-12"><label for="itNeeds">IT / Integration Notes</label><input id="itNeeds" type="text" placeholder="POD photos, EDI, Insight, Connect, Elite, etc." /></div>
-            <div class="col-12"><label for="ffNotes">Notes / Photos / Observations</label><textarea id="ffNotes"></textarea></div>
-          </div>
-          <div class="checkline"><input id="factComplete" type="checkbox" /><label for="factComplete">Fact-finding complete (visit/call done)</label></div>
-        </div>
-      </details>
-
-      <!-- 4 -->
-      <details class="section" data-step="4">
-        <summary><span class="step-index">4</span> Rate Proposal & Submission</summary>
-        <div class="content">
-          <div class="row">
-            <div class="col-8"><label for="rateIssuedBy">Rate Issued By</label><input id="rateIssuedBy" type="text" /></div>
-            <div class="col-4"><label for="rateIssuedDate">Date Issued</label><input id="rateIssuedDate" type="date" /></div>
-            <div class="col-12">
-              <div class="upload"><div><strong>Attach Rate Card</strong><div class="hint">PDF / XLSX / DOCX</div></div>
-                <input id="rateFile" type="file" accept=".pdf,.xlsx,.xls,.docx,.doc" /></div>
+            <div class="checkline">
+              <input id="financeApproved" type="checkbox" />
+              <label for="financeApproved">Finance reviewed CreditSafe and set terms</label>
             </div>
           </div>
-          <div class="checkline"><input id="rateSent" type="checkbox" /><label for="rateSent">Rates sent to customer</label></div>
-        </div>
-      </details>
+        </details>
 
-      <!-- 5 -->
-      <details class="section" data-step="5">
-        <summary><span class="step-index">5</span> Negotiation & Commercial Review</summary>
-        <div class="content">
-          <div class="row">
-            <div class="col-12"><label for="negSummary">Negotiation Summary</label><textarea id="negSummary"></textarea></div>
-            <div class="col-6"><label for="finalRates">Final Rates Confirmed?</label>
-              <select id="finalRates"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
-            <div class="col-6"><label for="expGP">Expected GP %</label><input id="expGP" type="number" step="0.1" min="0" max="100" placeholder="e.g., 18.5" /></div>
-          </div>
-          <div class="checkline"><input id="negComplete" type="checkbox" /><label for="negComplete">Negotiation complete</label></div>
-        </div>
-      </details>
-
-      <!-- 6 -->
-      <details class="section" data-step="6">
-        <summary><span class="step-index">6</span> Depot Manager Sign-Off</summary>
-        <div class="content">
-          <div class="row">
-            <div class="col-6"><label for="opsManager">Depot Ops Manager</label><input id="opsManager" type="text" /></div>
-            <div class="col-6"><label for="capacityOK">Capacity Check</label>
-              <select id="capacityOK"><option value="">Select…</option><option>OK – resources available</option><option>Requires additional resource</option></select></div>
+        <!-- 3–7 (unchanged structure) -->
+        <details class="section" data-step="3">
+          <summary><span class="step-index">3</span> Fact-Finding & Site Review</summary>
+          <div class="content">
+            <div class="row">
+              <div class="col-6"><label for="siteAccess">Site Access Type</label>
+                <select id="siteAccess"><option value="">Select…</option><option>Open yard</option><option>Loading bays</option><option>Tight access</option><option>Other</option></select></div>
+              <div class="col-6"><label for="palletProfile">Pallet Profile</label>
+                <select id="palletProfile"><option value="">Select…</option><option>STD</option><option>Euro</option><option>Oversized</option><option>Mixed</option></select></div>
+              <div class="col-6"><label for="windows">Collection/Delivery Window</label><input id="windows" type="text" placeholder="e.g., 08:00–16:00, Mon–Fri" /></div>
+              <div class="col-6"><label for="specials">Special Requirements</label>
+                <select id="specials"><option value="">Select…</option><option>None</option><option>ADR</option><option>Temp-controlled</option><option>Fragile / Special Handling</option></select></div>
+              <div class="col-12"><label for="itNeeds">IT / Integration Notes</label><input id="itNeeds" type="text" placeholder="POD photos, EDI, Insight, Connect, Elite, etc." /></div>
+              <div class="col-12"><label for="ffNotes">Notes / Photos / Observations</label><textarea id="ffNotes"></textarea></div>
             </div>
-          <div class="col-12"><label for="opsNotes">Operational Notes (MHE, trailers, shift impact)</label><textarea id="opsNotes"></textarea></div>
-          <div class="checkline"><input id="opsSign" type="checkbox" /><label for="opsSign">Depot Manager Sign-Off: Operationally Viable</label></div>
-        </div>
-      </details>
-
-      <!-- 7 -->
-      <details class="section" data-step="7">
-        <summary><span class="step-index">7</span> CFO / Finance Director Sign-Off</summary>
-        <div class="content">
-          <div class="row">
-            <div class="col-6"><label for="cfoName">CFO / Finance Director</label><input id="cfoName" type="text" /></div>
-            <div class="col-6"><label for="minGP">Min GP% Threshold Met?</label>
-              <select id="minGP"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
-            <div class="col-12"><label for="financeNotes">Finance Notes</label><textarea id="financeNotes"></textarea></div>
+            <div class="checkline"><input id="factComplete" type="checkbox" /><label for="factComplete">Fact-finding complete (visit/call done)</label></div>
           </div>
-          <div class="checkline"><input id="cfoSign" type="checkbox" /><label for="cfoSign">CFO Sign-Off: Commercially Approved for Onboarding</label></div>
+        </details>
+
+        <details class="section" data-step="4">
+          <summary><span class="step-index">4</span> Rate Proposal & Submission</summary>
+          <div class="content">
+            <div class="row">
+              <div class="col-8"><label for="rateIssuedBy">Rate Issued By</label><input id="rateIssuedBy" type="text" /></div>
+              <div class="col-4"><label for="rateIssuedDate">Date Issued</label><input id="rateIssuedDate" type="date" /></div>
+              <div class="col-12">
+                <div class="upload"><div><strong>Attach Rate Card</strong><div class="hint">PDF / XLSX / DOCX</div></div>
+                  <input id="rateFile" type="file" accept=".pdf,.xlsx,.xls,.docx,.doc" /></div>
+              </div>
+            </div>
+            <div class="checkline"><input id="rateSent" type="checkbox" /><label for="rateSent">Rates sent to customer</label></div>
+          </div>
+        </details>
+
+        <details class="section" data-step="5">
+          <summary><span class="step-index">5</span> Negotiation & Commercial Review</summary>
+          <div class="content">
+            <div class="row">
+              <div class="col-12"><label for="negSummary">Negotiation Summary</label><textarea id="negSummary"></textarea></div>
+              <div class="col-6"><label for="finalRates">Final Rates Confirmed?</label>
+                <select id="finalRates"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
+              <div class="col-6"><label for="expGP">Expected GP %</label><input id="expGP" type="number" step="0.1" min="0" max="100" placeholder="e.g., 18.5" /></div>
+            </div>
+            <div class="checkline"><input id="negComplete" type="checkbox" /><label for="negComplete">Negotiation complete</label></div>
+          </div>
+        </details>
+
+        <details class="section" data-step="6">
+          <summary><span class="step-index">6</span> Depot Manager Sign-Off</summary>
+          <div class="content">
+            <div class="row">
+              <div class="col-6"><label for="opsManager">Depot Ops Manager</label><input id="opsManager" type="text" /></div>
+              <div class="col-6"><label for="capacityOK">Capacity Check</label>
+                <select id="capacityOK"><option value="">Select…</option><option>OK – resources available</option><option>Requires additional resource</option></select></div>
+            </div>
+            <div class="col-12"><label for="opsNotes">Operational Notes (MHE, trailers, shift impact)</label><textarea id="opsNotes"></textarea></div>
+            <div class="checkline"><input id="opsSign" type="checkbox" /><label for="opsSign">Depot Manager Sign-Off: Operationally Viable</label></div>
+          </div>
+        </details>
+
+        <details class="section" data-step="7">
+          <summary><span class="step-index">7</span> CFO / Finance Director Sign-Off</summary>
+          <div class="content">
+            <div class="row">
+              <div class="col-6"><label for="cfoName">CFO / Finance Director</label><input id="cfoName" type="text" /></div>
+              <div class="col-6"><label for="minGP">Min GP% Threshold Met?</label>
+                <select id="minGP"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
+              <div class="col-12"><label for="financeNotes">Finance Notes</label><textarea id="financeNotes"></textarea></div>
+            </div>
+            <div class="checkline"><input id="cfoSign" type="checkbox" /><label for="cfoSign">CFO Sign-Off: Commercially Approved for Onboarding</label></div>
+          </div>
+        </details>
+
+        <!-- Actions -->
+        <div class="actions">
+          <button class="btn btn-ghost" id="reset">Reset</button>
+          <button class="btn btn-primary" id="exportJson">Export JSON</button>
+          <button class="btn btn-success" id="sendOnboarding" disabled>Send to Onboarding</button>
+          <span class="hint">Autosaves locally.</span>
         </div>
-      </details>
 
-      <div class="actions">
-        <button class="btn btn-ghost" id="reset">Reset</button>
-        <button class="btn btn-primary" id="exportJson">Export JSON</button>
-        <button class="btn btn-success" id="sendOnboarding" disabled>Send to Onboarding</button>
-        <span class="hint">Autosaves locally.</span>
-      </div>
-
-      <div class="footer">
-        <span>© Walkers Transport • Pre-Onboarding</span>
-        <span>Need CreditSafe? <a class="link" href="https://www.creditsafe.com/gb/en.html" target="_blank">Open portal</a></span>
-      </div>
-    </main>
+        <div class="footer">
+          <span>© Walkers Transport • Pre-Onboarding</span>
+          <span>Need CreditSafe? <a class="link" href="https://www.creditsafe.com/gb/en.html" target="_blank" rel="noopener">Open portal</a></span>
+        </div>
+      </main>
+    </div>
   </div>
-</div>
 
 <script>
 (function(){
@@ -237,7 +312,7 @@
     stageList.innerHTML='';
     stages.forEach((s,i)=>{
       const el=document.createElement('div');el.className='stage';el.dataset.stageId=s.id;
-      el.innerHTML=`<span class="dot"></span><div><strong>${i+1}. ${s.label}</strong><div class="sub" style="color:#9aa2af;font-size:12px">Pending</div></div>`;
+      el.innerHTML=`<span class="dot"></span><div><strong>${i+1}. ${s.label}</strong><div class="sub" style="color:#5b6372;font-size:12px">Pending</div></div>`;
       stageList.appendChild(el);
     });
   }
@@ -285,6 +360,7 @@
     if(i.type==='checkbox'||i.type==='file') i.addEventListener('change',()=>{save();compute();});
   });
 
+  // Export & reset
   document.getElementById('exportJson').addEventListener('click',()=>{
     const data=getState();
     const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
@@ -299,12 +375,54 @@
     compute();
   });
 
-  // Hand-off: encode a compact payload to index.html
+  // Companies House lookup (requires backend proxy; keep URL as deployed)
+  const chSpin=document.getElementById('chSpin');
+  const chStatus=document.getElementById('chStatus');
+  const sicMap={
+    "49410":"Freight transport by road",
+    "52103":"Operation of warehousing & storage facilities (land transport)",
+    "52290":"Other transportation support activities",
+    "46900":"Non-specialised wholesale trade",
+    "22220":"Manufacture of plastic packing goods"
+  };
+  function fmtAddress(a){
+    if(!a) return '';
+    return [a.address_line_1,a.address_line_2,a.locality,a.region,a.postal_code,a.country].filter(Boolean).join(', ');
+  }
+  function setIfEmpty(id,val){const el=document.getElementById(id); if(el && !el.value && val) el.value=val;}
+  function setVal(id,val){const el=document.getElementById(id); if(el) el.value=val||'';}
+
+  async function lookupCompaniesHouse(num){
+    const n=(num||'').replace(/\s+/g,'').toUpperCase();
+    if(!n) return;
+    chSpin.style.display='inline-block'; chStatus.className='hint'; chStatus.textContent='Looking up Companies House…';
+    try{
+      const res=await fetch(`/api/companies-house?number=${encodeURIComponent(n)}`); // point this to your proxy/worker
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data=await res.json();
+      setIfEmpty('accountName', data.company_name);
+      setVal('ch_companyName', data.company_name);
+      setVal('ch_status', (data.company_status||'').replace(/_/g,' ').toUpperCase());
+      setVal('ch_incorp', data.date_of_creation || '');
+      const sics=(data.sic_codes||[]).map(c=> sicMap[c] ? `${c} – ${sicMap[c]}` : c).join('; ');
+      setVal('ch_sic', sics);
+      setVal('ch_address', fmtAddress(data.registered_office_address));
+      chStatus.textContent='Companies House match loaded.'; chStatus.className='status-ok';
+    }catch(e){
+      chStatus.textContent='Companies House lookup failed (check number or try again).';
+      chStatus.className='status-err';
+    }finally{
+      chSpin.style.display='none';
+    }
+  }
+  document.getElementById('companyNo').addEventListener('blur', e=> lookupCompaniesHouse(e.target.value));
+
+  // Hand-off to Onboarding
   function b64(json){return btoa(unescape(encodeURIComponent(JSON.stringify(json))));}
   document.getElementById('sendOnboarding').addEventListener('click',()=>{
     const d=getState();
     const payload={
-      accountName:d.accountName||'',
+      accountName:d.accountName||d.ch_companyName||'',
       companyNo:d.companyNo||'',
       amName:d.amName||'',
       sector:d.sector||'',
@@ -312,13 +430,14 @@
       volumeForecast:d.volumeForecast||'',
       scope:d.scope||'',
       expGP:d.expGP||'',
-      credit:{rating:d.csRating||'',limit:d.csLimit||'',risk:d.csRisk||''}
+      credit:{rating:d.csRating||'',limit:d.csLimit||'',risk:d.csRisk||''},
+      ch:{status:d.ch_status||'',incorp:d.ch_incorp||'',sic:d.ch_sic||'',address:d.ch_address||''}
     };
     const qs=new URLSearchParams({from:'pre', data:b64(payload)}).toString();
     window.location.href=`index.html?${qs}`;
   });
 
-  // Auto-open the first incomplete section on first load
+  // Open first incomplete section on load
   const sections=[...document.querySelectorAll('details.section')];
   (function openFirstIncomplete(){
     for(let i=0;i<stages.length;i++){
