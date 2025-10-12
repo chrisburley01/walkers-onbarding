@@ -14,18 +14,21 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* Brand */
+    :root { --wk-blue:#002c77; --wk-dark:#0f2353; }
     body{font-family:Arial, Helvetica, sans-serif; background:#f8fafc; color:#0b1220}
-    .btn-primary{background:#002c77;color:#fff}
+    .btn-primary{background:var(--wk-blue);color:#fff}
     .btn-primary:hover{filter:brightness(.97)}
-    .btn-dark{background:#0f2353;color:#fff}
+    .btn-dark{background:var(--wk-dark);color:#fff}
     .btn-dark:hover{filter:brightness(.97)}
     .shadow-soft{box-shadow:0 10px 30px rgba(0,0,0,.08)}
     .focus-ring:focus{outline:3px solid rgba(0,44,119,.25);outline-offset:2px}
+    .dot{width:.625rem;height:.625rem;border-radius:9999px;background:var(--wk-blue)}
   </style>
 </head>
 <body>
 
-  <!-- HEADER (same brand + logo treatment) -->
+  <!-- HEADER -->
   <header class="text-white shadow-md" style="background:#002c77">
     <div class="max-w-7xl mx-auto flex items-center gap-4 px-6 py-3">
       <img src="assets/walkers-logo.png" alt="Walkers Transport" class="h-16 w-auto select-none brightness-110 drop-shadow-md">
@@ -34,21 +37,23 @@
         <p class="text-white/80 text-sm -mt-0.5">Can Do. Pre-Onboarding</p>
       </div>
       <nav class="hidden md:flex gap-4 text-sm ml-auto">
-        <a href="#intro" class="hover:underline">Intro</a>
-        <a href="#details" class="hover:underline">Your Details</a>
-        <a href="#scope" class="hover:underline">Scope</a>
-        <a href="#consents" class="hover:underline">Consents</a>
-        <a href="#next" class="hover:underline">Next</a>
+        <a href="#opportunity" class="hover:underline">Opportunity</a>
+        <a href="#crm" class="hover:underline">CRM Entry</a>
+        <a href="#creditsafe" class="hover:underline">CreditSafe</a>
+        <a href="#factfind" class="hover:underline">Fact-Find</a>
+        <a href="#ratesent" class="hover:underline">Rate Sent</a>
+        <a href="#negotiation" class="hover:underline">Negotiation</a>
+        <a href="#depot" class="hover:underline">Depot Sign-off</a>
+        <a href="#cfo" class="hover:underline">CFO Sign-off</a>
       </nav>
     </div>
   </header>
 
-  <!-- STATUS -->
+  <!-- STATUS BAR -->
   <section class="bg-white border-b">
     <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3 text-sm">
-      <span class="inline-block w-2.5 h-2.5 rounded-full" style="background:#002c77"></span>
-      <span class="font-medium">Status:</span>
-      <span id="statusLabel" class="text-gray-600">Intro</span>
+      <span class="dot"></span><span class="font-medium">Status:</span>
+      <span id="statusLabel" class="text-gray-600">Opportunity</span>
       <span class="mx-2 text-gray-300">|</span>
       <button id="saveBtn" class="px-3 py-1.5 rounded-lg btn-dark text-xs font-semibold">Save Progress</button>
       <button id="exportBtn" class="px-3 py-1.5 rounded-lg border text-xs font-semibold">Download JSON</button>
@@ -62,131 +67,94 @@
       <!-- Steps -->
       <aside class="lg:col-span-4 xl:col-span-3">
         <div class="bg-white rounded-2xl shadow-soft p-5 sticky top-6">
-          <h2 class="text-lg font-bold mb-4">Steps</h2>
+          <h2 class="text-lg font-bold mb-4">Pre-Onboarding Steps</h2>
           <ol class="space-y-2 text-sm" id="stepsList">
-            <li data-step="intro"    class="border rounded-xl p-3 cursor-pointer">Introduction</li>
-            <li data-step="details"  class="border rounded-xl p-3 cursor-pointer">Your Details</li>
-            <li data-step="scope"    class="border rounded-xl p-3 cursor-pointer">Scope & Volumes</li>
-            <li data-step="consents" class="border rounded-xl p-3 cursor-pointer">Consents</li>
-            <li data-step="next"     class="border rounded-xl p-3 cursor-pointer">Proceed</li>
+            <li data-step="opportunity" class="border rounded-xl p-3 cursor-pointer">1. Opportunity</li>
+            <li data-step="crm"        class="border rounded-xl p-3 cursor-pointer">2. CRM Entry</li>
+            <li data-step="creditsafe" class="border rounded-xl p-3 cursor-pointer">3. CreditSafe</li>
+            <li data-step="factfind"   class="border rounded-xl p-3 cursor-pointer">4. Fact-Find</li>
+            <li data-step="ratesent"   class="border rounded-xl p-3 cursor-pointer">5. Rate Sent</li>
+            <li data-step="negotiation"class="border rounded-xl p-3 cursor-pointer">6. Negotiation</li>
+            <li data-step="depot"      class="border rounded-xl p-3 cursor-pointer">7. Depot Manager Sign-off</li>
+            <li data-step="cfo"        class="border rounded-xl p-3 cursor-pointer">8. CFO Sign-off</li>
           </ol>
-          <p class="mt-6 text-xs text-gray-500">This helps us tailor onboarding and get you trading faster.</p>
+          <p class="mt-6 text-xs text-gray-500">This checklist helps us keep the commercial process on track before full onboarding.</p>
         </div>
       </aside>
 
       <!-- Panels -->
       <section class="lg:col-span-8 xl:col-span-9 space-y-8">
 
-        <!-- INTRO -->
-        <div id="intro" class="bg-white rounded-2xl shadow-soft p-6">
-          <h2 class="text-2xl font-extrabold mb-2">Welcome 👋</h2>
-          <p class="text-gray-600 mb-6">Answer a few quick questions so we can set up your Walkers account and rate card correctly.</p>
-          <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
-            <li>2–3 minutes to complete.</li>
-            <li>You can save locally and return anytime.</li>
-            <li>Nothing is submitted until you proceed to the main onboarding.</li>
-          </ul>
-          <button data-goto="details" class="mt-6 px-4 py-2 rounded-xl btn-primary font-semibold">Get started</button>
-        </div>
-
-        <!-- DETAILS -->
-        <div id="details" class="bg-white rounded-2xl shadow-soft p-6 hidden">
-          <h2 class="text-2xl font-extrabold mb-4">Your Details</h2>
-          <div class="grid md:grid-cols-2 gap-6">
-            <label class="block text-sm">Company Name
-              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="company_name">
-            </label>
-            <label class="block text-sm">Company Registration No.
-              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="company_reg">
-            </label>
-            <label class="block text-sm">Primary Contact
-              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="contact_name">
-            </label>
-            <label class="block text-sm">Email
-              <input type="email" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="contact_email">
-            </label>
-            <label class="block text-sm">Phone
-              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="contact_phone">
-            </label>
-            <label class="block text-sm">Planned Start Date
-              <input type="date" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="start_date">
-            </label>
-            <label class="block text-sm md:col-span-2">Registered / Invoice Address
-              <textarea rows="3" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="invoice_address"></textarea>
-            </label>
-          </div>
+        <!-- Template for each step: title, short text, Back/Next -->
+        <div id="opportunity" class="bg-white rounded-2xl shadow-soft p-6">
+          <h2 class="text-2xl font-extrabold mb-2">1. Opportunity</h2>
+          <p class="text-gray-600">Lead identified and qualified. Confirm intent to proceed to commercial due diligence.</p>
           <div class="mt-6 flex gap-2">
-            <button data-goto="scope" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
-            <button data-goto="intro" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+            <button data-next="crm" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
-        <!-- SCOPE -->
-        <div id="scope" class="bg-white rounded-2xl shadow-soft p-6 hidden">
-          <h2 class="text-2xl font-extrabold mb-4">Scope & Volumes</h2>
-          <div class="grid md:grid-cols-2 gap-6">
-            <label class="block text-sm">Expected Monthly Pallets
-              <input type="number" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="vol_monthly">
-            </label>
-            <label class="block text-sm">Typical Full Pallets %
-              <input type="number" step="1" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="vol_full_pct">
-            </label>
-            <label class="block text-sm md:col-span-2">Main Origins/Destinations
-              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="lanes">
-            </label>
-            <fieldset class="md:col-span-2">
-              <legend class="text-sm font-semibold mb-2">Services Required</legend>
-              <div class="grid md:grid-cols-3 gap-3 text-sm">
-                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_nextday"> Next Day</label>
-                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_economy"> Economy</label>
-                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_timed"> Timed Window</label>
-                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_pre10"> Pre-10</label>
-                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_taillift"> Tail Lift</label>
-                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_adr"> ADR (LQ)</label>
-              </div>
-            </fieldset>
-          </div>
+        <div id="crm" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-2">2. CRM Entry</h2>
+          <p class="text-gray-600">Create/verify account in CRM with basic company/contact details.</p>
           <div class="mt-6 flex gap-2">
-            <button data-goto="consents" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
-            <button data-goto="details" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+            <button data-prev="opportunity" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+            <button data-next="creditsafe" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
-        <!-- CONSENTS -->
-        <div id="consents" class="bg-white rounded-2xl shadow-soft p-6 hidden">
-          <h2 class="text-2xl font-extrabold mb-4">Consents</h2>
-          <div class="space-y-4 text-sm">
-            <label class="flex items-start gap-3">
-              <input type="checkbox" name="accept_rha">
-              <span>I acknowledge all goods are carried under RHA Conditions of Carriage (2024) and Walkers T&Cs.</span>
-            </label>
-            <label class="flex items-start gap-3">
-              <input type="checkbox" name="accept_fs">
-              <span>I understand fuel surcharge applies (AA monthly diesel average) and will be shown on invoices.</span>
-            </label>
-            <label class="flex items-start gap-3">
-              <input type="checkbox" name="gdpr_ok">
-              <span>I consent to Walkers processing my data for onboarding in line with the <a href="Doc/Privacy-Notice.pdf" target="_blank" class="underline">Privacy Notice</a>.</span>
-            </label>
-            <label class="flex items-start gap-3">
-              <input type="checkbox" name="site_ready">
-              <span>Our site is suitable for kerbside delivery (hardstanding, access, and unloading as required).</span>
-            </label>
-          </div>
+        <div id="creditsafe" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-2">3. CreditSafe</h2>
+          <p class="text-gray-600">Perform initial credit check and risk assessment.</p>
           <div class="mt-6 flex gap-2">
-            <button data-goto="next" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
-            <button data-goto="scope" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+            <button data-prev="crm" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+            <button data-next="factfind" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
           </div>
         </div>
 
-        <!-- NEXT -->
-        <div id="next" class="bg-white rounded-2xl shadow-soft p-6 hidden">
-          <h2 class="text-2xl font-extrabold mb-2">All set ✅</h2>
-          <p class="text-gray-600">Save a copy for your records or continue to complete the full onboarding.</p>
+        <div id="factfind" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-2">4. Fact-Find</h2>
+          <p class="text-gray-600">Capture operational requirements (services, lanes, typical volumes) for commercial proposal.</p>
+          <div class="mt-6 flex gap-2">
+            <button data-prev="creditsafe" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+            <button data-next="ratesent" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
+          </div>
+        </div>
+
+        <div id="ratesent" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-2">5. Rate Sent</h2>
+          <p class="text-gray-600">Issue rate card/proposal to customer.</p>
+          <div class="mt-6 flex gap-2">
+            <button data-prev="factfind" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+            <button data-next="negotiation" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
+          </div>
+        </div>
+
+        <div id="negotiation" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-2">6. Negotiation</h2>
+          <p class="text-gray-600">Agree final commercials and service scope.</p>
+          <div class="mt-6 flex gap-2">
+            <button data-prev="ratesent" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+            <button data-next="depot" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
+          </div>
+        </div>
+
+        <div id="depot" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-2">7. Depot Manager Sign-off</h2>
+          <p class="text-gray-600">Depot reviews operational fit and confirms readiness.</p>
+          <div class="mt-6 flex gap-2">
+            <button data-prev="negotiation" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+            <button data-next="cfo" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
+          </div>
+        </div>
+
+        <div id="cfo" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-2">8. CFO Sign-off</h2>
+          <p class="text-gray-600">Final commercial approval. Proceed to full onboarding.</p>
           <div class="mt-6 flex flex-wrap gap-3">
             <button id="previewBtn" class="px-4 py-2 rounded-xl border font-semibold">Preview JSON</button>
             <button id="downloadBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Download JSON</button>
-            <a href="index.html" class="px-4 py-2 rounded-xl btn-dark font-semibold inline-block">Proceed to Onboarding</a>
+            <!-- Kept separate: you will manually share the main onboarding link -->
           </div>
           <pre id="jsonPreview" class="mt-6 p-4 bg-gray-50 border rounded-xl overflow-auto text-xs hidden"></pre>
         </div>
@@ -203,58 +171,67 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const panels = ['intro','details','scope','consents','next'].map(id=>document.getElementById(id));
+    // Step IDs in order
+    const order = ['opportunity','crm','creditsafe','factfind','ratesent','negotiation','depot','cfo'];
+    const panels = Object.fromEntries(order.map(id => [id, document.getElementById(id)]));
     const stepsList = document.getElementById('stepsList');
 
     function show(id){
-      panels.forEach(p=>p.classList.toggle('hidden', p.id!==id));
-      Array.from(stepsList.children).forEach(li=>{
-        const active = li.dataset.step===id;
-        li.classList.toggle('ring-2', active);
-        li.classList.toggle('ring-blue-800', active);
-        li.classList.toggle('bg-blue-50', active);
+      order.forEach(k => panels[k].classList.toggle('hidden', k!==id));
+      Array.from(stepsList.children).forEach((li,idx)=>{
+        const active = order[idx]===id;
+        li.classList.toggle('ring-2',active);
+        li.classList.toggle('ring-blue-800',active);
+        li.classList.toggle('bg-blue-50',active);
       });
-      document.getElementById('statusLabel').textContent = id[0].toUpperCase()+id.slice(1);
+      document.getElementById('statusLabel').textContent = panels[id].querySelector('h2').textContent.replace(/^[0-9]+\\.\\s*/,'');
       location.hash = id;
+      localStorage.setItem('walkers_pre_onboarding_step', id);
     }
 
-    // buttons with data-goto
-    document.querySelectorAll('[data-goto]').forEach(btn=>btn.addEventListener('click',()=>show(btn.dataset.goto)));
-    // click in sidebar
-    stepsList.addEventListener('click',e=>{
-      const li=e.target.closest('li[data-step]'); if(li) show(li.dataset.step);
-    });
-    window.addEventListener('hashchange', ()=>show(location.hash.substring(1) || 'intro'));
-    show(location.hash.substring(1) || 'intro');
+    // Nav buttons
+    document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click', ()=>show(b.dataset.next)));
+    document.querySelectorAll('[data-prev]').forEach(b=>b.addEventListener('click', ()=>show(b.dataset.prev)));
 
-    // collect + save/export
-    function collect(){
-      const form = {};
-      document.querySelectorAll('input, textarea').forEach(el=>{
-        if(el.type==='checkbox'){ form[el.name]=el.checked; }
-        else if(el.type!=='button' && el.name){ form[el.name]=el.value; }
-      });
-      return form;
-    }
-
-    document.getElementById('saveBtn').addEventListener('click', ()=>{
-      localStorage.setItem('walkers_pre_onboarding', JSON.stringify(collect()));
-      document.getElementById('statusLabel').textContent = 'Saved locally';
+    // Sidebar clicks
+    stepsList.addEventListener('click', e=>{
+      const li = e.target.closest('li[data-step]'); if(li) show(li.dataset.step);
     });
 
-    const saveBlob = (obj, name) => {
-      const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
-      const url=URL.createObjectURL(blob);
-      const a=document.createElement('a'); a.href=url; a.download=name; a.click(); URL.revokeObjectURL(url);
-    };
+    // Hash / restore
+    const saved = localStorage.getItem('walkers_pre_onboarding_step');
+    const initial = location.hash.substring(1) || saved || 'opportunity';
+    show(order.includes(initial)?initial:'opportunity');
+    window.addEventListener('hashchange', ()=> show(location.hash.substring(1) || 'opportunity'));
 
-    document.getElementById('exportBtn').addEventListener('click', ()=> saveBlob(collect(),'walkers-pre-onboarding.json'));
-    document.getElementById('downloadBtn').addEventListener('click', ()=> saveBlob(collect(),'walkers-pre-onboarding.json'));
+    // Download JSON (just the step trail and timestamps; no extra fields)
+    const history = [];
+    function markVisit(id){ history.push({step:id, at:new Date().toISOString()}); }
+    order.forEach(id=>{
+      const panel = panels[id];
+      const observer = new MutationObserver(()=>{ if(!panel.classList.contains('hidden')) markVisit(id); });
+      observer.observe(panel,{attributes:true,attributeFilter:['class']});
+    });
 
+    document.getElementById('exportBtn').addEventListener('click', download);
+    document.getElementById('downloadBtn')?.addEventListener('click', download);
     document.getElementById('previewBtn')?.addEventListener('click', ()=>{
       const pre=document.getElementById('jsonPreview');
-      pre.textContent=JSON.stringify(collect(),null,2);
+      pre.textContent = JSON.stringify({current:location.hash.slice(1)||initial, history}, null, 2);
       pre.classList.toggle('hidden');
+    });
+
+    function download(){
+      const data = { current: location.hash.slice(1)||initial, history };
+      const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download='walkers-pre-onboarding.json'; a.click(); URL.revokeObjectURL(url);
+    }
+
+    // Save step only (as requested, no extra fields)
+    document.getElementById('saveBtn').addEventListener('click', ()=>{
+      localStorage.setItem('walkers_pre_onboarding_step', location.hash.slice(1)||initial);
+      document.getElementById('statusLabel').textContent = 'Saved locally';
     });
   </script>
 </body>
