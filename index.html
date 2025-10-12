@@ -7,62 +7,39 @@
 <base href="./">
 <link rel="icon" href="assets/walkers-logo.svg">
 <style>
-  :root{
-    --brand-primary:#0A2135; --brand-primary-700:#051524; --brand-accent:#0072CE;
-    --text:#222831; --muted:#6B7280; --bg:#F7F8FA; --surface:#fff; --line:#E6E8EE;
-    --radius:16px; --shadow:0 6px 18px rgba(0,0,0,.08);
-  }
-  *{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.45 Inter,system-ui,Segoe UI,Roboto;color:var(--text)}
-  .shell{max-width:880px;margin:40px auto;padding:0 18px}
-  header{display:flex;align-items:center;gap:14px;margin-bottom:24px}
-  .logo{height:48px;width:auto;object-fit:contain}
-  .hero{background:linear-gradient(180deg,var(--brand-primary),var(--brand-primary-700));color:#fff;
-        border-radius:20px;padding:24px 20px;box-shadow:0 8px 22px rgba(10,33,53,.25)}
-  .hero h1{margin:0 0 6px;font-size:24px}
-  .hero p{margin:6px 0 12px;color:#d8e1eb}
-  .btn{display:inline-block;padding:10px 16px;border-radius:12px;font-weight:600;text-decoration:none;margin:6px 8px 0 0}
-  .btn-primary{background:linear-gradient(180deg,var(--brand-accent),#005bb0);color:#fff}
-  .btn-white{background:#fff;color:var(--brand-primary);border:1px solid #d9dde6}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-        box-shadow:var(--shadow);padding:18px;margin-top:18px}
-  footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:#5b6372;font-size:12px;text-align:center}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f7f8fa;color:#111}
+  .shell{max-width:700px;margin:60px auto;padding:20px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:30px}
+  img.logo{height:46px;width:auto}
+  h1{margin:0;font-size:24px;color:#0A2135}
+  p{line-height:1.6;margin:10px 0}
+  .buttons{display:flex;flex-wrap:wrap;gap:10px;margin:25px 0}
+  a.btn{background:#0A2135;color:#fff;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600}
+  a.btn:hover{background:#0072CE}
+  footer{border-top:1px solid #ddd;margin-top:40px;padding-top:12px;font-size:12px;color:#666}
 </style>
 </head>
 <body>
-<div class="shell">
-  <header>
-    <img class="logo" src="assets/walkers-logo.svg" alt="Walkers Transport">
-    <h2 style="color:var(--brand-primary);margin:0">Customer Onboarding Portal</h2>
-  </header>
+  <div class="shell">
+    <header>
+      <img class="logo" src="assets/walkers-logo.svg" alt="Walkers Transport">
+      <h1>Welcome on board – nearly…</h1>
+    </header>
 
-  <section class="hero">
-    <h1>Welcome on board – nearly…</h1>
     <p>See the <strong>“What’s Next”</strong> flyer below – we just need two quick forms completed to finish your onboarding.</p>
-    <div>
-      <a href="#trading" class="btn btn-primary">Trading Agreement</a>
-      <a href="#checklist" class="btn btn-white">Checklist</a>
-      <a href="https://app.pandadoc.com/a/#/docs/PLACEHOLDER" target="_blank" class="btn btn-white">Sign via PandaDoc</a>
+    <p>Attached you’ll find our <strong>Trading Agreement</strong> and <strong>Checklist</strong>.  They’re standard items to ensure our ISO documentation is complete and everything’s set up correctly.</p>
+    <p>Once we have them back, we’ll follow up to confirm your start date. 😊</p>
+
+    <div class="buttons">
+      <a href="assets/Trading-Agreement.pdf" class="btn" target="_blank">Trading Agreement</a>
+      <a href="assets/Customer-Checklist.pdf" class="btn" target="_blank">Customer Checklist</a>
+      <a href="https://app.pandadoc.com/a/#/docs/PLACEHOLDER" class="btn" target="_blank">Sign via PandaDoc</a>
     </div>
-  </section>
 
-  <section id="trading" class="card">
-    <h3>Trading Agreement</h3>
-    <p>This is our standard agreement covering terms, liability, and service scope. Please review and sign using the secure PandaDoc link above. You can also download a PDF copy here:</p>
-    <a href="assets/Trading-Agreement.pdf" target="_blank" class="btn btn-primary">Download PDF</a>
-  </section>
+    <p><strong>Need help?</strong><br>
+    Contact your Walkers Account Manager or email <a href="mailto:onboarding@walkers-transport.com">onboarding@walkers-transport.com</a>.</p>
 
-  <section id="checklist" class="card">
-    <h3>Customer Checklist</h3>
-    <p>This short form helps us align your collection/delivery windows, contact details, and invoice preferences.</p>
-    <a href="assets/Customer-Checklist.pdf" target="_blank" class="btn btn-primary">Open Checklist (PDF)</a>
-  </section>
-
-  <section class="card">
-    <h3>Need Help?</h3>
-    <p>Contact your Walkers Account Manager or email <a href="mailto:onboarding@walkers-transport.com">onboarding@walkers-transport.com</a>.</p>
-  </section>
-
-  <footer>© Walkers Transport • Customer Onboarding</footer>
-</div>
+    <footer>© Walkers Transport • Customer Onboarding</footer>
+  </div>
 </body>
 </html>
