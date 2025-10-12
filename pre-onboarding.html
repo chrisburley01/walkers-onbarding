@@ -1,451 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Walkers | Pre-Onboarding Portal</title>
-<base href="./">
-<link rel="icon" href="assets/walkers-logo.svg" />
-<meta name="description" content="Walkers Transport – Pre-Onboarding Portal" />
-<style>
-  /* === Walkers BRAND TOKENS === */
-  :root{
-    --brand-primary: #0A2135;     /* deep navy */
-    --brand-primary-700: #051524; /* darker shade */
-    --brand-accent:  #0072CE;     /* bright blue */
-    --brand-red:     #E30613;     /* action/warn */
-    --text:          #222831;
-    --muted:         #6B7280;
-    --bg:            #F7F8FA;
-    --surface:       #FFFFFF;
-    --line:          #E6E8EE;
-    --success:       #16A34A;
-    --warn:          #F59E0B;
-    --danger:        #EF4444;
-    --radius:        16px;
-    --shadow:        0 6px 18px rgba(0,0,0,.08);
-  }
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Walkers Transport | Pre-Onboarding</title>
 
-  *{box-sizing:border-box} html,body{height:100%}
-  body{
-    margin:0;
-    background:
-      radial-gradient(900px 420px at 70% -10%, color-mix(in oklab, var(--brand-primary) 12%, transparent), transparent 65%),
-      var(--bg);
-    color:var(--text);
-    font:15px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-  }
-  .shell{max-width:1100px;margin:32px auto;padding:0 16px}
+  <!-- Favicons (same as master) -->
+  <link rel="icon" href="Doc/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="Doc/favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="Doc/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="Doc/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="Doc/android-chrome-512x512.png" sizes="512x512">
 
-  header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-  .logo{height:44px;width:auto;object-fit:contain;display:block}
-  .title h1{margin:0;font-size:22px}
-  .title span{color:var(--muted);font-size:12.5px}
-
-  .topbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 22px}
-  .badge{
-    background:color-mix(in oklab, var(--brand-primary) 8%, #ffffff);
-    border:1px solid color-mix(in oklab, var(--brand-primary) 25%, transparent);
-    color:var(--text); padding:6px 10px; border-radius:999px; font-size:12px
-  }
-  .link{color:var(--brand-accent);text-decoration:none;border-bottom:1px dashed color-mix(in oklab, var(--brand-accent) 45%, transparent)}
-  .wrap{display:grid;grid-template-columns:280px 1fr;gap:18px}
-  @media (max-width:980px){.wrap{grid-template-columns:1fr}}
-
-  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow)}
-  .side{padding:16px}
-  .side h3{margin:6px 6px 10px;font-size:13px;color:#3b4352;text-transform:uppercase;letter-spacing:.12em}
-  .progress{background:#F2F4F8;border:1px solid var(--line);height:10px;border-radius:999px;overflow:hidden;margin:0 6px 14px}
-  .progress > i{display:block;height:100%;width:0;background:linear-gradient(90deg, var(--brand-primary), var(--brand-primary-700));transition:width .35s ease}
-  .stage{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;border:1px dashed #E1E5EE;margin:6px 0}
-  .dot{width:9px;height:9px;border-radius:999px;background:#cdd3df}
-  .stage.done{background:#F0FBF3;border-color:rgba(22,163,74,.30)}
-  .stage.done .dot{background:var(--success)}
-  .legend{margin:8px 6px 0;color:#5b6372;font-size:12px}
-
-  .main{padding:18px}
-  .section{border:1px solid var(--line);border-radius:14px;margin-bottom:16px;overflow:hidden;background:var(--surface)}
-  details[open] summary{border-bottom:1px solid var(--line)}
-  summary{list-style:none;cursor:pointer;padding:14px;display:flex;gap:12px;font-weight:600;background:var(--surface)}
-  summary::-webkit-details-marker{display:none}
-  .step-index{
-    width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
-    background:color-mix(in oklab, var(--brand-primary) 12%, #fff);
-    border:1px solid color-mix(in oklab, var(--brand-primary) 28%, transparent);font-size:12px;color:#0a0a0a
-  }
-  .content{padding:14px 14px 18px;display:grid;gap:12px}
-  label{display:block;font-size:13px;color:#1d2129;margin-bottom:6px}
-  input, textarea, select{
-    width:100%;padding:10px 12px;border-radius:10px;border:1px solid #D9DDE6;background:#fff;color:var(--text);outline:none
-  }
-  textarea{min-height:90px;resize:vertical}
-  input:focus, textarea:focus, select:focus{
-    border-color:var(--brand-primary);
-    box-shadow:0 0 0 3px color-mix(in oklab, var(--brand-primary) 25%, transparent)
-  }
-  .row{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-  .col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
-  @media (max-width:720px){.col-4,.col-6,.col-8{grid-column:span 12}}
-
-  .upload{border:1px dashed #D9DDE6;border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:space-between;background:#fff}
-
-  .actions{display:flex;flex-wrap:wrap;gap:10px;padding:8px 14px 18px}
-  .btn{appearance:none;border:none;border-radius:12px;padding:10px 14px;font-weight:600;cursor:pointer}
-  .btn-primary{background:linear-gradient(180deg,var(--brand-primary),var(--brand-primary-700));color:#fff}
-  .btn-ghost{background:#fff;border:1px solid #D9DDE6;color:#0a0a0a}
-  .btn-success{background:linear-gradient(180deg,#22c55e,#16a34a);color:#02140a}
-  .hint{color:var(--muted);font-size:12px}
-
-  .footer{display:flex;justify-content:space-between;gap:10px;padding:14px;border-top:1px solid var(--line);color:#5b6372;font-size:12px}
-
-  .statusline{display:flex;gap:8px;align-items:center;font-size:12px}
-  .spinner{width:14px;height:14px;border:2px solid #d9dde6;border-top-color:var(--brand-accent);border-radius:50%;animation:spin .8s linear infinite;display:none}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .status-ok{color:#15803d}.status-err{color:#b91c1c}
-</style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body{font-family:Arial, Helvetica, sans-serif; background:#f8fafc; color:#0b1220}
+    .btn-primary{background:#002c77;color:#fff}
+    .btn-primary:hover{filter:brightness(.97)}
+    .btn-dark{background:#0f2353;color:#fff}
+    .btn-dark:hover{filter:brightness(.97)}
+    .shadow-soft{box-shadow:0 10px 30px rgba(0,0,0,.08)}
+    .focus-ring:focus{outline:3px solid rgba(0,44,119,.25);outline-offset:2px}
+  </style>
 </head>
 <body>
-  <div class="shell">
-    <header>
-      <picture>
-        <source srcset="assets/walkers-logo.svg" type="image/svg+xml">
-        <img class="logo" src="assets/walkers-logo.png" alt="Walkers Transport" />
-      </picture>
-      <div class="title">
-        <h1>Pre-Onboarding Portal</h1>
-        <span>Commercial • Operational • Financial gateway before full onboarding</span>
+
+  <!-- HEADER (same brand + logo treatment) -->
+  <header class="text-white shadow-md" style="background:#002c77">
+    <div class="max-w-7xl mx-auto flex items-center gap-4 px-6 py-3">
+      <img src="assets/walkers-logo.png" alt="Walkers Transport" class="h-16 w-auto select-none brightness-110 drop-shadow-md">
+      <div>
+        <h1 class="text-2xl font-extrabold leading-tight">Walkers Transport</h1>
+        <p class="text-white/80 text-sm -mt-0.5">Can Do. Pre-Onboarding</p>
       </div>
-    </header>
-
-    <div class="topbar">
-      <span class="badge">Status: <strong id="statusText">In Progress</strong></span>
-      <span class="badge">Version: Pre-Onboarding v1.2</span>
-      <a class="link" href="https://www.creditsafe.com/gb/en.html" target="_blank" rel="noopener">Open CreditSafe</a>
+      <nav class="hidden md:flex gap-4 text-sm ml-auto">
+        <a href="#intro" class="hover:underline">Intro</a>
+        <a href="#details" class="hover:underline">Your Details</a>
+        <a href="#scope" class="hover:underline">Scope</a>
+        <a href="#consents" class="hover:underline">Consents</a>
+        <a href="#next" class="hover:underline">Next</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="wrap">
-      <!-- Sidebar -->
-      <aside class="card side" aria-labelledby="progressLabel">
-        <h3 id="progressLabel">Progress</h3>
-        <div class="progress"><i id="progressBar" style="width:0%"></i></div>
-        <div id="stageList"></div>
-        <div class="legend">Complete all 7 stages to unlock <em>Send to Onboarding</em>.</div>
+  <!-- STATUS -->
+  <section class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center gap-3 text-sm">
+      <span class="inline-block w-2.5 h-2.5 rounded-full" style="background:#002c77"></span>
+      <span class="font-medium">Status:</span>
+      <span id="statusLabel" class="text-gray-600">Intro</span>
+      <span class="mx-2 text-gray-300">|</span>
+      <button id="saveBtn" class="px-3 py-1.5 rounded-lg btn-dark text-xs font-semibold">Save Progress</button>
+      <button id="exportBtn" class="px-3 py-1.5 rounded-lg border text-xs font-semibold">Download JSON</button>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="max-w-7xl mx-auto px-6 py-8">
+    <div class="grid lg:grid-cols-12 gap-8">
+
+      <!-- Steps -->
+      <aside class="lg:col-span-4 xl:col-span-3">
+        <div class="bg-white rounded-2xl shadow-soft p-5 sticky top-6">
+          <h2 class="text-lg font-bold mb-4">Steps</h2>
+          <ol class="space-y-2 text-sm" id="stepsList">
+            <li data-step="intro"    class="border rounded-xl p-3 cursor-pointer">Introduction</li>
+            <li data-step="details"  class="border rounded-xl p-3 cursor-pointer">Your Details</li>
+            <li data-step="scope"    class="border rounded-xl p-3 cursor-pointer">Scope & Volumes</li>
+            <li data-step="consents" class="border rounded-xl p-3 cursor-pointer">Consents</li>
+            <li data-step="next"     class="border rounded-xl p-3 cursor-pointer">Proceed</li>
+          </ol>
+          <p class="mt-6 text-xs text-gray-500">This helps us tailor onboarding and get you trading faster.</p>
+        </div>
       </aside>
 
-      <!-- Main -->
-      <main class="card main">
-        <!-- 1. Opportunity -->
-        <details class="section" open data-step="1">
-          <summary><span class="step-index">1</span> Opportunity Logged (CRM)</summary>
-          <div class="content">
-            <div class="row">
-              <div class="col-8">
-                <label for="accountName">Account / Legal Name *</label>
-                <input id="accountName" type="text" placeholder="e.g., Duo UK Ltd" />
-              </div>
-              <div class="col-4">
-                <label for="companyNo">Company Number</label>
-                <input id="companyNo" type="text" placeholder="e.g., 01234567" />
-                <div class="statusline">
-                  <div id="chSpin" class="spinner"></div>
-                  <span id="chStatus" class="hint">Enter number and leave the field to auto-fill from Companies House…</span>
-                </div>
-              </div>
-              <div class="col-6"><label for="sector">Sector</label><input id="sector" type="text" /></div>
-              <div class="col-6">
-                <label for="leadOrigin">Lead Origin</label>
-                <select id="leadOrigin"><option value="">Select…</option><option>Network</option><option>Direct</option><option>Storage</option><option>Full Logistics Solution</option></select>
-              </div>
-              <div class="col-6"><label for="amName">Account Manager</label><input id="amName" type="text" placeholder="e.g., Chris Burley" /></div>
-              <div class="col-6"><label for="volumeForecast">Est. Annual Volume (pallets)</label><input id="volumeForecast" type="number" min="0" placeholder="e.g., 12000" /></div>
-              <div class="col-12"><label for="scope">Service Scope</label><input id="scope" type="text" placeholder="Storage, Transport, Fulfilment, IT integration, etc." /></div>
-            </div>
+      <!-- Panels -->
+      <section class="lg:col-span-8 xl:col-span-9 space-y-8">
 
-            <!-- Auto-filled from Companies House -->
-            <div class="row" style="margin-top:6px">
-              <div class="col-12"><div class="hint">Auto-filled from Companies House (editable):</div></div>
-              <div class="col-8"><label for="ch_companyName">CH: Registered Name</label><input id="ch_companyName" type="text" /></div>
-              <div class="col-4"><label for="ch_status">CH: Company Status</label><input id="ch_status" type="text" /></div>
-              <div class="col-6"><label for="ch_incorp">CH: Incorporation Date</label><input id="ch_incorp" type="text" /></div>
-              <div class="col-6"><label for="ch_sic">CH: SIC Codes</label><input id="ch_sic" type="text" placeholder="e.g., 49410 – Freight transport by road" /></div>
-              <div class="col-12"><label for="ch_address">CH: Registered Address</label><input id="ch_address" type="text" placeholder="Address line, locality, region, postcode, country" /></div>
-            </div>
-
-            <div class="checkline">
-              <input id="crmCreated" type="checkbox" />
-              <label for="crmCreated">CRM opportunity created and assigned</label>
-            </div>
-          </div>
-        </details>
-
-        <!-- 2. CreditSafe -->
-        <details class="section" data-step="2">
-          <summary><span class="step-index">2</span> CreditSafe Financial Check</summary>
-          <div class="content">
-            <div class="row">
-              <div class="col-4"><label for="csRating">CreditSafe Rating *</label><input id="csRating" type="text" placeholder="e.g., 72/100" /></div>
-              <div class="col-4"><label for="csLimit">Recommended Credit Limit *</label><input id="csLimit" type="text" placeholder="e.g., £50,000" /></div>
-              <div class="col-4"><label for="csRisk">Risk Band *</label>
-                <select id="csRisk"><option value="">Select…</option><option>Low</option><option>Medium</option><option>High</option></select></div>
-              <div class="col-12">
-                <div class="upload">
-                  <div><strong>CreditSafe Summary Report</strong><div class="hint">Upload PDF or image export</div></div>
-                  <input id="csReport" type="file" accept=".pdf,image/*" />
-                </div>
-              </div>
-            </div>
-            <div class="checkline">
-              <input id="financeApproved" type="checkbox" />
-              <label for="financeApproved">Finance reviewed CreditSafe and set terms</label>
-            </div>
-          </div>
-        </details>
-
-        <!-- 3–7 (unchanged structure) -->
-        <details class="section" data-step="3">
-          <summary><span class="step-index">3</span> Fact-Finding & Site Review</summary>
-          <div class="content">
-            <div class="row">
-              <div class="col-6"><label for="siteAccess">Site Access Type</label>
-                <select id="siteAccess"><option value="">Select…</option><option>Open yard</option><option>Loading bays</option><option>Tight access</option><option>Other</option></select></div>
-              <div class="col-6"><label for="palletProfile">Pallet Profile</label>
-                <select id="palletProfile"><option value="">Select…</option><option>STD</option><option>Euro</option><option>Oversized</option><option>Mixed</option></select></div>
-              <div class="col-6"><label for="windows">Collection/Delivery Window</label><input id="windows" type="text" placeholder="e.g., 08:00–16:00, Mon–Fri" /></div>
-              <div class="col-6"><label for="specials">Special Requirements</label>
-                <select id="specials"><option value="">Select…</option><option>None</option><option>ADR</option><option>Temp-controlled</option><option>Fragile / Special Handling</option></select></div>
-              <div class="col-12"><label for="itNeeds">IT / Integration Notes</label><input id="itNeeds" type="text" placeholder="POD photos, EDI, Insight, Connect, Elite, etc." /></div>
-              <div class="col-12"><label for="ffNotes">Notes / Photos / Observations</label><textarea id="ffNotes"></textarea></div>
-            </div>
-            <div class="checkline"><input id="factComplete" type="checkbox" /><label for="factComplete">Fact-finding complete (visit/call done)</label></div>
-          </div>
-        </details>
-
-        <details class="section" data-step="4">
-          <summary><span class="step-index">4</span> Rate Proposal & Submission</summary>
-          <div class="content">
-            <div class="row">
-              <div class="col-8"><label for="rateIssuedBy">Rate Issued By</label><input id="rateIssuedBy" type="text" /></div>
-              <div class="col-4"><label for="rateIssuedDate">Date Issued</label><input id="rateIssuedDate" type="date" /></div>
-              <div class="col-12">
-                <div class="upload"><div><strong>Attach Rate Card</strong><div class="hint">PDF / XLSX / DOCX</div></div>
-                  <input id="rateFile" type="file" accept=".pdf,.xlsx,.xls,.docx,.doc" /></div>
-              </div>
-            </div>
-            <div class="checkline"><input id="rateSent" type="checkbox" /><label for="rateSent">Rates sent to customer</label></div>
-          </div>
-        </details>
-
-        <details class="section" data-step="5">
-          <summary><span class="step-index">5</span> Negotiation & Commercial Review</summary>
-          <div class="content">
-            <div class="row">
-              <div class="col-12"><label for="negSummary">Negotiation Summary</label><textarea id="negSummary"></textarea></div>
-              <div class="col-6"><label for="finalRates">Final Rates Confirmed?</label>
-                <select id="finalRates"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
-              <div class="col-6"><label for="expGP">Expected GP %</label><input id="expGP" type="number" step="0.1" min="0" max="100" placeholder="e.g., 18.5" /></div>
-            </div>
-            <div class="checkline"><input id="negComplete" type="checkbox" /><label for="negComplete">Negotiation complete</label></div>
-          </div>
-        </details>
-
-        <details class="section" data-step="6">
-          <summary><span class="step-index">6</span> Depot Manager Sign-Off</summary>
-          <div class="content">
-            <div class="row">
-              <div class="col-6"><label for="opsManager">Depot Ops Manager</label><input id="opsManager" type="text" /></div>
-              <div class="col-6"><label for="capacityOK">Capacity Check</label>
-                <select id="capacityOK"><option value="">Select…</option><option>OK – resources available</option><option>Requires additional resource</option></select></div>
-            </div>
-            <div class="col-12"><label for="opsNotes">Operational Notes (MHE, trailers, shift impact)</label><textarea id="opsNotes"></textarea></div>
-            <div class="checkline"><input id="opsSign" type="checkbox" /><label for="opsSign">Depot Manager Sign-Off: Operationally Viable</label></div>
-          </div>
-        </details>
-
-        <details class="section" data-step="7">
-          <summary><span class="step-index">7</span> CFO / Finance Director Sign-Off</summary>
-          <div class="content">
-            <div class="row">
-              <div class="col-6"><label for="cfoName">CFO / Finance Director</label><input id="cfoName" type="text" /></div>
-              <div class="col-6"><label for="minGP">Min GP% Threshold Met?</label>
-                <select id="minGP"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
-              <div class="col-12"><label for="financeNotes">Finance Notes</label><textarea id="financeNotes"></textarea></div>
-            </div>
-            <div class="checkline"><input id="cfoSign" type="checkbox" /><label for="cfoSign">CFO Sign-Off: Commercially Approved for Onboarding</label></div>
-          </div>
-        </details>
-
-        <!-- Actions -->
-        <div class="actions">
-          <button class="btn btn-ghost" id="reset">Reset</button>
-          <button class="btn btn-primary" id="exportJson">Export JSON</button>
-          <button class="btn btn-success" id="sendOnboarding" disabled>Send to Onboarding</button>
-          <span class="hint">Autosaves locally.</span>
+        <!-- INTRO -->
+        <div id="intro" class="bg-white rounded-2xl shadow-soft p-6">
+          <h2 class="text-2xl font-extrabold mb-2">Welcome 👋</h2>
+          <p class="text-gray-600 mb-6">Answer a few quick questions so we can set up your Walkers account and rate card correctly.</p>
+          <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+            <li>2–3 minutes to complete.</li>
+            <li>You can save locally and return anytime.</li>
+            <li>Nothing is submitted until you proceed to the main onboarding.</li>
+          </ul>
+          <button data-goto="details" class="mt-6 px-4 py-2 rounded-xl btn-primary font-semibold">Get started</button>
         </div>
 
-        <div class="footer">
-          <span>© Walkers Transport • Pre-Onboarding</span>
-          <span>Need CreditSafe? <a class="link" href="https://www.creditsafe.com/gb/en.html" target="_blank" rel="noopener">Open portal</a></span>
+        <!-- DETAILS -->
+        <div id="details" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-4">Your Details</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <label class="block text-sm">Company Name
+              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="company_name">
+            </label>
+            <label class="block text-sm">Company Registration No.
+              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="company_reg">
+            </label>
+            <label class="block text-sm">Primary Contact
+              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="contact_name">
+            </label>
+            <label class="block text-sm">Email
+              <input type="email" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="contact_email">
+            </label>
+            <label class="block text-sm">Phone
+              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="contact_phone">
+            </label>
+            <label class="block text-sm">Planned Start Date
+              <input type="date" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="start_date">
+            </label>
+            <label class="block text-sm md:col-span-2">Registered / Invoice Address
+              <textarea rows="3" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="invoice_address"></textarea>
+            </label>
+          </div>
+          <div class="mt-6 flex gap-2">
+            <button data-goto="scope" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
+            <button data-goto="intro" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+          </div>
         </div>
-      </main>
+
+        <!-- SCOPE -->
+        <div id="scope" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-4">Scope & Volumes</h2>
+          <div class="grid md:grid-cols-2 gap-6">
+            <label class="block text-sm">Expected Monthly Pallets
+              <input type="number" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="vol_monthly">
+            </label>
+            <label class="block text-sm">Typical Full Pallets %
+              <input type="number" step="1" class="mt-1 w-full border rounded-lg p-2 focus-ring" name="vol_full_pct">
+            </label>
+            <label class="block text-sm md:col-span-2">Main Origins/Destinations
+              <input class="mt-1 w-full border rounded-lg p-2 focus-ring" name="lanes">
+            </label>
+            <fieldset class="md:col-span-2">
+              <legend class="text-sm font-semibold mb-2">Services Required</legend>
+              <div class="grid md:grid-cols-3 gap-3 text-sm">
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_nextday"> Next Day</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_economy"> Economy</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_timed"> Timed Window</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_pre10"> Pre-10</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_taillift"> Tail Lift</label>
+                <label class="inline-flex items-center gap-2"><input type="checkbox" name="svc_adr"> ADR (LQ)</label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="mt-6 flex gap-2">
+            <button data-goto="consents" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
+            <button data-goto="details" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+          </div>
+        </div>
+
+        <!-- CONSENTS -->
+        <div id="consents" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-4">Consents</h2>
+          <div class="space-y-4 text-sm">
+            <label class="flex items-start gap-3">
+              <input type="checkbox" name="accept_rha">
+              <span>I acknowledge all goods are carried under RHA Conditions of Carriage (2024) and Walkers T&Cs.</span>
+            </label>
+            <label class="flex items-start gap-3">
+              <input type="checkbox" name="accept_fs">
+              <span>I understand fuel surcharge applies (AA monthly diesel average) and will be shown on invoices.</span>
+            </label>
+            <label class="flex items-start gap-3">
+              <input type="checkbox" name="gdpr_ok">
+              <span>I consent to Walkers processing my data for onboarding in line with the <a href="Doc/Privacy-Notice.pdf" target="_blank" class="underline">Privacy Notice</a>.</span>
+            </label>
+            <label class="flex items-start gap-3">
+              <input type="checkbox" name="site_ready">
+              <span>Our site is suitable for kerbside delivery (hardstanding, access, and unloading as required).</span>
+            </label>
+          </div>
+          <div class="mt-6 flex gap-2">
+            <button data-goto="next" class="px-4 py-2 rounded-xl btn-primary font-semibold">Next</button>
+            <button data-goto="scope" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
+          </div>
+        </div>
+
+        <!-- NEXT -->
+        <div id="next" class="bg-white rounded-2xl shadow-soft p-6 hidden">
+          <h2 class="text-2xl font-extrabold mb-2">All set ✅</h2>
+          <p class="text-gray-600">Save a copy for your records or continue to complete the full onboarding.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <button id="previewBtn" class="px-4 py-2 rounded-xl border font-semibold">Preview JSON</button>
+            <button id="downloadBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Download JSON</button>
+            <a href="index.html" class="px-4 py-2 rounded-xl btn-dark font-semibold inline-block">Proceed to Onboarding</a>
+          </div>
+          <pre id="jsonPreview" class="mt-6 p-4 bg-gray-50 border rounded-xl overflow-auto text-xs hidden"></pre>
+        </div>
+
+      </section>
     </div>
-  </div>
+  </main>
 
-<script>
-(function(){
-  const STORAGE_KEY='walkers_pre_onboarding_v1';
-  const stages=[
-    {id:'s1',label:'Opportunity Logged',required:['accountName','crmCreated']},
-    {id:'s2',label:'CreditSafe Check',required:['csRating','csLimit','csRisk','financeApproved']},
-    {id:'s3',label:'Fact-Finding',required:['factComplete']},
-    {id:'s4',label:'Rate Proposal Sent',required:['rateSent']},
-    {id:'s5',label:'Negotiation Complete',required:['negComplete']},
-    {id:'s6',label:'Depot Manager Sign-Off',required:['opsSign']},
-    {id:'s7',label:'CFO Sign-Off',required:['cfoSign']},
-  ];
-  const inputs=[...document.querySelectorAll('input,textarea,select')];
-  const sendBtn=document.getElementById('sendOnboarding');
-  const pb=document.getElementById('progressBar');
-  const statusText=document.getElementById('statusText');
-  const stageList=document.getElementById('stageList');
+  <footer class="py-10 text-center text-xs text-gray-500">
+    © <span id="year"></span> Walkers Transport — Howley Park Road East, Morley, Leeds LS27 0BN · 0113 220 2800 ·
+    <a class="underline" href="mailto:info@walkers-transport.co.uk">info@walkers-transport.co.uk</a>
+  </footer>
 
-  function renderStages(){
-    stageList.innerHTML='';
-    stages.forEach((s,i)=>{
-      const el=document.createElement('div');el.className='stage';el.dataset.stageId=s.id;
-      el.innerHTML=`<span class="dot"></span><div><strong>${i+1}. ${s.label}</strong><div class="sub" style="color:#5b6372;font-size:12px">Pending</div></div>`;
-      stageList.appendChild(el);
-    });
-  }
-  function isFilled(id){
-    const el=document.getElementById(id); if(!el) return false;
-    if(el.type==='checkbox') return el.checked;
-    if(el.tagName==='SELECT') return !!el.value;
-    return (el.value||'').trim().length>0;
-  }
-  function compute(){
-    let done=0;
-    stages.forEach(s=>{
-      const ok=s.required.every(isFilled);
-      const row=stageList.querySelector(`[data-stage-id="${s.id}"]`);
-      if(row){row.classList.toggle('done',ok); row.querySelector('.sub').textContent=ok?'Complete':'Pending';}
-      if(ok) done++;
-    });
-    const pct=Math.round(done/stages.length*100);
-    pb.style.width=pct+'%';
-    statusText.textContent=done===stages.length?'Ready to hand over':'In Progress';
-    sendBtn.disabled=(done!==stages.length);
-  }
-  function getState(){
-    const d={};
-    inputs.forEach(i=>{
-      if(i.type==='file'){d[i.id]=(i.files&&i.files.length)?[...i.files].map(f=>f.name):[];}
-      else if(i.type==='checkbox'){d[i.id]=i.checked;}
-      else{d[i.id]=i.value;}
-    }); return d;
-  }
-  function setState(d){
-    if(!d) return;
-    inputs.forEach(i=>{
-      if(!(i.id in d)) return;
-      if(i.type==='file') return;
-      if(i.type==='checkbox') i.checked=!!d[i.id]; else i.value=d[i.id]??'';
-    });
-  }
-  function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(getState()));}
-  function load(){try{setState(JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'));}catch{}}
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  renderStages(); load(); compute();
-  inputs.forEach(i=>{
-    i.addEventListener('input',()=>{save();compute();});
-    if(i.type==='checkbox'||i.type==='file') i.addEventListener('change',()=>{save();compute();});
-  });
+    const panels = ['intro','details','scope','consents','next'].map(id=>document.getElementById(id));
+    const stepsList = document.getElementById('stepsList');
 
-  // Export & reset
-  document.getElementById('exportJson').addEventListener('click',()=>{
-    const data=getState();
-    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-    const a=document.createElement('a');
-    const safe=(data.accountName||'pre-onboarding').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-    a.href=URL.createObjectURL(blob); a.download=`${safe}-pre-onboarding.json`; a.click(); URL.revokeObjectURL(a.href);
-  });
-  document.getElementById('reset').addEventListener('click',()=>{
-    if(!confirm('Clear locally saved data for this form?')) return;
-    localStorage.removeItem(STORAGE_KEY);
-    inputs.forEach(i=>{ if(i.type==='checkbox') i.checked=false; else if(i.type!=='file') i.value=''; });
-    compute();
-  });
-
-  // Companies House lookup (requires backend proxy; keep URL as deployed)
-  const chSpin=document.getElementById('chSpin');
-  const chStatus=document.getElementById('chStatus');
-  const sicMap={
-    "49410":"Freight transport by road",
-    "52103":"Operation of warehousing & storage facilities (land transport)",
-    "52290":"Other transportation support activities",
-    "46900":"Non-specialised wholesale trade",
-    "22220":"Manufacture of plastic packing goods"
-  };
-  function fmtAddress(a){
-    if(!a) return '';
-    return [a.address_line_1,a.address_line_2,a.locality,a.region,a.postal_code,a.country].filter(Boolean).join(', ');
-  }
-  function setIfEmpty(id,val){const el=document.getElementById(id); if(el && !el.value && val) el.value=val;}
-  function setVal(id,val){const el=document.getElementById(id); if(el) el.value=val||'';}
-
-  async function lookupCompaniesHouse(num){
-    const n=(num||'').replace(/\s+/g,'').toUpperCase();
-    if(!n) return;
-    chSpin.style.display='inline-block'; chStatus.className='hint'; chStatus.textContent='Looking up Companies House…';
-    try{
-      const res=await fetch(`/api/companies-house?number=${encodeURIComponent(n)}`); // point this to your proxy/worker
-      if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data=await res.json();
-      setIfEmpty('accountName', data.company_name);
-      setVal('ch_companyName', data.company_name);
-      setVal('ch_status', (data.company_status||'').replace(/_/g,' ').toUpperCase());
-      setVal('ch_incorp', data.date_of_creation || '');
-      const sics=(data.sic_codes||[]).map(c=> sicMap[c] ? `${c} – ${sicMap[c]}` : c).join('; ');
-      setVal('ch_sic', sics);
-      setVal('ch_address', fmtAddress(data.registered_office_address));
-      chStatus.textContent='Companies House match loaded.'; chStatus.className='status-ok';
-    }catch(e){
-      chStatus.textContent='Companies House lookup failed (check number or try again).';
-      chStatus.className='status-err';
-    }finally{
-      chSpin.style.display='none';
+    function show(id){
+      panels.forEach(p=>p.classList.toggle('hidden', p.id!==id));
+      Array.from(stepsList.children).forEach(li=>{
+        const active = li.dataset.step===id;
+        li.classList.toggle('ring-2', active);
+        li.classList.toggle('ring-blue-800', active);
+        li.classList.toggle('bg-blue-50', active);
+      });
+      document.getElementById('statusLabel').textContent = id[0].toUpperCase()+id.slice(1);
+      location.hash = id;
     }
-  }
-  document.getElementById('companyNo').addEventListener('blur', e=> lookupCompaniesHouse(e.target.value));
 
-  // Hand-off to Onboarding
-  function b64(json){return btoa(unescape(encodeURIComponent(JSON.stringify(json))));}
-  document.getElementById('sendOnboarding').addEventListener('click',()=>{
-    const d=getState();
-    const payload={
-      accountName:d.accountName||d.ch_companyName||'',
-      companyNo:d.companyNo||'',
-      amName:d.amName||'',
-      sector:d.sector||'',
-      leadOrigin:d.leadOrigin||'',
-      volumeForecast:d.volumeForecast||'',
-      scope:d.scope||'',
-      expGP:d.expGP||'',
-      credit:{rating:d.csRating||'',limit:d.csLimit||'',risk:d.csRisk||''},
-      ch:{status:d.ch_status||'',incorp:d.ch_incorp||'',sic:d.ch_sic||'',address:d.ch_address||''}
+    // buttons with data-goto
+    document.querySelectorAll('[data-goto]').forEach(btn=>btn.addEventListener('click',()=>show(btn.dataset.goto)));
+    // click in sidebar
+    stepsList.addEventListener('click',e=>{
+      const li=e.target.closest('li[data-step]'); if(li) show(li.dataset.step);
+    });
+    window.addEventListener('hashchange', ()=>show(location.hash.substring(1) || 'intro'));
+    show(location.hash.substring(1) || 'intro');
+
+    // collect + save/export
+    function collect(){
+      const form = {};
+      document.querySelectorAll('input, textarea').forEach(el=>{
+        if(el.type==='checkbox'){ form[el.name]=el.checked; }
+        else if(el.type!=='button' && el.name){ form[el.name]=el.value; }
+      });
+      return form;
+    }
+
+    document.getElementById('saveBtn').addEventListener('click', ()=>{
+      localStorage.setItem('walkers_pre_onboarding', JSON.stringify(collect()));
+      document.getElementById('statusLabel').textContent = 'Saved locally';
+    });
+
+    const saveBlob = (obj, name) => {
+      const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download=name; a.click(); URL.revokeObjectURL(url);
     };
-    const qs=new URLSearchParams({from:'pre', data:b64(payload)}).toString();
-    window.location.href=`index.html?${qs}`;
-  });
 
-  // Open first incomplete section on load
-  const sections=[...document.querySelectorAll('details.section')];
-  (function openFirstIncomplete(){
-    for(let i=0;i<stages.length;i++){
-      if(!stages[i].required.every(isFilled)){ sections.forEach((d,j)=> d.open=(j===i)); return; }
-    }
-    sections[sections.length-1].open=true;
-  })();
-})();
-</script>
+    document.getElementById('exportBtn').addEventListener('click', ()=> saveBlob(collect(),'walkers-pre-onboarding.json'));
+    document.getElementById('downloadBtn').addEventListener('click', ()=> saveBlob(collect(),'walkers-pre-onboarding.json'));
+
+    document.getElementById('previewBtn')?.addEventListener('click', ()=>{
+      const pre=document.getElementById('jsonPreview');
+      pre.textContent=JSON.stringify(collect(),null,2);
+      pre.classList.toggle('hidden');
+    });
+  </script>
 </body>
 </html>
