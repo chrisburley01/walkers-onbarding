@@ -129,7 +129,7 @@
           </div>
         </div>
 
-        <!-- 3. CreditSafe -->
+        <!-- 3. CreditSafe (with link + open button) -->
         <div id="creditsafe" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <h2 class="text-2xl font-extrabold mb-2">3. CreditSafe</h2>
           <p class="text-gray-600 mb-4">Perform initial credit check and risk assessment.</p>
@@ -139,6 +139,16 @@
             <label class="field text-sm">Decision<select name="cs_decision">
               <option value="">Select…</option><option>Approve</option><option>Refer</option><option>Decline</option>
             </select></label>
+
+            <!-- NEW: CreditSafe link -->
+            <label class="field text-sm md:col-span-2">CreditSafe Report URL
+              <input type="url" name="cs_link" placeholder="https://app.creditsafe.com/...">
+              <span class="hint">Paste the direct report link for quick access.</span>
+            </label>
+            <div class="md:col-span-1 flex items-end">
+              <button id="csOpenBtn" type="button" class="w-full px-4 py-2 rounded-xl border font-semibold">Open CreditSafe</button>
+            </div>
+
             <label class="field text-sm md:col-span-3">Notes<textarea rows="3" name="cs_notes"></textarea></label>
           </div>
           <div class="mt-6 flex gap-2">
@@ -147,14 +157,26 @@
           </div>
         </div>
 
-        <!-- 4. Fact-Find -->
+        <!-- 4. Fact-Find (with Collection Type) -->
         <div id="factfind" class="bg-white rounded-2xl shadow-soft p-6 hidden">
           <h2 class="text-2xl font-extrabold mb-2">4. Fact-Find</h2>
           <p class="text-gray-600 mb-4">Capture operational requirements for commercial proposal.</p>
           <div class="grid md:grid-cols-2 gap-6">
             <label class="field text-sm">Expected Monthly Pallets<input type="number" name="ff_pallets"/></label>
             <label class="field text-sm">Full Pallets %<input type="number" step="1" name="ff_full_pct"/></label>
-            <fieldset class="md:col-span-2">
+
+            <!-- NEW: Collection Type -->
+            <label class="field text-sm">Collection Type
+              <select name="ff_collection_type">
+                <option value="">Select…</option>
+                <option>Ad-hoc</option>
+                <option>Scheduled Daily</option>
+                <option>Scheduled Weekly</option>
+                <option>Call-off</option>
+              </select>
+            </label>
+
+            <fieldset>
               <legend class="text-sm font-semibold mb-2">Services Required</legend>
               <div class="grid md:grid-cols-3 gap-3 text-sm">
                 <label class="inline-flex items-center gap-2"><input type="checkbox" name="ff_nextday"> Next Day</label>
@@ -165,7 +187,10 @@
                 <label class="inline-flex items-center gap-2"><input type="checkbox" name="ff_adr"> ADR (LQ)</label>
               </div>
             </fieldset>
-            <label class="field text-sm md:col-span-2">Main Origins/Destinations (lanes)<textarea rows="3" name="ff_lanes" placeholder="e.g., Leeds → Glasgow, Manchester → Bristol"></textarea></label>
+
+            <label class="field text-sm md:col-span-2">Main Origins/Destinations (lanes)
+              <textarea rows="3" name="ff_lanes" placeholder="e.g., Leeds → Glasgow, Manchester → Bristol"></textarea>
+            </label>
             <label class="field text-sm">Collection Window<input name="ff_collection_window" placeholder="e.g., 08:00–12:00"/></label>
             <label class="field text-sm">Delivery Window<input name="ff_delivery_window" placeholder="e.g., 08:00–17:00"/></label>
             <label class="field text-sm md:col-span-2">Site Restrictions / Instructions<textarea rows="3" name="ff_site"></textarea></label>
@@ -247,7 +272,6 @@
           <div class="mt-6 flex flex-wrap gap-3">
             <button data-prev="depot" class="px-4 py-2 rounded-xl border font-semibold">Back</button>
             <button id="downloadBtn" class="px-4 py-2 rounded-xl btn-primary font-semibold">Download JSON</button>
-            <!-- Kept separate: you’ll share the main onboarding URL manually -->
           </div>
           <pre id="jsonPreview" class="mt-6 p-4 bg-gray-50 border rounded-xl overflow-auto text-xs hidden"></pre>
           <p class="hint mt-2">Tip: after downloading JSON, move on to your main onboarding page.</p>
@@ -270,7 +294,6 @@
     const panels = Object.fromEntries(order.map(id => [id, document.getElementById(id)]));
     const stepsList = document.getElementById('stepsList');
 
-    // Show step
     function show(id){
       order.forEach(k => panels[k].classList.toggle('hidden', k!==id));
       Array.from(stepsList.children).forEach((li, idx) => {
@@ -317,7 +340,7 @@
       const pre = document.getElementById('jsonPreview') || panels.cfo.querySelector('#jsonPreview');
       pre.textContent = JSON.stringify(collect(), null, 2);
       pre.classList.remove('hidden');
-      show('cfo'); // ensure preview visible somewhere consistent
+      show('cfo'); // show preview in a consistent place
     });
 
     const saveBlob = (obj, name) => {
@@ -347,8 +370,14 @@
       show(order.includes(initial)?initial:'opportunity');
     })();
 
-    // React to hash changes (manual nav)
     window.addEventListener('hashchange', ()=> show(location.hash.substring(1) || 'opportunity'));
+
+    // NEW: CreditSafe quick open
+    document.getElementById('csOpenBtn')?.addEventListener('click', ()=>{
+      const url = document.querySelector('[name="cs_link"]')?.value?.trim();
+      if (url) { window.open(url, '_blank', 'noopener'); }
+      else { alert('Add a CreditSafe report URL first.'); }
+    });
   </script>
 </body>
 </html>
